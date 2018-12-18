@@ -1,7 +1,7 @@
 <?php
   //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
-  include 'modal.php';
+
  ?>
 <!DOCTYPE html>
 <html>

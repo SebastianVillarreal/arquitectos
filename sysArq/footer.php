@@ -26,7 +26,7 @@
 <script src="../d_plantilla/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="../d_plantilla/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../d_plantilla/dist/js/adminlte.min.js"></script>
+<script src="../d_plantilla/dist/js/adminlte.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="../d_plantilla/dist/js/demo.js"></script>
 

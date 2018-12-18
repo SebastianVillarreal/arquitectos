@@ -13,15 +13,7 @@
 	$stmt2 = $detalle_contrato->read();
 
  ?>
-    <script>
-   $(document).ready(function() {
-     $('#lista_detalle_contrato').dataTable({
-       "language": {
-         "url": "../assets/js/Spanish.json"
-       }
-     });
-   });
- </script>
+
 	<div class="table-responsive">
         <table id="lista_detalle_contrato" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
@@ -75,3 +67,13 @@
 	        </tbody>  
 		</table>
 	</div>
+
+	    <script>
+   $(document).ready(function() {
+     $('#lista_detalle_contrato').dataTable({
+       "language": {
+         "url": "../assets/js/Spanish.json"
+       }
+     });
+   });
+ </script>

@@ -1,10 +1,10 @@
 <?php 
-session_name("sysAdMision"); 
+session_name("sysOrigen"); 
 session_start(); 
 
 // antes de hacer los cálculos, compruebo que el usuario está logueado 
 // utilizamos el mismo script que antes 
-if (!isset($_SESSION["sysAdMision_autenticado"]) || $_SESSION["sysAdMision_autenticado"] != "SI") 
+if (!isset($_SESSION["sysOrigen_autenticado"]) || $_SESSION["sysOrigen_autenticado"] != "SI") 
 { 
     //si no está logueado lo envío a la página de autentificación 
     echo"<script language=\"javascript\">window.location=\"../mLogin/index.php\"</script>";

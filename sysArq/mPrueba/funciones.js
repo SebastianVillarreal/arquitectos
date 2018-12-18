@@ -1,3 +1,7 @@
+function ocultar() {
+    
+}
+
 function cargar_descripcion(tipo) {
     var ruta = "consulta_datos.php";
     if (tipo == 1) {

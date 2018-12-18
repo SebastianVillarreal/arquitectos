@@ -13,7 +13,7 @@ function enviar_datos() {
             if (text == "1") {
             	swal("Lo sentimos", "El usuario o la contrase&ntilde;a son incorrectas","error");
             }else{
-            	window.location="../mContratos";
+            	window.location="../mPrueba/index.php";
             }
         });
 	});

@@ -50,7 +50,7 @@
 						<td align="center"><?php echo $row[5] ?></td>
 						<td align="center"><?php echo $row[6] ?></td>
 						<td class="text-center">
-							<i class="far fa-arrow-alt-circle-right fa-2x"></i>
+							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
 						</td>
 					</tr>
 				<?php 

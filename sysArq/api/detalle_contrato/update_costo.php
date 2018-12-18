@@ -23,14 +23,12 @@ $data = json_decode(file_get_contents("php://input"));
  
 // set ID property of product to be edited
 $detalle_contrato->id_detalle = $data->id_renglon;
-$detalle_contrato->cantidad_nueva = $data->cantidad_nueva;
+$detalle_contrato->costo_nuevo = $data->costo_nuevo;
 
- // $stmt = $detalle_contrato->update();
- // $row = $stmt->fetch(PDO::FETCH_NUM);
- // echo "$row";
- $stmt = $detalle_contrato->update();
+ $stmt = $detalle_contrato->update_costo();
  $row = $stmt->fetch(PDO::FETCH_NUM);
  echo $row[1];
+
 
 
 

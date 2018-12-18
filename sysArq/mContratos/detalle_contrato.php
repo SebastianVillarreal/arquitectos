@@ -119,7 +119,7 @@ function update(){
  
     
     //update procedure
-    $call = 'CALL sp_update_cantidad_costo(:id_detalle, :cantidad_nueva)';
+    $call = 'CALL sp_update_cantidad_costo(:id_detalle,:cantidad_nueva)';
  
     // prepare query statement
     $stmt = $this->conn->prepare($call);
@@ -135,9 +135,8 @@ function update(){
     $stmt->bindParam(':cantidad_nueva', $this->cantidad_nueva);
  
     // execute the query
-    
-    //print_r($stmt);
-     $stmt->execute();
+    $stmt->execute();
+
     return $stmt;
      
 }
@@ -167,35 +166,6 @@ function update_costo(){
 
      
 }
-
-function actualizar_importes(){
- 
-    
-    //update procedure
-    $call = 'CALL sp_totales_conceptos(:id_contrato, :tipo_concepto)';
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare($call);
- 
-    // sanitize
-    $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
-
-    // bind new values
-    $stmt->bindParam(':id_contrato', $this->id_contrato);
-    $stmt->bindParam(':tipo_concepto', $this->tipo_concepto);
- 
-    // execute the query
-    if ($stmt->execute()) {
-
-        return true;
-    }else{
-        return false;
-    }
-
-
-     
-}
-
 // delete the product
 function delete(){
  

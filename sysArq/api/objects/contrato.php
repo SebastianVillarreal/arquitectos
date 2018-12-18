@@ -63,24 +63,42 @@ function readOne(){
  
     // query to read single record
     $query = "SELECT
-                e.IDEncuesta, e.Nombre, s.Estado as Estatus, e.Fecha_Alta, e.Fecha_Limite , e.IDUsuario , a.IDUsuarioTo , u.Nombre as Para , a.IDAccesso
-            FROM
-                " . $this->table_name . " e
-                LEFT JOIN Accesso a
-                ON a.IDEncuesta = e.IDEncuesta
-                LEFT JOIN Cat_Estatus s
-                ON a.IDEstatus = s.IDEstatus
-                LEFT JOIN Usuario u
-                ON u.IDUsuario = a.IDUsuarioTo
-            WHERE
-               a.IDUsuario = ? and (e.Fecha_Alta <= e.Fecha_Limite or Fecha_Limite = null) and e.Estatus = 1
-               ORDER BY Estatus DESC";
+                    contratos.id,
+                    contratos.nombre, 
+                    contratos.contratista,
+                    contratos.residente,
+                    contratos.descripcion,
+                    contratos.`status`,
+                    contratos.tipo_contrato,
+                    contratos.monto_anticipo,
+                    contratos.monto_fondo_garantia,
+                    contratos.monto_iva,
+                    contratos.total_a,
+                    contratos.total_b,
+                    contratos.total_c,
+                    contratos.total_c,
+                    contratos.total_d,
+                    contratos.total_e,
+                    contratos.monto_pendiente,
+                    contratos.total_contrato,
+                    contratos.total_contrato_impuestos,
+                    proyectos.nombre,
+                    CONCAT(residentes.nombre,' ', residentes.ap_paterno, ' ', residentes.ap_materno),
+                    CONCAT(contratistas.nombre,' ', contratistas.ap_paterno, ' ', contratistas.ap_materno),
+                    contratos.fecha
+                FROM
+                    contratos 
+                    INNER JOIN proyectos ON proyectos.id = contratos.nombre
+                    INNER JOIN residentes ON residentes.id = contratos.residente
+                    INNER JOIN contratistas ON contratistas.id = contratos.contratista
+                WHERE
+                    contratos.id = '".$this->id_contrato."'";
  
     // prepare query statement
     $stmt = $this->conn->prepare( $query );
  
     // bind id of product to be updated
-    $stmt->bindParam(1, $this->id_usuario);
+    $stmt->bindParam(1, $this->id_contrato);
  
     // execute query
     $stmt->execute();
@@ -196,7 +214,7 @@ public function read(){
                 INNER JOIN residentes ON residentes.id = contratos.residente
                 INNER JOIN proyectos ON proyectos.id = contratos.nombre 
             WHERE
-                ( CASE 2 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
+                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
             AND `status` = 1";
  
     $stmt = $this->conn->prepare( $query );

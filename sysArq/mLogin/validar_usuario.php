@@ -1,11 +1,14 @@
 <?php
-session_name("sysAdMision");
-session_start();
-include'../global_settings/conexion.php';
-$p_user = $_POST['nombre_usuario'];
-//$p_contra = md5($_POST['pass']);
-$p_contra = $_POST['pass'];
-$pswd = hash("sha512", $p_contra);
+	session_name("sysOrigen");
+	session_start();
+	$json = json_decode(file_get_contents('php://input')); 
+	$id_contrato_post = $json->id_contrato;
+	$_SESSION["id_contrato"] = $id_contrato_post;
+	include'../global_settings/conexion.php';
+	$p_user = $_POST['nombre_usuario'];
+	//$p_contra = md5($_POST['pass']);
+	$p_contra = $_POST['pass'];
+	$pswd = hash("sha512", $p_contra);
 
 $consulta_usuario = "SELECT 
 						priv_admin,
@@ -41,6 +44,8 @@ if ($num_usuario==0) {
 	$_SESSION['usr_groupid'] = $row_usuario[4];
 	//$usr_groupid_desc = {rs[0][5]};
 	$_SESSION['usr_groupid_desc'] = $row_usuario[5];
+	$_SESSION["sysOrigen_autenticado"] = "SI";
+
 	// sc_set_global($usr_login);
 	// sc_set_global($usr_priv_admin);
 	// sc_set_global($usr_name);

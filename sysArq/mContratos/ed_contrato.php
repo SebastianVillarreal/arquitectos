@@ -38,7 +38,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="nombre">*Proyecto:</label>
-                  <select name="proyecto" class="form-control" id="">
+                  <select name="proyecto" class="form-control" id="cmb_proyecto">
                     <option value="">Seleccione...</option>
                     <option value="1">Amorada:</option>
                   </select>
@@ -58,7 +58,7 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="ap_materno">*Residente</label>
-                  <select name="residente" id="" class="form-control">
+                  <select name="residente" readonly id="" class="form-control">
                     <option value="">Seleccione...</option>
                     <option value="1">Luis Fernandez</option>
                   </select>

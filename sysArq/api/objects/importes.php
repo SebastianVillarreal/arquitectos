@@ -1,5 +1,5 @@
 <?php
-class detalle_cont{
+class importes{
  
     // database connection and table name
     private $conn;
@@ -7,14 +7,14 @@ class detalle_cont{
  
     // object properties
     public $id_contrato;
-    public $concepto;
-    public $tipo_concepto;
-    public $clave_concepto;
-    public $tipo_contrato;
-    public $cantidad_nueva;
-    public $costo_nuevo;
-    public $id_detalle;
- 
+    public $p_anticipo;
+    public $p_iva;
+    public $p_fondo;
+    public $p_pendiente;
+    public $m_anticipo;
+    public $m_iva;
+    public $m_fondo;
+    public $m_pendiente;
     public function __construct($db){
         $this->conn = $db;
     }
@@ -24,24 +24,31 @@ class detalle_cont{
 function create(){
  
     // Procedure Insert Pregunta
-    $call = "CALL sp_insert_detalle(:id_contrato, :concepto, :tipo_conc, :fecha, :tipo_contrato)";
-    //$call = 'CALL sp_Alta_Encuesta(:nombre,:estatus,:fechalimite,:idarea,:idusuario)';
+    $call = "CALL sp_insert_importes(:id_contrato, :p_ant, :p_gara, :p_iva, :t_ant, :t_fondo, :t_iva, :p_pend, :t_pend)";
     
     $stmt = $this->conn->prepare($call);
      
     // sanitize
     $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
-    $this->concepto=htmlspecialchars(strip_tags($this->concepto));  
-    $this->tipo_concepto=htmlspecialchars(strip_tags($this->tipo_concepto));
-    $this->fecha=htmlspecialchars(strip_tags($this->fecha));
-    $this->tipo_contrato=htmlspecialchars(strip_tags($this->tipo_contrato));  
+    $this->p_anticipo=htmlspecialchars(strip_tags($this->p_anticipo));  
+    $this->p_iva=htmlspecialchars(strip_tags($this->p_iva));
+    $this->p_fondo=htmlspecialchars(strip_tags($this->p_fondo));
+    $this->p_pendiente=htmlspecialchars(strip_tags($this->p_pendiente));
+    $this->m_anticipo=htmlspecialchars(strip_tags($this->m_anticipo)); 
+    $this->m_iva=htmlspecialchars(strip_tags($this->m_iva)); 
+    $this->m_fondo=htmlspecialchars(strip_tags($this->m_fondo));
+    $this->m_pendiente=htmlspecialchars(strip_tags($this->m_pendiente)); 
     
     // bind values
     $stmt->bindParam(":id_contrato", $this->id_contrato);
-    $stmt->bindParam(":concepto", $this->concepto);
-    $stmt->bindParam(":tipo_conc", $this->tipo_concepto);
-    $stmt->bindParam(":fecha", $this->fecha);
-    $stmt->bindParam(":tipo_contrato", $this->tipo_contrato);
+    $stmt->bindParam(":p_ant", $this->p_anticipo);
+    $stmt->bindParam(":p_gara", $this->p_fondo);
+    $stmt->bindParam(":p_iva", $this->p_iva);
+    $stmt->bindParam(":t_ant", $this->m_anticipo);
+    $stmt->bindParam(":t_fondo", $this->m_fondo);
+    $stmt->bindParam(":t_iva", $this->m_iva);
+    $stmt->bindParam(":p_pend", $this->p_pendiente);
+    $stmt->bindParam(":t_pend", $this->m_pendiente);
  
     // execute query
     if($stmt->execute()){
@@ -119,7 +126,7 @@ function update(){
  
     
     //update procedure
-    $call = 'CALL sp_update_cantidad_costo(:id_detalle, :cantidad_nueva)';
+    $call = 'CALL sp_update_cantidad_costo(:id_detalle,:cantidad_nueva)';
  
     // prepare query statement
     $stmt = $this->conn->prepare($call);
@@ -135,9 +142,8 @@ function update(){
     $stmt->bindParam(':cantidad_nueva', $this->cantidad_nueva);
  
     // execute the query
-    
-    //print_r($stmt);
-     $stmt->execute();
+    $stmt->execute();
+
     return $stmt;
      
 }
@@ -167,35 +173,6 @@ function update_costo(){
 
      
 }
-
-function actualizar_importes(){
- 
-    
-    //update procedure
-    $call = 'CALL sp_totales_conceptos(:id_contrato, :tipo_concepto)';
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare($call);
- 
-    // sanitize
-    $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
-
-    // bind new values
-    $stmt->bindParam(':id_contrato', $this->id_contrato);
-    $stmt->bindParam(':tipo_concepto', $this->tipo_concepto);
- 
-    // execute the query
-    if ($stmt->execute()) {
-
-        return true;
-    }else{
-        return false;
-    }
-
-
-     
-}
-
 // delete the product
 function delete(){
  

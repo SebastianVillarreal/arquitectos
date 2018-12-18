@@ -1,7 +1,11 @@
 <?php
-  //include '../global_seguridad/verificar_sesion.php';
+  session_name("sysOrigen");
+  session_start();
+  $usr_name = $_SESSION['usr_login'];
+  $id_contrato = $_SESSION["id_contrato"];
+   //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
-  include 'modal.php';
+
  ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +13,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>)">
 <div class="wrapper">
 
   <header class="main-header">
@@ -38,7 +42,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="nombre">*Proyecto:</label>
-                    <select name="proyecto" onchange="javascript:cargar_descripcion(1)" class="form-control" id="cmb_proyecto">
+                    <select name="proyecto" readonly onchange="javascript:cargar_descripcion(1)" class="form-control" id="cmb_proyecto">
                       <option value="">Seleccione...</option>
                         <?php 
                           $sql = "SELECT id, nombre FROM proyectos WHERE activo = 1";
@@ -59,7 +63,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                       <label class = "" for="">*Contratista:</label>
-                      <select onchange="javascript:cargar_descripcion(2)" class="form-control" name="contratista" id="cmb_contratista">
+                      <select readonly onchange="javascript:cargar_descripcion(2)" class="form-control" name="contratista" id="cmb_contratista">
                         <option value="">Seleccione...</option>
                         <?php 
                           $sql = "SELECT id, codigo FROM contratistas WHERE activo = 1;";
@@ -80,7 +84,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="ap_materno">*Residente</label>
-                    <select name="residente" id="cmb_residente" onchange="javascript:cargar_descripcion(3)" class="form-control">
+                    <select readonly name="residente" id="cmb_residente" onchange="javascript:cargar_descripcion(3)" class="form-control">
                       <option value="">Seleccione...</option>
                         <?php 
                           $sql = "SELECT id, codigo FROM residentes WHERE activo = 1;";
@@ -101,13 +105,13 @@
                 <div class="col-md-8">
                   <div class="form-group">
                     <label for="id_sucursal">*Descripcion</label>
-                    <input name="descripcion" type="text" class="form-control">
+                    <input name="descripcion" readonly id="txt_descripcion" type="text" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="">Usuario</label>
-                    <input readonly type="text" class="form-control"> 
+                    <input readonly type="text" value="<?php echo $usr_name ?>" class="form-control"> 
                   </div>
                 </div>
               </div>
@@ -115,28 +119,24 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="">Folio</label>
-                    <input readonly type="text" class="form-control">  
+                    <input readonly type="text" id="txtFolio" class="form-control">  
                   </div>
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="id_perfil">*Tipo de contrato</label><br>
-                    <input  type="radio" name="tipo_c">Contrato mano de obra <br>
-                    <input type="radio" name="tipo_c">Sub-contrato
+                    <input value="1"  type="radio" name="tipo_c">Contrato mano de obra <br>
+                    <input value="2" type="radio" name="tipo_c">Sub-contrato
                   </div>
                 </div>
                 <div class="col-md-4">
                   <label for="">Fecha</label>
                   <div class="input-group date" data-date-format="dd.mm.yyyy">
-                      <input  type="text" class="form-control" placeholder="dd.mm.yyyy">
+                      <input readonly  type="text" class="form-control" id="fecha" placeholder="dd.mm.yyyy">
                       <div class="input-group-addon" >
                         <span class="glyphicon glyphicon-th"></span>
                       </div>
                   </div>
- <!--                  <div class="form-group">
-                    <label for="">Fecha</label>
-                    <input type="date" class="form-control">
-                  </div> -->
                 </div>
               </div>
               <div class="row">
@@ -163,31 +163,31 @@
                             A
                           </td>
                           <td>Cto.normal</td>
-                          <td>$355,000</td>
-                          <td>25%</td>
+                          <td id="cto_normal">$</td>
+                          <td id="p_normal">%</td>
                         </tr>
                         <tr>
                           <td>B</td>
                           <td>Cto. Extra Cliente</td>
-                          <td>$90,000</td>
-                          <td>15%</td>
+                          <td id="cto_extra_cliente">$</td>
+                          <td id="p_ec">%</td>
                         </tr>
                         <tr>
                           <td>C</td>
                           <td>Cto. Extra Of</td>
-                          <td>$50,000</td>
-                          <td>20%</td>
+                          <td id="cto_extra_of">$</td>
+                          <td>%</td>
                         </tr>
                         <tr bgcolor="#e74c3c" style="font-size:25px">
                           <td>D</td>
                           <td>Cto. Excedido</td>
-                          <td>$10,000</td>
-                          <td>10%</td>
+                          <td id="cto_excedido">$</td>
+                          <td id="p_ex">-%</td>
                         </tr>
                         <tr style="font-size: 20px">
                           <td></td>
                           <td></td>
-                          <td>$1,000,000</td>
+                          <td id="total_si">$</td>
                           <td>100%</td>
                         </tr>
                       </tbody>
@@ -203,7 +203,7 @@
               </button>
               <a href="#" class="btn btn-success">Imprimir</a>
               <a href="" class="btn btn-success">Aplicar</a>
-              <a href="" class="btn btn-success">Anexos</a>
+              <a href="../mComplementarios/" class="btn btn-success">Anexos</a>
               <a href="" class="btn btn-success">Autorizar</a>
               <a href="" class="btn btn-success">Finiquitar</a>
               <a href="" class="btn btn-danger">Cancelar</a>
@@ -220,7 +220,8 @@
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-12" id="tabla">
+              <div class="col-md-12" id="cont_table">
+                
               </div>
             </div>
           </div>
@@ -232,16 +233,16 @@
                 <table class="table table-striped">
                   <tr>
                     <th>Subtotal:</th>
-                    <td align="center">$500,000</td>
+                    <td align="center" id="tdSubTotal">$</td>
 
                   </tr>
                   <tr>
                     <th>IVA:</th>
-                    <td align="center">$80,000</td>
+                    <td align="center" id="tdIva">$</td>
                   </tr>
                   <tr>
                     <th>Total:</th>
-                    <td align="center">$580,000</td>
+                    <td align="center" id="tdTotal">$</td>
                   </tr>
                 </table>
               </div>
@@ -252,50 +253,13 @@
                 <table class="table">
                   <tr>
                     <th bgcolor="#2ecc71">GRAN TOTAL PRESUPUESTO</th>
-                    <td style="font-size: 20px" bgcolor="#2ecc71" align="center">$500,000</td>
+                    <td id="tdGtPresupuesto" style="font-size: 20px" bgcolor="#2ecc71" align="center">$</td>
                   </tr>
                 </table>
               </div>
             </div>
           </div>
         </div>
-<!--         <div class="box box-success">
-          <div class="box-header">
-          </div>
-          <div class="box-body">
-            <div class="row">
-              <div class="col-md-8"></div>
-              <div class="col-md-4">
-                <table class="table table-striped">
-                  <tr>
-                    <th>Subtotal:</th>
-                    <td align="center">$500,000</td>
-
-                  </tr>
-                  <tr>
-                    <th>IVA:</th>
-                    <td align="center">$80,000</td>
-                  </tr>
-                  <tr>
-                    <th>Total:</th>
-                    <td align="center">$580,000</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-6"></div>
-              <div class="col-md-6">
-                <table class="table">
-                  <tr>
-                    <th bgcolor="#2ecc71">GRAN TOTAL PRESUPUESTO</th>
-                    <td style="font-size: 20px" bgcolor="#2ecc71" align="center">$500,000</td>
-                  </tr>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div> -->
         <div class="box box-success">
           <div class="box-header">
             <h3 class="box-title"></h3>
@@ -303,93 +267,15 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-5">
-                <form id="frmComents">
+               
                   <label for="">Comentarios</label>
-                  <input type="text" class="form-control">
-                </form>
-                <table class="table table-striped">
-                  <tr>
-                    <th>#</th>
-                    <th>Coments</th>
-                  </tr>
-                  <tr>
-                    <td>1</td>
-                    <td>Comentario de prueba</td>
-                  </tr>
-                </table>
+                  <input type="text" id="comentarios" name="comentarios" onkeyup = "if(event.keyCode == 13) agregar_comentarios($(this).val())" class="form-control">
+                
+                <div id="tabla_coments"></div>
               </div>
               <div class="col-md-1"></div>
-              <div class="col-md-6">
-                <table  class="table table-striped">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col" colspan="6" bgcolor="#2ecc71">Resumen</th>
-                    </tr>
-                  </thead>
-                  <tr>
-                    <td>ANTICIPO</td>
-                    <td></td>
-                    <td align="center" style="font-size: 18px" bgcolor="#e67e22">10</td>
-                    <td>%</td>
-                    <td></td>
-                    <td>$4,105</td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">ESTIMADO</td>
-                    <td></td>
-                    <td></td>
-                    <td bgcolor="#f1c40f">$41,500</td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">AMORTIZADO</td>
-                    <td style="color: red">-$4,105</td>
-                    <td> $ 36,945.00 </td>
-                  </tr>
-                  <tr>
-                    <td colspan="2">RETENCIÓN</td>
-                    <td align="center" style="font-size: 18px" bgcolor="#e67e22">5</td>
-                    <td>%</td>
-                    <td></td>
-                    <td  style="color: red">-$ 2,052.50 </td>
-                  </tr>
-                  <tr>
-                    <td colspan="5">SUB-TOTAL</td>
-                    <td> $ 38,997.50 </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <th>Pago sobre retenido</th>
-                    <td> $ 2,052.50 </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td> $ 41,050.00 </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <th>IVA</th>
-                    <td> $ 6,568.00 </td>
-                  </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <th>TOTAL</th>
-                    <td> $ 47,618.00 </td>
-                </tr>
-                </table>
+              <div class="col-md-6" id="contenedor_tabla_resumen">
+
               </div>
             </div>
           </div>
@@ -414,18 +300,15 @@
 </div>
 <!-- ./wrapper -->
 
-<?php include '../footer.php'; ?>
+<?php include '../footer.php'; 
+        include 'modal.php';
+?>
+
   <script>
-     $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
-    $("#cmb_proyecto").select2({
-      allowClear: true
-    });
-    $("#cmb_contratista").select2({
-      allowClear: true
-    });
-    $("#cmb_residente").select2({
-      allowClear: true
-    });
-  </script>
+    $('#lista_conceptos').DataTable( {
+          'language': {"url": "../plugins/DataTables/Spanish.json"},
+          "paging":   true,
+          });
+ </script>
 </body>
 </html>

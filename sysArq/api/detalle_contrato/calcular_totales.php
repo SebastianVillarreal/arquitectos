@@ -9,7 +9,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // include database and object files
 include_once '../config/database.php';
 include_once '../objects/detalle_contrato.php';
- 
+ 	session_name("sysOrigen"); 
+	session_start();
+	$id_contrato = $_SESSION['id_contrato'];
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
@@ -22,16 +24,13 @@ $data = json_decode(file_get_contents("php://input"));
 
  
 // set ID property of product to be edited
-$detalle_contrato->id_detalle = $data->id_renglon;
-$detalle_contrato->cantidad_nueva = $data->cantidad_nueva;
+$detalle_contrato->id_contrato = $id_contrato;
+$detalle_contrato->tipo_concepto = $data->tipo_concepto;
+ $stmt = $detalle_contrato->actualizar_importes();
 
- // $stmt = $detalle_contrato->update();
- // $row = $stmt->fetch(PDO::FETCH_NUM);
- // echo "$row";
- $stmt = $detalle_contrato->update();
- $row = $stmt->fetch(PDO::FETCH_NUM);
- echo $row[1];
-
-
-
+ if ($stmt == true) {
+ 	echo "1";
+ }else{
+ 	echo "0";
+ }
 ?>

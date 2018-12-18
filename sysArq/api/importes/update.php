@@ -8,30 +8,40 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
  
 // include database and object files
 include_once '../config/database.php';
-include_once '../objects/detalle_contrato.php';
+include_once '../objects/Encuesta.php';
  
 // get database connection
 $database = new Database();
 $db = $database->getConnection();
  
 // prepare product object
-$detalle_contrato = new detalle_cont($db);
+$encuesta = new Encuesta($db);
  
 // get id of product to be edited
 $data = json_decode(file_get_contents("php://input"));
-
  
 // set ID property of product to be edited
-$detalle_contrato->id_detalle = $data->id_renglon;
-$detalle_contrato->cantidad_nueva = $data->cantidad_nueva;
-
- // $stmt = $detalle_contrato->update();
- // $row = $stmt->fetch(PDO::FETCH_NUM);
- // echo "$row";
- $stmt = $detalle_contrato->update();
- $row = $stmt->fetch(PDO::FETCH_NUM);
- echo $row[1];
-
-
-
+$encuesta->id_encuesta = $data->id_encuesta;
+ 
+// set product property values
+$encuesta->name = $data->name;
+$encuesta->estatus = $data->estatus;
+$encuesta->fecha_limite = $data->fecha_limite;
+$encuesta->fecha_alta = $data->fecha_alta;
+$encuesta->id_area = $data->id_area;
+$encuesta->id_usuario = $data->id_usuario;
+ 
+// update the product
+if($encuesta->update()){
+    echo '{';
+        echo '"message": "encuesta was updated."';
+    echo '}';
+}
+ 
+// if unable to update the product, tell the user
+else{
+    echo '{';
+        echo '"message": "Unable to update encuesta."';
+    echo '}';
+}
 ?>
