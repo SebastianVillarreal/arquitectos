@@ -64,6 +64,7 @@
 		           data: $("#form_credenciales").serialize(), // Adjuntar los campos del formulario enviado.
 		           success: function(respuesta)
 		           {
+		           			           	alert(respuesta);
 		           	if (respuesta=="1") {
 		           		swal("Lo sentimos", "El usuario o la contrase&ntilde;a son incorrectas","error");
 		           		 // Evitar ejecutar el submit del formulario.

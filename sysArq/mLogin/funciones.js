@@ -10,6 +10,7 @@ function enviar_datos() {
 	)
 	.then(function(response) {
 		return response.text().then(function (text){
+			alert(text);
             if (text == "1") {
             	swal("Lo sentimos", "El usuario o la contrase&ntilde;a son incorrectas","error");
             }else{

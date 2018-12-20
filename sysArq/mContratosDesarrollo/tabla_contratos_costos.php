@@ -11,7 +11,7 @@
 	$contratos = new contrato($db);
 	$contratos->grupo = $grupo;
 	$contratos->User_r = $usr;
-	$stmt2 = $contratos->read();
+	$stmt2 = $contratos->read_costos();
 
  ?>
 
@@ -47,7 +47,7 @@
 						<td align="center">
 							<?php echo $row[4]; ?>
 						</td>
-						<td align="center">$<?php echo $row[5] ?></td>
+						<td align="center"><?php echo $row[5] ?></td>
 						<td align="center"><?php echo $row[6] ?></td>
 						<td class="text-center">
 							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>

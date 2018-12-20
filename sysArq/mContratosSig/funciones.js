@@ -227,6 +227,7 @@ function datos_contrato(){
     .then(function(response){
         return response.text().then(function (text){
             var element = eval(text);
+            alert(element[12]);
             $('#cmb_proyecto').val(element[1]);
             $('#txt_proyecto').val(element[19]);
             $('#cmb_contratista').val(element[2]);
@@ -276,27 +277,10 @@ function seleccionar_contrato(id_contrato) {
         
     })
     .then(function(response){
-           location.href = "../mContratos/editar_contrato.php"; 
+           location.href = "editar_contrato.php"; 
     });
 }
 
 function cargar_tabla_resumen() {
     $('#contenedor_tabla_resumen').load('tabla_resumen.php');
-}
-
-function cambiar_estatus(valor) {
-    var url = "cambiar_estatus.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"valor": valor}) 
-        
-    })
-    .then(function(response){
-           return response.text().then(function (data){
-            alert(data);
-        });
-    });
 }

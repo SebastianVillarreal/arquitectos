@@ -2,11 +2,11 @@
 include '../global_settings/conexion.php';
 	$cadena_modulos = "SELECT
 	detalle_perfil.id,
-	perfil.nombre,
+	sec_groups.description,
 	modulos.nombre 
 FROM
 	detalle_perfil
-	INNER JOIN perfil ON detalle_perfil.id_perfil = perfil.id
+	INNER JOIN sec_groups ON detalle_perfil.id_perfil = sec_groups.group_id
 	INNER JOIN modulos ON detalle_perfil.id_modulo = modulos.id";
 	//Restricción para una sola verificación
 	//AND lista_proyectos.verificado='0'

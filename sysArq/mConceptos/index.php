@@ -1,7 +1,12 @@
 <?php
-  include '../global_seguridad/verificar_sesion.php';
+  //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
-
+  session_name("sysOrigen");
+  session_start();
+  $id_contrato = $_SESSION['id_contrato'];
+  $s = "SELECT id, p_anticipo, p_iva, p_fondo_garantia, t_iva, t_anticipo, t_fondo_garantia FROM importes WHERE id_contrato = '$id_contrato' ORDER BY id DESC LIMIT 1";
+  $exS = mysqli_query($conexion, $s);
+  $row = mysqli_fetch_row($exS);
  ?>
 <!DOCTYPE html>
 <html>
@@ -9,7 +14,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
 <div class="wrapper">
 
   <header class="main-header">
@@ -27,19 +32,25 @@
     <!-- Content Header (Page header) -->
     <!-- Main content -->
     <section class="content">
-
-        <div class="box box-danger">
+        <div class="box box-success">
           <div class="box-header">
-            <h1>Lista de contratos</h1>
+            <h3 class="box-title">Conceptos</h3>
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-12" id="tabla">
-                <?php include 'tabla_contratos.php'; ?>
+              <div class="col-lg-12">
+                <form action="">
+                  <label for=""></label>
+                  <input type="text" class="form-control">
+                </form>
               </div>
             </div>
+          </div>  
+          <div class="box-footer text-right">
+            <a href="javascript:guardar_importes()" class="btn btn-danger">Guardar</a>
           </div>
         </div>
+
       <!-- /.row -->
     </section>
     <!-- /.content -->
@@ -57,14 +68,17 @@
 <!-- ./wrapper -->
 
 <?php include '../footer.php'; ?>
-    <script>
-   $(document).ready(function() {
-     $('#lista_contratos').dataTable({
-       "language": {
-         "url": "../assets/js/Spanish.json"
-       }
-     });
-   });
- </script>
+  <script>
+     $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
+    $("#cmb_proyecto").select2({
+      allowClear: true
+    });
+    $("#cmb_contratista").select2({
+      allowClear: true
+    });
+    $("#cmb_residente").select2({
+      allowClear: true
+    });
+  </script>
 </body>
 </html>

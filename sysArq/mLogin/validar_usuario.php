@@ -8,21 +8,22 @@
 	$p_user = $_POST['nombre_usuario'];
 	//$p_contra = md5($_POST['pass']);
 	$p_contra = $_POST['pass'];
-	$pswd = hash("sha512", $p_contra);
+	$pswd = md5($p_contra);
 
 $consulta_usuario = "SELECT 
-						priv_admin,
-						active, 
-						name, 
-						email,
-						uG.group_id,
-				        G.description
-					      FROM Sec_users uS
-						  INNER JOIN Sec_users_groups uG ON uS.login = uG.login
-						  INNER JOIN Sec_groups G ON G.group_id = uG.group_id
-					      WHERE uS.login= '$p_user'
-						AND uS.pswd = '$pswd'";
-//echo "$consulta_usuario";
+						usuarios.id, 
+						usuarios.nombre_usuario,
+						usuarios.id_persona, 
+						usuarios.id_perfil, 
+						CONCAT(personas.nombre,' ',personas.ap_paterno) AS 'Nombre Persona', 
+						sec_groups.description 
+					FROM usuarios 
+					INNER JOIN personas ON usuarios.nombre_usuario='$p_user'
+					INNER JOIN sec_groups ON sec_groups.group_id = usuarios.id_perfil
+					AND usuarios.pass='$pswd' 
+					AND usuarios.id_persona = personas.id  
+					AND usuarios.activo='1' 
+					AND personas.activo='1'";//echo "$consulta_usuario";
 
 
 $usuario = mysqli_query($conexion, $consulta_usuario);
@@ -37,14 +38,15 @@ if ($num_usuario==0) {
 	$_SESSION['usr_login'] = $p_user;
 	//$usr_priv_admin 	= ({rs[0][0]} == 'Y') ? TRUE : FALSE;
 	//$usr_name		= {rs[0][2]};
-	$_SESSION['usr_name'] = $row_usuario[2];
+	$_SESSION['usr_name'] = $row_usuario[1];
 	//$usr_email		= {rs[0][3]};
 	$_SESSION['usr_email'] = $row_usuario[3];	
 	//$usr_groupid = {rs[0][4]};
-	$_SESSION['usr_groupid'] = $row_usuario[4];
+	$_SESSION['usr_groupid'] = $row_usuario[3];
 	//$usr_groupid_desc = {rs[0][5]};
 	$_SESSION['usr_groupid_desc'] = $row_usuario[5];
 	$_SESSION["sysOrigen_autenticado"] = "SI";
+	$_SESSION["usr_id"] = $row_usuario[0];
 
 	// sc_set_global($usr_login);
 	// sc_set_global($usr_priv_admin);

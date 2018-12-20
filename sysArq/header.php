@@ -22,7 +22,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="../d_plantilla/dist/img/personas/user.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $nombre_persona; ?></span>
+              <span class="hidden-xs"><?php echo $usr_name; ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -30,7 +30,7 @@
                 <img src="../d_plantilla/dist/img/personas/user.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $nombre_persona; ?> - <?php echo $nombre_perfil; ?>
+                  <?php echo $usr_name; ?> - <?php echo $nombre_perfil; ?>
                   <small>Miembro desde Sept. 2018</small>
                 </p>
               </li>

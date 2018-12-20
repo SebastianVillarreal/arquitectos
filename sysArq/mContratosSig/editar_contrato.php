@@ -204,7 +204,7 @@
               <a href="#" class="btn btn-success">Imprimir</a>
               <a href="" class="btn btn-success">Aplicar</a>
               <a href="../mComplementarios/" class="btn btn-success">Anexos</a>
-              <a href="javascript:cambiar_estatus(1)" class="btn btn-success">Autorizar</a>
+              <a href="" class="btn btn-success">Autorizar</a>
               <a href="" class="btn btn-success">Finiquitar</a>
               <a href="" class="btn btn-danger">Cancelar</a>
             </div>

@@ -111,31 +111,26 @@ function update(){
  
     
     //update procedure
-    $call = 'CALL sp_Update_Encuesta(:ide,:nombre,:estatus,:fechalimite,idarea,idusuario)';
+    $call = 'CALL sp_update_status(:id_contrato, :tipo)';
+    return $call;
  
     // prepare query statement
     $stmt = $this->conn->prepare($call);
  
     // sanitize
-    $this->id_encuesta=htmlspecialchars(strip_tags($this->id_encuesta));
-    $this->name=htmlspecialchars(strip_tags($this->name));
-    $this->estatus=htmlspecialchars(strip_tags($this->estatus));
-    $this->fecha_limite=htmlspecialchars(strip_tags($this->fecha_limite));
-    $this->id_area=htmlspecialchars(strip_tags($this->id_area));
-    $this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
+    $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
+    $this->tipo=htmlspecialchars(strip_tags($this->tipo));
     
  
     // bind new values
-    $stmt->bindParam(':ide', $this->id_encuesta);
-    $stmt->bindParam(':nombre', $this->name);
-    $stmt->bindParam(':estatus', $this->estatus);
-    $stmt->bindParam(':fechalimite', $this->fecha_limite);
-    $stmt->bindParam(':idarea', $this->id_area);
-    $stmt->bindParam(':idusuario', $this->id_usuario);
+    $stmt->bindParam(':id_contrato', $this->id_contrato);
+    $stmt->bindParam(':tipo', $this->tipo);
  
     // execute the query
     if($stmt->execute()){
         return true;
+    }else{
+        return false;
     }
  
     return false;
@@ -206,7 +201,7 @@ public function read(){
                 residentes.persona_moral AS residente,
                 proyectos.nombre,
                 contratos.descripcion,
-                contratos.total_contrato,
+                FORMAT(contratos.total_contrato, 2),
                 contratos.usuario_modifica 
             FROM
                 contratos
@@ -216,6 +211,84 @@ public function read(){
             WHERE
                 ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
             AND `status` = 1";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->execute();
+ 
+    return $stmt;
+}
+
+public function read_supervisor(){
+ 
+    //select all data
+    $query = "SELECT
+                contratos.id,
+                contratistas.persona_moral AS contratista,
+                residentes.persona_moral AS residente,
+                proyectos.nombre,
+                contratos.descripcion,
+                FORMAT(contratos.total_contrato, 2),
+                contratos.usuario_modifica 
+            FROM
+                contratos
+                INNER JOIN contratistas ON contratistas.id = contratos.contratista
+                INNER JOIN residentes ON residentes.id = contratos.residente
+                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
+            WHERE
+                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
+            AND `status` = 2";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->execute();
+ 
+    return $stmt;
+}
+
+public function read_residentes(){
+ 
+    //select all data
+    $query = "SELECT
+                contratos.id,
+                contratistas.persona_moral AS contratista,
+                residentes.persona_moral AS residente,
+                proyectos.nombre,
+                contratos.descripcion,
+                FORMAT(contratos.total_contrato, 2),
+                contratos.usuario_modifica 
+            FROM
+                contratos
+                INNER JOIN contratistas ON contratistas.id = contratos.contratista
+                INNER JOIN residentes ON residentes.id = contratos.residente
+                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
+            WHERE
+                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
+            AND `status` = 1";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->execute();
+ 
+    return $stmt;
+}
+
+public function read_costos(){
+ 
+    //select all data
+    $query = "SELECT
+                contratos.id,
+                contratistas.persona_moral AS contratista,
+                residentes.persona_moral AS residente,
+                proyectos.nombre,
+                contratos.descripcion,
+                contratos.total_contrato,
+                contratos.usuario_modifica 
+            FROM
+                contratos
+                INNER JOIN contratistas ON contratistas.id = contratos.contratista
+                INNER JOIN residentes ON residentes.id = contratos.residente
+                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
+            WHERE
+                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
+            AND `status` = 3";
  
     $stmt = $this->conn->prepare( $query );
     $stmt->execute();

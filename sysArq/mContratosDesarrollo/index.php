@@ -30,7 +30,7 @@
 
         <div class="box box-danger">
           <div class="box-header">
-            <h1>Lista de contratos</h1>
+            <h1>Contratos en Desarrollo</h1>
           </div>
           <div class="box-body">
             <div class="row">

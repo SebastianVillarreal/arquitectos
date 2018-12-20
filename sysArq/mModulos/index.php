@@ -157,6 +157,7 @@
                  data: $("#form_datos").serialize(), // Adjuntar los campos del formulario enviado.
                  success: function(respuesta)
                  {
+                  alert(respuesta);
                   if (respuesta=="ok") {
                     alertify.success("Registro guardado correctamente");
                   }else if(respuesta=="duplicado"){

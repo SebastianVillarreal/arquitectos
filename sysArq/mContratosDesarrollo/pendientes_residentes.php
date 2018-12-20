@@ -7,7 +7,7 @@
 <html>
 <head>
   <?php include '../head.php'; ?>
-  <script src="funciones.js"></script>
+  <script src="../mContratos/funciones.js"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
@@ -30,12 +30,12 @@
 
         <div class="box box-danger">
           <div class="box-header">
-            <h1>Lista de contratos</h1>
+            <h1>Pendientes residentes</h1>
           </div>
           <div class="box-body">
             <div class="row">
               <div class="col-md-12" id="tabla">
-                <?php include 'tabla_contratos.php'; ?>
+                <?php include 'tabla_contratos_residentes.php'; ?>
               </div>
             </div>
           </div>

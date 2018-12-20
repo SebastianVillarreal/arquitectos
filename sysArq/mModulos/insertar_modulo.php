@@ -37,11 +37,13 @@ $row_id = mysqli_fetch_array($consulta_id);
 $cadena_detalle_perfil = "INSERT INTO detalle_perfil (id_perfil, id_modulo, fecha, hora, activo, usuario)VALUES('1','$row_id[0]','$fecha','$hora','1','$id_usuario')";
 $insertar_detalle_perfil = mysqli_query($conexion, $cadena_detalle_perfil);
 
-$cadena_usuario = "SELECT id FROM usuarios WHERE id_perfil = '1'";
+$cadena_usuario = "SELECT id FROM sec_users WHERE id_grupo = '1'";
+echo "$cadena_usuario";
 $consulta_usuario = mysqli_query($conexion, $cadena_usuario);
 
 while ($row_usuario = mysqli_fetch_array($consulta_usuario)) {
 	$insertar_detalle = "INSERT INTO detalle_usuario (id_usuario, id_modulo, id_categoria, fecha, hora, activo, usuario) VALUES ('$row_usuario[0]','$row_id[0]','$categoria','$fecha','$hora','1','$id_usuario')";
+	echo "$insertar_detalle";
 	$inserta_detalle = mysqli_query($conexion, $insertar_detalle);
 }
 echo "ok";
