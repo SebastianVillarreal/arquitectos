@@ -1,11 +1,11 @@
-function guardar_importes() {
-    var url = "../api/importes/create.php";
+function guardar_concepto() {
+    var url = "../api/concepto/create.php";
     fetch(url,{
         method: 'POST',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: $('#form_datos').serialize()
+        body: $('#frmDatos').serialize()
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -18,21 +18,30 @@ function guardar_importes() {
     });
 }
 
-function calcular_importes() {
-    var url = "calcular_importes.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+function blanco() {
+    $('#div_importar').hide();
+}
+
+function mostrar_importar(argument) {
+    $('#div_importar').show();
+    $('#div_formulario').hide();
+}
+
+function subir_excel() {
+    var parametros = new FormData($("#importa")[0]);
+
+    $.ajax({
+        data: parametros, //datos que se envian a traves de ajax
+        url: '../excelamysql/importar.php', //archivo que recibe la peticion
+        type: 'post', //método de envio
+        contentType: false,
+        processData: false,
+        beforesend: function() {
+
         },
-        body: $('#form_datos').serialize()
-    })
-    .then(function(response){
-        return response.text().then(function (text){
-            var a = eval(text);
-            $('#m_anticipo').val(a[2]);
-            $('#m_fondo').val(a[1]);
-            $('#m_iva').val(a[0]);
-        });
+        success: function(response) {
+            alert("Conceptos importados con éxito");
+
+        }
     });
 }

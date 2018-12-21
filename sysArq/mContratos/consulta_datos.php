@@ -11,7 +11,7 @@
 	}elseif($tipo == 2){
 		$sql = "SELECT CONCAT(nombre,' ', ap_paterno, ' ', ap_materno) FROM contratistas WHERE id = '$dato';";
 	}elseif($tipo == 3){
-		$sql = "SELECT CONCAT(nombre,' ', ap_paterno, ' ', ap_materno) FROM residentes WHERE id = '$dato'";
+		$sql = "SELECT CONCAT(nombre, ' ',ap_paterno, ' ',ap_materno) FROM personas INNER JOIN usuarios ON usuarios.id_persona = personas.id WHERE usuarios.id = '$dato'";
 	}
 	$exSql = mysqli_query($conexion, $sql);
 	$row = mysqli_fetch_row($exSql);

@@ -4,7 +4,6 @@ include '../global_settings/conexion.php';
 $id_usuario = $_SESSION['usr_id'];
 
 $cadena_consulta = "SELECT DISTINCT(detalle_usuario.id_categoria), categorias_modulos.nombre FROM detalle_usuario INNER JOIN categorias_modulos ON detalle_usuario.id_categoria = categorias_modulos.id AND detalle_usuario.id_usuario = '$id_usuario'";
-echo "$cadena_consulta";
 $consulta_categorias = mysqli_query($conexion, $cadena_consulta);
  ?>
 <!DOCTYPE html>

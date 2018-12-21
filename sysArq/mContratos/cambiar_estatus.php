@@ -13,6 +13,9 @@
 	$json = json_decode(file_get_contents('php://input'));
 	$tipo = $json->valor;
 	echo "$tipo";
+	date_default_timezone_set('America/Monterrey');
+  	$fecha = date('Y-m-d');
+  	$hora = date('H:i:s');
 	// get database connection
 	$database = new Database();
 	$db = $database->getConnection();
@@ -21,6 +24,7 @@
 	$contrato = new contrato($db);
 	$contrato->id_contrato = $id_contrato;
 	$contrato->tipo = $tipo;
+	$contrato->fecha = $fecha;
 	$stmt = $contrato->update();
 	echo "$stmt";
  ?>

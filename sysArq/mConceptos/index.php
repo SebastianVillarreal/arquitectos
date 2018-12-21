@@ -36,18 +36,104 @@
           <div class="box-header">
             <h3 class="box-title">Conceptos</h3>
           </div>
-          <div class="box-body">
+          <div class="box-body" id="div_formulario">
             <div class="row">
-              <div class="col-lg-12">
-                <form action="">
-                  <label for=""></label>
-                  <input type="text" class="form-control">
+              <div class="col-lg-6">
+                <form action="" id="frmDatos">
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="">Clave</label>
+                      <input type="text" class="form-control" name="clave">
+                    </div>
+                    <div class="col-lg-6">
+                      <label for="">Descripcion Larga</label>
+                      <input type="text" class="form-control" name="descripcion">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="">Unidad</label>
+                      <input type="text" class="form-control" name="unidad">
+                    </div>
+                    <div class="col-lg-6">
+                      <label for="">Cantidad Original</label>
+                      <input type="text" class="form-control" name="cantidad">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="">Costo Max. Subcontrato</label>
+                      <input type="text" class="form-control" name="costo_max_sub">
+                    </div>
+                    <div class="col-lg-6">
+                      <label for="">Costo Max. Destajo</label>
+                      <input type="text" class="form-control" name="costo_max_des">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="">Familia</label>
+                      <select name="familia" id="cmb_familia" class="form-control">
+                        <option value="" selected disabled>Seleccione....</option>
+                        <?php 
+                          $sql ="SELECT id, descripcion FROM familias";
+                          $exSql = mysqli_query($conexion, $sql);
+                          while ($row = mysqli_fetch_row($exSql)) {
+                            echo "<option value=$row[0]>$row[1]</option>";
+                          }
+                         ?>
+                      </select>
+                    </div>
+                    <div class="col-lg-6">
+                      <label for="">Proyecto</label>
+                      <select name="proyecto" id="cmb_proyecto" class="form-control">
+                        <option value="" selected disabled>Seleccione...</option>
+                        <?php 
+                          $sql = "SELECT id, nombre FROM proyectos";
+                          $exSql = mysqli_query($conexion, $sql);
+                          while ($row = mysqli_fetch_row($exSql)) {
+                            echo "<option value=$row[0]>$row[1]</option>";
+                          }
+                         ?>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-6">
+                      <label for="">Generador</label> <br>
+                      <input name="generador" type="radio" value="0">Sin Generador <br>
+                      <input type="radio" value="1" name="generador">Con Generador  
+                    </div>
+                  </div>
                 </form>
               </div>
             </div>
-          </div>  
+          </div>
+          <div class="box-body" id="div_importar">
+            <div class="row">
+              <div class="col-lg-12">
+                <form action="" id="importa">
+                  <label for="">Importar</label>
+                  <input type="file" name="excel">
+                  <br>
+                  <a href="javascript:subir_excel()" class="btn btn-danger">Guardar</a>
+                </form>
+              </div>
+            </div>
+          </div>   
           <div class="box-footer text-right">
-            <a href="javascript:guardar_importes()" class="btn btn-danger">Guardar</a>
+            <a href="javascript:guardar_concepto()" class="btn btn-danger">Guardar</a>
+            <a href="javascript:mostrar_importar()" class="btn btn-danger">Importar</a>
+          </div>
+        </div>
+        <div class="box box-success">
+          <div class="box-header">
+            <h3 class="box-title">Conceptos</h3>
+          </div>
+          <div class="box-body">
+            <?php 
+              include 'tabla_conceptos.php';
+             ?>  
           </div>
         </div>
 
@@ -69,16 +155,18 @@
 
 <?php include '../footer.php'; ?>
   <script>
-     $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
+    $("#cmb_familia").select2({
+      allowClear: true
+    });
     $("#cmb_proyecto").select2({
       allowClear: true
     });
-    $("#cmb_contratista").select2({
-      allowClear: true
-    });
-    $("#cmb_residente").select2({
-      allowClear: true
-    });
   </script>
+  <script>
+    $('#lista_conceptos').DataTable( {
+          'language': {"url": "../plugins/DataTables/Spanish.json"},
+          "paging":   true,
+          });
+ </script>
 </body>
 </html>

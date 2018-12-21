@@ -296,7 +296,12 @@ function cambiar_estatus(valor) {
     })
     .then(function(response){
            return response.text().then(function (data){
-            alert(data);
+            swal(
+              'Hecho!',
+              'Se ha enviado a revision el contrato!',
+              'success'
+            );
+        
         });
     });
 }

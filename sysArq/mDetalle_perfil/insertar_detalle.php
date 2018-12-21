@@ -25,7 +25,7 @@ while ($row_usuarios = mysqli_fetch_array($consulta_usuarios)) {
 	for ($i=0; $i < $long ; $i++) {
 		
 		$cadena_categoria = "SELECT categoria FROM modulos WHERE id = $id_modulos[$i]";
-		$consulta_categoria = mysqli_query($conexion, $categoria);
+		$consulta_categoria = mysqli_query($conexion, $cadena_categoria);
 		$row_categoria = mysqli_fetch_array($consulta_categoria);
 
 		$cadena_insertar_du = "INSERT IGNORE INTO detalle_usuario(id_usuario, id_modulo, id_categoria, fecha, hora, activo, usuario)VALUES('$row_usuarios[0]','$id_modulos[$i]','$row_categoria[0]','$fecha','$hora','1','$id_usuario')";

@@ -15,7 +15,9 @@ class contrato{
     public $residente;
     public $Usuario_m;
     public $User_r;
- 
+    public $perfil_user;
+    public $id_user;
+
     public function __construct($db){
         $this->conn = $db;
     }
@@ -58,61 +60,13 @@ function create(){
     return false;
      
 }
-// used when filling up the update product form
-function readOne(){
- 
-    // query to read single record
-    $query = "SELECT
-                    contratos.id,
-                    contratos.nombre, 
-                    contratos.contratista,
-                    contratos.residente,
-                    contratos.descripcion,
-                    contratos.`status`,
-                    contratos.tipo_contrato,
-                    contratos.monto_anticipo,
-                    contratos.monto_fondo_garantia,
-                    contratos.monto_iva,
-                    contratos.total_a,
-                    contratos.total_b,
-                    contratos.total_c,
-                    contratos.total_c,
-                    contratos.total_d,
-                    contratos.total_e,
-                    contratos.monto_pendiente,
-                    contratos.total_contrato,
-                    contratos.total_contrato_impuestos,
-                    proyectos.nombre,
-                    CONCAT(residentes.nombre,' ', residentes.ap_paterno, ' ', residentes.ap_materno),
-                    CONCAT(contratistas.nombre,' ', contratistas.ap_paterno, ' ', contratistas.ap_materno),
-                    contratos.fecha
-                FROM
-                    contratos 
-                    INNER JOIN proyectos ON proyectos.id = contratos.nombre
-                    INNER JOIN residentes ON residentes.id = contratos.residente
-                    INNER JOIN contratistas ON contratistas.id = contratos.contratista
-                WHERE
-                    contratos.id = '".$this->id_contrato."'";
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare( $query );
- 
-    // bind id of product to be updated
-    $stmt->bindParam(1, $this->id_contrato);
- 
-    // execute query
-    $stmt->execute();
- 
-    // get retrieved row
-    return $stmt;
-}
+
 // update the product
 function update(){
  
     
     //update procedure
-    $call = 'CALL sp_update_status(:id_contrato, :tipo)';
-    return $call;
+    $call = 'CALL sp_update_status(:id_contrato, :tipo, :fecha)';
  
     // prepare query statement
     $stmt = $this->conn->prepare($call);
@@ -120,11 +74,12 @@ function update(){
     // sanitize
     $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
     $this->tipo=htmlspecialchars(strip_tags($this->tipo));
-    
+    //$this->fecha=htmlspecialchars(strip_tags($this->tipo));
  
     // bind new values
     $stmt->bindParam(':id_contrato', $this->id_contrato);
     $stmt->bindParam(':tipo', $this->tipo);
+    $stmt->bindParam(':fecha', $this->fecha);
  
     // execute the query
     if($stmt->execute()){
@@ -159,62 +114,73 @@ function delete(){
     return false;
      
 }
-// search products
-function search($keywords){
+
+// used when filling up the update product form
+function readOne(){
  
-    // select all query
+    // query to read single record
     $query = "SELECT
-                c.Nombre as Area, p.IDEncuesta, p.Nombre, p.Estatus, p.Fecha_Alta, p.Fecha_Limite, p.IDArea, p.IDUsuario
-            FROM
-                " . $this->table_name . " p
-                LEFT JOIN
-                    Cat_Area c
-                        ON p.IDArea = c.IDArea
-            WHERE
-                p.Pregunta LIKE ? OR c.Nombre LIKE ?  
-            ORDER BY
-                p.IDArea,p.IDEncuesta DESC";
+                    contratos.id,
+                    contratos.nombre,
+                    contratos.contratista,
+                    usuarios.nombre_usuario,
+                    contratos.descripcion,
+                    contratos.`status`,
+                    contratos.tipo_contrato,
+                    contratos.monto_anticipo,
+                    contratos.monto_fondo_garantia,
+                    contratos.monto_iva,
+                    contratos.total_a,
+                    contratos.total_b,
+                    contratos.total_c,
+                    contratos.total_c,
+                    contratos.total_d,
+                    contratos.total_e,
+                    contratos.monto_pendiente,
+                    contratos.total_contrato,
+                    contratos.total_contrato_impuestos,
+                    proyectos.nombre,
+                    (
+                    SELECT
+                        CONCAT( nombre, ' ', ap_paterno, ' ', ap_materno ) 
+                    FROM
+                        personas
+                        INNER JOIN usuarios ON usuarios.id_persona = personas.id 
+                    WHERE
+                        usuarios.id = contratos.residente 
+                    ),
+                    CONCAT( contratistas.nombre, ' ', contratistas.ap_paterno, ' ', contratistas.ap_materno ),
+                    contratos.fecha 
+                FROM
+                    contratos
+                    INNER JOIN proyectos ON proyectos.id = contratos.nombre
+                    INNER JOIN usuarios ON usuarios.id = contratos.residente
+                    INNER JOIN contratistas ON contratistas.id = contratos.contratista 
+                WHERE
+                    contratos.id = '".$this->id_contrato."'";
  
     // prepare query statement
-    $stmt = $this->conn->prepare($query);
+    $stmt = $this->conn->prepare( $query );
  
-    // sanitize
-    $keywords=htmlspecialchars(strip_tags($keywords));
-    $keywords = "%{$keywords}%";
- 
-    // bind
-    $stmt->bindParam(1, $keywords);
-    $stmt->bindParam(2, $keywords);
+    // bind id of product to be updated
+    $stmt->bindParam(1, $this->id_contrato);
  
     // execute query
     $stmt->execute();
  
+    // get retrieved row
     return $stmt;
 }
 
 public function read(){
- 
-    //select all data
-    $query = "SELECT
-                contratos.id,
-                contratistas.persona_moral AS contratista,
-                residentes.persona_moral AS residente,
-                proyectos.nombre,
-                contratos.descripcion,
-                FORMAT(contratos.total_contrato, 2),
-                contratos.usuario_modifica 
-            FROM
-                contratos
-                INNER JOIN contratistas ON contratistas.id = contratos.contratista
-                INNER JOIN residentes ON residentes.id = contratos.residente
-                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
-            WHERE
-                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
-            AND `status` = 1";
+
+    $query = "CALL sp_select_contratos(:perfil, :usr, :id_usr)";
  
     $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
     $stmt->execute();
- 
     return $stmt;
 }
 

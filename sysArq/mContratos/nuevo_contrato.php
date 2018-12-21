@@ -86,7 +86,7 @@
                     <select name="residente" id="cmb_residente" onchange="javascript:cargar_descripcion(3)" class="form-control">
                       <option value="">Seleccione...</option>
                         <?php 
-                          $sql = "SELECT id, codigo FROM residentes WHERE activo = 1;";
+                          $sql = "SELECT id, nombre_usuario FROM usuarios WHERE id_perfil = 3";
                           $exSql = mysqli_query($conexion, $sql);
                           while ($row = mysqli_fetch_row($exSql)) {
                             echo "<option value='$row[0]'>$row[1]</option>";
