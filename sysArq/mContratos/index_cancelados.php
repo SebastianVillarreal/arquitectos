@@ -30,12 +30,13 @@
 
         <div class="box box-danger">
           <div class="box-header">
-            <h1>Contratos Pendientes</h1>
+            <h1>Contratos Cancelados</h1>
           </div>
           <div class="box-body">
             <div class="row">
               <div class="col-md-12" id="tabla">
-                <?php include 'tabla_contratos.php'; ?>
+                <?php $tipo_sp = 3; ?>
+                <?php include 'tabla_contratos_autorizados.php'; ?>
               </div>
             </div>
           </div>

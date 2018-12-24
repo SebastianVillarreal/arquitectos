@@ -867,7 +867,7 @@ throw new Error('AdminLTE requires jQuery')
   $(window).on('load', function () {
     Plugin.call($(Selector.button))
     //Expandir pantalla  
-      $('body').addClass(ClassName.collapsed)
+      //$('body').addClass(ClassName.collapsed)
   })
 }(jQuery)
 

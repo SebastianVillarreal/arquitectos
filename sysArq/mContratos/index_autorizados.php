@@ -9,7 +9,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:set_session_type(1)">
 <div class="wrapper">
 
   <header class="main-header">
@@ -30,12 +30,13 @@
 
         <div class="box box-danger">
           <div class="box-header">
-            <h1>Contratos Pendientes</h1>
+            <h1>Contratos Autorizados</h1>
           </div>
           <div class="box-body">
             <div class="row">
               <div class="col-md-12" id="tabla">
-                <?php include 'tabla_contratos.php'; ?>
+                <?php $tipo_sp = 1; ?>
+                <?php include 'tabla_contratos_autorizados.php'; ?>
               </div>
             </div>
           </div>

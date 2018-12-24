@@ -3,7 +3,10 @@
 	session_start();
 	$json = json_decode(file_get_contents('php://input')); 
 	$id_contrato_post = $json->id_contrato;
+	$type_post = $json->type;
 	$_SESSION["id_contrato"] = $id_contrato_post;
+	$_SESSION["type"] = $type_post;
+	$s = $_SESSION["type"];
 	include'../global_settings/conexion.php';
 	$p_user = $_POST['nombre_usuario'];
 	//$p_contra = md5($_POST['pass']);
@@ -34,7 +37,7 @@ if ($num_usuario==0) {
 	echo "1";
 }elseif ($num_usuario>0) {
 
-	//$usr_login		= {login};
+	//$usr_login	 	= {login};
 	$_SESSION['usr_login'] = $p_user;
 	//$usr_priv_admin 	= ({rs[0][0]} == 'Y') ? TRUE : FALSE;
 	//$usr_name		= {rs[0][2]};

@@ -19,6 +19,7 @@
 	$contratos->User_r = $usr;
 	$contratos->perfil_user = $perfil_user;
 	$contratos->id_user = $id_user;
+	$contratos->tipo_sp = $tipo_sp;
 	$stmt2 = $contratos->read_autorizados();
 
  ?>
@@ -32,6 +33,7 @@
 	                <th>Residente</th>
 	                <th>Contratista</th>
 	                <th>Descripcion</th>
+	                <th>Total</th>
 	                <th>Seleccionar</th>
 	            </tr>
 	        </thead>
@@ -57,6 +59,7 @@
 						<td align="center">
 							<?php echo $row[4]; ?>
 						</td>
+						<td>$<?php echo $row[5] ?></td>
 						<td class="text-center">
 							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
 						</td>

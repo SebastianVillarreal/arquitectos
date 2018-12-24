@@ -17,6 +17,7 @@ class contrato{
     public $User_r;
     public $perfil_user;
     public $id_user;
+    public $tipo_sp;
 
     public function __construct($db){
         $this->conn = $db;
@@ -184,81 +185,16 @@ public function read(){
     return $stmt;
 }
 
-public function read_supervisor(){
- 
-    //select all data
-    $query = "SELECT
-                contratos.id,
-                contratistas.persona_moral AS contratista,
-                residentes.persona_moral AS residente,
-                proyectos.nombre,
-                contratos.descripcion,
-                FORMAT(contratos.total_contrato, 2),
-                contratos.usuario_modifica 
-            FROM
-                contratos
-                INNER JOIN contratistas ON contratistas.id = contratos.contratista
-                INNER JOIN residentes ON residentes.id = contratos.residente
-                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
-            WHERE
-                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
-            AND `status` = 2";
- 
-    $stmt = $this->conn->prepare( $query );
-    $stmt->execute();
- 
-    return $stmt;
-}
+public function read_autorizados(){
 
-public function read_residentes(){
- 
-    //select all data
-    $query = "SELECT
-                contratos.id,
-                contratistas.persona_moral AS contratista,
-                residentes.persona_moral AS residente,
-                proyectos.nombre,
-                contratos.descripcion,
-                FORMAT(contratos.total_contrato, 2),
-                contratos.usuario_modifica 
-            FROM
-                contratos
-                INNER JOIN contratistas ON contratistas.id = contratos.contratista
-                INNER JOIN residentes ON residentes.id = contratos.residente
-                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
-            WHERE
-                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
-            AND `status` = 1";
+    $query = "CALL sp_filtros_sp(:t_sp,:perfil, :usr, :id_usr)";
  
     $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->bindParam(':t_sp', $this->tipo_sp);
     $stmt->execute();
- 
-    return $stmt;
-}
-
-public function read_costos(){
- 
-    //select all data
-    $query = "SELECT
-                contratos.id,
-                contratistas.persona_moral AS contratista,
-                residentes.persona_moral AS residente,
-                proyectos.nombre,
-                contratos.descripcion,
-                contratos.total_contrato,
-                contratos.usuario_modifica 
-            FROM
-                contratos
-                INNER JOIN contratistas ON contratistas.id = contratos.contratista
-                INNER JOIN residentes ON residentes.id = contratos.residente
-                INNER JOIN proyectos ON proyectos.id = contratos.nombre 
-            WHERE
-                ( CASE 1 WHEN 2 THEN IdUserRegistro = usuario ELSE 1 = 1 END ) 
-            AND `status` = 3";
- 
-    $stmt = $this->conn->prepare( $query );
-    $stmt->execute();
- 
     return $stmt;
 }
 

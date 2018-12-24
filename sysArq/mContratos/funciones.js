@@ -305,3 +305,21 @@ function cambiar_estatus(valor) {
         });
     });
 }
+
+function set_session_type(type){
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"type": type}) 
+        
+    })
+    .then(function(response){
+        //    return response.text().then(function (data){
+        //     alert(data);
+        
+        // });
+    });
+}
