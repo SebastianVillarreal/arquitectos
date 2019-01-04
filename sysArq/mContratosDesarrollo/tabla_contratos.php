@@ -52,7 +52,16 @@
 						</td>
 						<td align="center"><?php echo $row[9] ?></td>
 						<td align="center"><?php echo $row[4] ?></td>
-						<td align="center"><?php echo $row[8] ?></td>
+						<td align="center">
+							<?php 
+								if (is_null($row[8])) {
+									$date = $row[10];
+								}else{
+									$date = $row[8];
+								}
+							 ?>
+							<?php echo $date ?>	
+						</td>
 						<td><?php echo $row[7] ?></td>
 					</tr>
 				<?php 

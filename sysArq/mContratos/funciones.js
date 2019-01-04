@@ -16,6 +16,25 @@ function add_concepts(){
     });
 }
 
+function add_concepts(){
+    location.href ="editar_contrato.php";
+    // var url = "add_concepts.php";
+    // fetch(url,{
+    //     method: 'POST',
+    //     headers: {
+    //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+    //     },
+    //     body: JSON.stringify({"comentarios": comentarios})
+    // })
+    // .then(function(response){
+    //     return response.text().then(function (text){
+    //         alert("Ahora puedes añadir conceptos nuevos");
+    //         $('#cont_table').load('tabla_detalle_contrato.php');
+    //     });
+        
+    // });
+}
+
 function agregar_comentarios(comentarios){
     var url = "agregar_comentarios.php";
     fetch(url,{
@@ -230,7 +249,7 @@ function mostrar() {
 }
 
 function cargar_tabla() {
-    $('#cont_table').load('tabla_detalle_contrato_d.php');
+    $('#cont_table').load('tabla_detalle_contrato.php');
 }
 
 function datos_contrato(){
@@ -319,6 +338,7 @@ function cambiar_estatus(valor) {
               'Se ha enviado a revision el contrato!',
               'success'
             );
+            location.href="index.php";
         
         });
     });
@@ -341,6 +361,7 @@ function rechazar(valor) {
               'Se ha actualizado el estatus del contrato!',
               'success'
             );
+            location.href="index.php";
         
         });
     });

@@ -236,6 +236,17 @@ public function read_agrupado(){
     return $stmt;
 }
 
+public function count_pend(){
+
+    $query = "CALL sp_count_pend(:id_usr, :perfil)";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
 public function read_historial(){
 
     $query = "CALL sp_select_historial(:perfil, :usr, :id_usr)";

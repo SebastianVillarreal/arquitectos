@@ -20,12 +20,7 @@
 
 
  ?>
-	    <script>
-    $('#lista_detalle_contrato').DataTable( {
-          'language': {"url": "../plugins/DataTables/Spanish.json"},
-          "paging":   true,
-          });
- </script>
+
 	<div class="table-responsive">
         <table id="lista_detalle_contrato" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
@@ -34,7 +29,7 @@
 	                <th>Cons</th>
 	                <th>Contr</th>
 	                <th>Desc. Partida</th>
-	                <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th>
+	                <th>Concepto</th>
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>
@@ -47,10 +42,7 @@
 	        </thead>
 	        <tbody>
 	        <?php 
-	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
-	        			$sql = "SELECT MAX(consecutivo)FROM contratos WHERE id = '$row[13]'";
-	        			$exSql = mysqli_query($conexion, $sql);
-	        			$r = mysqli_fetch_row($exSql);
+	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){	
 					?>
 					<tr>
 						<td>
@@ -64,23 +56,13 @@
 						<td><?php echo $row[5] ?></td>
 						<td><?php echo $row[6] ?></td>
 						<td><?php echo $row[7] ?></td>
-						<?php 
-							if ($r[0] == $row[3]) {?>
-								<td>
-									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[8] ?>">
-								</td>
-								<td><?php echo $row[9] ?></td>
-								<td>							
-									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[10] ?>">
-								</td>
-							<? }else{?>
-									<td> 
-										<?php echo $row[8] ?>
-									</td>
-									<td><?php echo $row[9] ?></td>
-									<td><?php echo $row[10] ?></td>
-							<? }
-						 ?>
+						<td>
+							<?php echo $row[8] ?>
+						</td>
+						<td><?php echo $row[9] ?></td>
+						<td>
+							<?php echo $row[10] ?>							
+						</td>
 						<td><?php echo $row[11] ?></td>
 						<td><?php echo $row[12] ?></td>
 						<td class="text-center">

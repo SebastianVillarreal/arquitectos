@@ -55,17 +55,59 @@
 						<td><?php echo $row[1] ?></td>
 						<td align="center"><?php echo $row[9] ?></td>
 						<td><?php echo $row[4] ?></td>
-						<td bgcolor="#f1c40f">
-							<?php 
-								if (is_null($row[8])) {
-									$date = $row[10];
+						<?php 
+							if ($perfil_user == 5) {
+								//costos
+								if ($row[11] == 0) {
+									if ($row[12] >= 2) {
+										echo "<td bgcolor='red'>$row[8]</td>";
+									}else{
+										echo "<td bgcolor=''>$row[8]</td>";
+									}
 								}else{
-									$date = $row[8];
+									if ($row[12] >= 2) {
+										echo "<td bgcolor='red'>$row[8]</td>";
+									}else{
+										echo "<td bgcolor='yellow'>$row[8]</td>";
+									}
+									
 								}
-							 ?>
-							<?php echo $date; ?>
-								
-						</td>
+							}elseif($perfil_user == 3){
+								//residente
+								if (is_null($row[8])) {
+
+									if ($row[12] >= 4) {
+										echo "<td bgcolor='red'>$row[10]</td>";
+									}else{
+										echo "<td bgcolor=''>$row[10]</td>";
+									}
+									
+								}else{
+									if ($row[12] >= 4) {
+										echo "<td bgcolor='red'>$row[8]</td>";
+									}else{
+										echo "<td bgcolor='yellow'>$row[8]</td>";
+									}
+									
+								}
+							}elseif ($perfil_user == 2) {
+								//supervisor
+								if ($row[11] == 0) {
+									if ($row[12] >= 2) {
+										echo "<td bgcolor='red'>$row[8]</td>";
+									}else{
+										echo "<td bgcolor=''>$row[8]</td>";
+									}
+								}else{
+									if ($row[12] >= 4) {
+										echo "<td bgcolor='red'>$row[8]</td>";
+									}else{
+										echo "<td bgcolor='yellow'>$row[8]</td>";
+									}
+									
+								}
+							}
+						 ?>
 						<td class="text-center">
 							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
 						</td> 

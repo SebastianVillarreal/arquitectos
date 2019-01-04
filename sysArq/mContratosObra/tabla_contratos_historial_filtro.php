@@ -43,7 +43,6 @@
 	                <th>Residente</th>
 	                <th>Contratista</th>
 	                <th>Descripcion</th>
-	                <th>Nivel</th>
 	                <th>Inicio</th>
 	                <th>VOBO Residente</th>
 	                <th>VOBO Supervisor</th>
@@ -71,7 +70,6 @@
 						<td align="center">
 							<?php echo $row[4]; ?>
 						</td>
-						<td><?php echo $row[13] ?></td>
 						<td><?php echo $row[12] ?></td>
 						<td><?php echo $row[8] ?></td>
 						<td><?php echo $row[9] ?></td>
