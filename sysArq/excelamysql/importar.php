@@ -45,6 +45,7 @@
                 $_DATOS_EXCEL[$i]['id_clave'] = $objPHPExcel->getActiveSheet()->getCell('G' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['id_proyecto'] = $objPHPExcel->getActiveSheet()->getCell('H' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['generador'] = $objPHPExcel->getActiveSheet()->getCell('I' . $i)->getCalculatedValue();
+                $_DATOS_EXCEL[$i]['cantidad_original_s'] = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
                 
             }
         }
@@ -57,9 +58,9 @@
         //para ir recuperando los datos obtenidos
         //del excel e ir insertandolos en la BD
         foreach ($_DATOS_EXCEL as $campo => $valor) {
-            $sql = "INSERT INTO conceptos ( concepto, descripcion_larga, unidad, cantidad_original, costo_maximo_subcontrato, costo_maximo_destajo, id_clave, id_proyecto, generador ) VALUES ('";
+            $sql = "INSERT INTO conceptos ( concepto, descripcion_larga, unidad, cantidad_original, costo_maximo_subcontrato, costo_maximo_destajo, id_clave, id_proyecto, generador, cantidad_original_s ) VALUES ('";
             foreach ($valor as $campo2 => $valor2) {
-                $campo2 == "generador" ? $sql.= $valor2 . "');" : $sql.= $valor2 . "','";
+                $campo2 == "cantidad_original_s" ? $sql.= $valor2 . "');" : $sql.= $valor2 . "','";
             }
             echo $sql;
             $result = mysqli_query($conexion, $sql);

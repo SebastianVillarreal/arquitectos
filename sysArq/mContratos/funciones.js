@@ -1,38 +1,20 @@
 function add_concepts(){
+    
     var url = "add_concepts.php";
     fetch(url,{
         method: 'POST',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"comentarios": comentarios})
+        }
     })
     .then(function(response){
         return response.text().then(function (text){
+            //alert(text);
             alert("Ahora puedes añadir conceptos nuevos");
-            $('#cont_table').load('tabla_detalle_contrato.php');
+            location.href ="editar_contrato.php";
         });
         
     });
-}
-
-function add_concepts(){
-    location.href ="editar_contrato.php";
-    // var url = "add_concepts.php";
-    // fetch(url,{
-    //     method: 'POST',
-    //     headers: {
-    //         "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-    //     },
-    //     body: JSON.stringify({"comentarios": comentarios})
-    // })
-    // .then(function(response){
-    //     return response.text().then(function (text){
-    //         alert("Ahora puedes añadir conceptos nuevos");
-    //         $('#cont_table').load('tabla_detalle_contrato.php');
-    //     });
-        
-    // });
 }
 
 function agregar_comentarios(comentarios){
@@ -264,6 +246,8 @@ function datos_contrato(){
     .then(function(response){
         return response.text().then(function (text){
             var element = eval(text);
+            $('#radio_' + element[6]).attr('checked', true);
+            $('#tipo_c').val(tipo_contrato);
             $('#cmb_proyecto').val(element[1]);
             $('#txt_proyecto').val(element[19]);
             $('#cmb_contratista').val(element[2]);
@@ -317,6 +301,21 @@ function seleccionar_contrato(id_contrato) {
     });
 }
 
+function seleccionar_contrato_aut(id_contrato) {
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_contrato": id_contrato}) 
+        
+    })
+    .then(function(response){
+           location.href = "../mContratos/ver_contrato_aut.php"; 
+    });
+}
+
 function cargar_tabla_resumen() {
     $('#contenedor_tabla_resumen').load('tabla_resumen.php');
 }
@@ -333,11 +332,12 @@ function cambiar_estatus(valor) {
     })
     .then(function(response){
            return response.text().then(function (data){
-            swal(
-              'Hecho!',
-              'Se ha enviado a revision el contrato!',
-              'success'
-            );
+            alert("Contrato Autorizado");
+            // swal(
+            //   'Hecho!',
+            //   'Se ha enviado a revision el contrato!',
+            //   'success'
+            // );
             location.href="index.php";
         
         });

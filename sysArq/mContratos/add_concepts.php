@@ -7,7 +7,8 @@
 	date_default_timezone_set('America/Monterrey');
   	$fecha = date('Y-m-d');
   	$hora = date('H:i:s');
-	$sql = "UPDATE contratos SET consecutivo = consecutivo + 1, estatus = 1 WHERE id = '$id_contrato'";
+	$sql = "UPDATE contratos SET consecutivo = consecutivo + 1, status = 1 WHERE id = '$id_contrato'";
+	echo "$sql";
 	$exSql = mysqli_query($conexion, $sql);
 
 

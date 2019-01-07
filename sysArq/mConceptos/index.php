@@ -116,6 +116,7 @@
                   <label for="">Importar</label>
                   <input type="file" name="excel">
                   <br>
+                  <a href="plantilla_conceptos_interfaz.xlsx" class="btn btn-danger">Descargar Plantilla</a>
                   <a href="javascript:subir_excel()" class="btn btn-danger">Guardar</a>
                 </form>
               </div>

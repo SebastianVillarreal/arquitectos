@@ -22,7 +22,7 @@ function blanco() {
     $('#div_importar').hide();
 }
 
-function mostrar_importar(argument) {
+function mostrar_importar() {
     $('#div_importar').show();
     $('#div_formulario').hide();
 }
@@ -41,6 +41,7 @@ function subir_excel() {
         },
         success: function(response) {
             alert("Conceptos importados con éxito");
+            location.reload();
 
         }
     });

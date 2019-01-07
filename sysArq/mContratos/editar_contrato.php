@@ -126,8 +126,8 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="id_perfil">*Tipo de contrato</label><br>
-                    <input value="1"  type="radio" name="tipo_c">Contrato mano de obra <br>
-                    <input value="2" type="radio" name="tipo_c">Sub-contrato
+                    <input value="1" id="radio_1"  type="radio" name="tipo_c">Contrato mano de obra <br>
+                    <input value="2"  id="radio_2" type="radio" name="tipo_c">Sub-contrato
                   </div>
                 </div>
                 <div class="col-md-4">

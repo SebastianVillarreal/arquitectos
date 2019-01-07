@@ -63,7 +63,7 @@
 						<td>$<?php echo $row[5] ?></td>
 						<td><?php echo $row[7] ?></td>
 						<td class="text-center">
-							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
+							<a href="javascript:seleccionar_contrato_aut(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
 						</td>
 					</tr>
 				<?php 
