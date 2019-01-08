@@ -36,7 +36,7 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="">Contrato:</label>
-                <input type="text" onkeyup = "if(event.keyCode == 13) guardar($(this).val())" name="nombre" class="form-control">
+                <input type="text" onkeyup = "if(event.keyCode == 13) guardar($(this).val())" name="nombre" id="nombre_contrato" class="form-control">
               </div>
             </div>
             <hr>

@@ -62,7 +62,7 @@
 							<?php echo $row[4]; ?>
 						</td>
 						<td><?php echo $row[5] ?></td>
-						<td><?php echo $row[6] ?></td>
+						 <td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
 						<td><?php echo $row[7] ?></td>
 						<?php 
 							if ($r[0] == $row[3]) {?>
@@ -93,4 +93,9 @@
 	        </tbody>  
 		</table>
 	</div>
+	<script>
+		$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+	</script>
 

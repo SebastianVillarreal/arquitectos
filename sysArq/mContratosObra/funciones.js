@@ -25,6 +25,7 @@ function guardar(nombre) {
     })
     .then(function(response){
         return response.text().then(function (text){
+            $('#nombre_contrato').val("");
             $('#tabla').load('tabla_lista.php');
         });
 

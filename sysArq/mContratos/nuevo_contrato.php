@@ -3,6 +3,9 @@
   session_start();
   $usr_name = $_SESSION['usr_login'];
   //include '../global_seguridad/verificar_sesion.php';
+        date_default_timezone_set("America/Monterrey");
+    $fecha = date('Y-m-d');
+    $hora = date('H:i:s');
   include '../global_settings/conexion.php';
 
  ?>
@@ -12,7 +15,8 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
+<body onload="actual_time()"
+class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
 <div class="wrapper">
 
   <header class="main-header">
@@ -61,7 +65,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                      <label class = "" for="">*Contratista:</label>
+                      <label  for="">*Contratista:</label>
                       <select onchange="javascript:cargar_descripcion(2)" class="form-control" name="contratista" id="cmb_contratista">
                         <option value="">Seleccione...</option>
                         <?php 
@@ -82,7 +86,7 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="ap_materno">*Residente</label>
+                    <label for="ap_materno" >*Residente</label>
                     <select name="residente" id="cmb_residente" onchange="javascript:cargar_descripcion(3)" class="form-control">
                       <option value="">Seleccione...</option>
                         <?php 
@@ -103,8 +107,8 @@
               <div class="row">
                 <div class="col-md-8">
                   <div class="form-group">
-                    <label for="id_sucursal">*Descripcion</label>
-                    <input name="descripcion" type="text" class="form-control">
+                    <label for="id_sucursal" class="required">*Descripcion</label>
+                    <input name="descripcion" id="txtDescripcion" required type="text" class="form-control">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -123,15 +127,16 @@
                 </div>
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="id_perfil">*Tipo de contrato</label><br>
-                    <input value="1"  type="radio" name="tipo_c">Contrato mano de obra <br>
-                    <input value="2" type="radio" name="tipo_c">Sub-contrato
+                    <label for="id_perfil" >*Tipo de contrato</label><br>
+                    <input checked id="radio_1" value="1"  type="radio" name="tipo_c">Contrato mano de obra <br>
+                    <input id="radio_2"  value="2" type="radio" name="tipo_c">Sub-contrato
                   </div>
                 </div>
                 <div class="col-md-4">
                   <label for="">Fecha</label>
                   <div class="input-group date" data-date-format="dd.mm.yyyy">
-                      <input  type="text" class="form-control" placeholder="dd.mm.yyyy">
+                      <input  type="text" value="<?php echo $fecha ?>" class="form-control" placeholder="dd.mm.yyyy">
+                      <input  type="text" class="form-control" id="time" >
                       <div class="input-group-addon" >
                         <span class="glyphicon glyphicon-th"></span>
                       </div>
@@ -208,11 +213,12 @@
               <a href="" class="btn btn-danger">Cancelar</a>
             </div>
             <div class="text-right">
-              <a href="javascript:guardar_contrato()" class="btn btn-warning">Guardar</a>
+              <a href="javascript:validar()" class="btn btn-warning">Guardar</a>
             </div>
           </div>
           </form>
         </div>
+         
         <div class="box box-success" id="cnt_detalle_contrato">
           <div class="box-header">
             <h3 class="box-title">Renglones del contrato</h3>
@@ -398,5 +404,6 @@
           "paging":   true,
           });
  </script>
+
 </body>
 </html>
