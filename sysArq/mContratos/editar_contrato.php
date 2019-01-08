@@ -198,9 +198,24 @@
               </div>
             </div>
           <div class="box-footer">
+            <?php                    
+              $sql = "SELECT estatus_contratos.descripcion FROM contratos INNER JOIN
+                    estatus_contratos ON estatus_contratos.id = contratos.id = contratos.id WHERE contratos.id
+                    = $id_contrato";
+                    echo "$sql";
+                    $estatus = mysqli_query($conexion, $sql);
+                    $resultado = mysqli_fetch_row($estatus); 
+            ?>
+
             <div class="">
-              <button type="button" class="btn btn-danger">
-                    Desautorizado <span class="badge badge-light"></span>
+              <button type="button" class="btn btn-success" >
+                     <span class="badge badge-light"></span>
+
+                    <?php 
+
+                    echo $resultado[0];
+                    ?>
+
               </button>
               <a href="javascript:add_concepts()" class="btn btn-success">Agregar</a>
               <a href="#" class="btn btn-success">Imprimir</a>
