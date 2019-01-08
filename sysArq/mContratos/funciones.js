@@ -168,6 +168,11 @@ function guardar_contrato() {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: $('#form_datos').serialize()
+
+
+
+
+
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -383,4 +388,37 @@ function set_session_type(type){
         
         // });
     });
+
 }
+
+function validar() {
+
+   var proyecto = $('#cmb_proyecto').val();
+   var contratista = $('#cmb_contratista').val();
+   var residente = $('#cmb_residente').val();
+   var descripcion = $('#txtDescripcion').val();
+   var radio1 = $('#radio_1').checked;
+   var radio2 = $('#radio_2').val();
+   alert(radio1);
+   if (proyecto == "" || contratista =="" || residente == "" || descripcion== "" ) {
+    alert("Llenar todos los campos");
+
+   
+
+   }else{
+    //alert("Insertar");
+    guardar_contrato();
+   }
+
+
+}
+
+
+//function actual_time() {
+
+//$(document).ready(function(){
+ //('#time').attr("placeholder", Date());
+  //$("#time").datepicker({ dateFormat: "yy-mm-dd"}).datepicker("setDate", Date()); 
+ //$('#time').datepicker().datepicker('setDate', 'today');
+ 
+//}); }
