@@ -136,7 +136,7 @@ class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
                   <label for="">Fecha</label>
                   <div class="input-group date" data-date-format="dd.mm.yyyy">
 
-                      <input  type="text" class="form-control" placeholder="dd.mm.yyyy">
+                      <input  type="text" value="<?php echo $fecha ?>" class="form-control" placeholder="dd.mm.yyyy">
 
                       <input  type="text" class="form-control" id="time" >
                       <div class="input-group-addon" >
