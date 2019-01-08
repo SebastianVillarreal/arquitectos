@@ -12,8 +12,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Opciones del módulo</li>
-        <li class="active"><a href="pendientes_residentes.php"><i class="fa fa-bars"></i> <span>Contratos en desarrollo</span></a></li>
-
+        <li class="active"><a href="index.php"><i class="fa fa-bars"></i> <span>Hisotrial</span></a></li>
         
 
       </ul>

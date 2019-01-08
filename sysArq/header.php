@@ -17,6 +17,25 @@
 
       <div id= "sidemenu" class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          <li class="dropdown notifications-menu">
+                <!-- Menu toggle button -->
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <i class="fa fa-bell fa-2x"></i>
+                  <label class="label label-danger num_noti">50</labe>
+                </a>
+                <ul class="dropdown-menu">
+                  <li class="header"></li>
+
+                  <li>
+
+                    <!-- Inner Menu: contains the notifications -->
+                    <ul class="menu arti_caducos">
+
+                    </ul>
+                  </li>
+                  <!--<li class="footer"><a href="#">View all</a></li>-->
+                </ul>
+          </li>
           
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">

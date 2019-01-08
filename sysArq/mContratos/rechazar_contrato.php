@@ -4,16 +4,12 @@
 	header("Access-Control-Allow-Methods: GET");
 	header("Access-Control-Allow-Credentials: true");
 	header('Content-Type: application/json');
-	 session_name("sysOrigen");
+	session_name("sysOrigen");
   	session_start();
   	$id_contrato = $_SESSION['id_contrato'];
-  	  $perfil = $_SESSION['usr_groupid'];
 	// include database and object files
 	include_once '../api/config/database.php';
 	include_once '../api/objects/contrato.php';
-	$json = json_decode(file_get_contents('php://input'));
-	$tipo = $json->valor;
-	echo "$tipo";
 	date_default_timezone_set('America/Monterrey');
   	$fecha = date('Y-m-d');
   	$hora = date('H:i:s');
@@ -24,8 +20,7 @@
 	// prepare product object
 	$contrato = new contrato($db);
 	$contrato->id_contrato = $id_contrato;
-	$contrato->tipo = $perfil;
 	$contrato->fecha = $fecha;
-	$stmt = $contrato->update();
+	$stmt = $contrato->rechazar_contrato();
 	echo "$stmt";
  ?>

@@ -2,6 +2,12 @@
 	// include database and object files
 	include_once '../api/config/database.php';
 	include_once '../api/objects/contrato.php';
+	session_name("sysOrigen");
+  	session_start();
+  	$usr = $_SESSION['usr_login'];
+  	$id_user = $_SESSION["usr_id"];
+  	$id_contrato = $_SESSION["id_contrato"];
+  	$perfil_user = $_SESSION['usr_groupid'];
 	 
 	// instantiate database and product object
 	$database = new Database();
@@ -11,21 +17,23 @@
 	$contratos = new contrato($db);
 	$contratos->grupo = $grupo;
 	$contratos->User_r = $usr;
-	$stmt2 = $contratos->read();
+	$contratos->perfil_user = $perfil_user;
+	$contratos->id_user = $id_user;
+	$stmt2 = $contratos->read_desarrollo();
 
  ?>
 
 	<div class="table-responsive">
-        <table id="lista_contratos" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="lista_contratos" class="table table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
-	                <th>Proyecto</th>
-	                <th>Residente</th>
+	            	<th>Folio</th>
+	                <th>Obra</th>
 	                <th>Contratista</th>
+	                <th>Nivel</th>
 	                <th>Descripcion</th>
-	                <th>Total</th>
-	                <th>Usuario</th>
-	                <th>Seleccionar</th>
+	                <th>Fecha</th>
+	                <th>Estatus</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -35,23 +43,17 @@
 					?>
 					
 					<tr>
-						<td align="center">
-							<?php echo $row[1]; ?>
-						</td>
-						<td align="center">
-							<?php echo $row[2]?>
-						</td>
+						<td align="center"><?php echo $row[0] ?></td>
 						<td align="center">
 							<?php echo $row[3]; ?>
 						</td>
 						<td align="center">
-							<?php echo $row[4]; ?>
+							<?php echo $row[1]; ?>
 						</td>
-						<td align="center"><?php echo $row[5] ?></td>
-						<td align="center"><?php echo $row[6] ?></td>
-						<td class="text-center">
-							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
-						</td>
+						<td align="center"><?php echo $row[9] ?></td>
+						<td align="center"><?php echo $row[4] ?></td>
+						<td align="center"><?php echo $row[8] ?></td>
+						<td><?php echo $row[7] ?></td>
 					</tr>
 				<?php 
 				}

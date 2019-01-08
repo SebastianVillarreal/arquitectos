@@ -91,6 +91,32 @@ function update(){
  
     return false;
 }
+
+function rechazar_contrato(){
+ 
+    
+    //update procedure
+    $call = 'CALL sp_rechazar_contrato(:id_c, :fecha)';
+ 
+    // prepare query statement
+    $stmt = $this->conn->prepare($call);
+ 
+    // sanitize
+    $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
+ 
+    // bind new values
+    $stmt->bindParam(':id_c', $this->id_contrato);
+    $stmt->bindParam(':fecha', $this->fecha);
+ 
+    // execute the query
+    if($stmt->execute()){
+        return true;
+    }else{
+        return false;
+    }
+ 
+    return false;
+}
 // delete the product
 function delete(){
  
@@ -176,6 +202,42 @@ function readOne(){
 public function read(){
 
     $query = "CALL sp_select_contratos(:perfil, :usr, :id_usr)";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
+public function read_desarrollo(){
+
+    $query = "CALL sp_select_contratos_desarrollo(:perfil, :usr, :id_usr)";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
+public function read_agrupado(){
+
+    $query = "CALL sp_select_contratos_agrupado(:perfil, :usr, :id_usr)";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
+public function read_historial(){
+
+    $query = "CALL sp_select_historial(:perfil, :usr, :id_usr)";
  
     $stmt = $this->conn->prepare( $query );
     $stmt->bindParam(':perfil', $this->perfil_user);
