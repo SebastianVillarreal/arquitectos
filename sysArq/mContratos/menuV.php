@@ -13,7 +13,7 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Opciones del módulo</li>
         <li class="active"><a href="nuevo_contrato.php"><i class="fa fa-bars"></i> <span>Nuevo Contrato</span></a></li>
-        <li class="active"><a href="index.php"><i class="fa fa-bars"></i> <span>Contratos Pendientes(6)</span></a></li>
+        <li class="active"><a href="index.php"><i class="fa fa-bars"></i> <span>Contratos Pendientes</span></a></li>
         <li class="active"><a href="index_autorizados.php"><i class="fa fa-bars"></i> <span>Contratos Autorizados</span></a></li>
         <li class="active"><a href="index_finiquitados.php"><i class="fa fa-bars"></i> <span>Contratos Finiquitados</span></a></li>
         <li class="active"><a href="index_cancelados.php"><i class="fa fa-bars"></i> <span>Contratos Cancelados</span></a></li>

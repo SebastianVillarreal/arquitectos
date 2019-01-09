@@ -4,8 +4,10 @@
 	$json = json_decode(file_get_contents('php://input')); 
 	$id_contrato_post = $json->id_contrato;
 	$type_post = $json->type;
+	$id_proyecto = $json->id_obra;
 	$_SESSION["id_contrato"] = $id_contrato_post;
 	$_SESSION["type"] = $type_post;
+	$_SESSION["id_proyecto"] = $id_proyecto;
 	$s = $_SESSION["type"];
 	include'../global_settings/conexion.php';
 	$p_user = $_POST['nombre_usuario'];

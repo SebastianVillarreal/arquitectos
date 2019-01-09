@@ -8,6 +8,7 @@
   	$id_user = $_SESSION["usr_id"];
   	$id_contrato = $_SESSION["id_contrato"];
   	$perfil_user = $_SESSION['usr_groupid'];
+  	$id_proyecto = $_SESSION['id_proyecto'];
 	 
 	// instantiate database and product object
 	$database = new Database();
@@ -19,21 +20,33 @@
 	$contratos->User_r = $usr;
 	$contratos->perfil_user = $perfil_user;
 	$contratos->id_user = $id_user;
-	$stmt2 = $contratos->read();
+	$contratos->id_proyecto = $id_proyecto;
+	$stmt2 = $contratos->read_historial_filtro();
 
  ?>
+     <script>
+   $(document).ready(function() {
+     $('#lista_contratos').dataTable({
+       "language": {
+         "url": "../assets/js/Spanish.json"
+       }
+     });
+   });
+ </script>
 
 	<div class="table-responsive">
-        <table id="lista_contratos" class="table  table-bordered" cellspacing="0" width="100%">
+        <table id="lista_contratos" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	            	<th>Folio</th>
 	                <th>Obra</th>
 	                <th>Residente</th>
 	                <th>Contratista</th>
-	                <th>Nivel</th>
 	                <th>Descripcion</th>
-	                <th>Fecha</th>
+	                <th>Inicio</th>
+	                <th>VOBO Residente</th>
+	                <th>VOBO Supervisor</th>
+	                <th>Autorizado</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -43,18 +56,24 @@
 					
 					<tr>
 						<td align="center">
-							<?php echo $row[0]?>
+							<?php echo $row[0] ?>
 						</td>
 						<td align="center">
 							<?php echo $row[3]; ?>
 						</td>
 						<td align="center">
-							<?php echo $row[2]; ?>
+							<?php echo $row[2]?>
 						</td>
-						<td><?php echo $row[1] ?></td>
-						<td align="center"><?php echo $row[9] ?></td>
-						<td><?php echo $row[4] ?></td>
-						<td><?php echo $row[8]; ?></td>
+						<td align="center">
+							<?php echo $row[1]; ?>
+						</td>
+						<td align="center">
+							<?php echo $row[4]; ?>
+						</td>
+						<td><?php echo $row[12] ?></td>
+						<td><?php echo $row[8] ?></td>
+						<td><?php echo $row[9] ?></td>
+						<td><?php echo $row[10] ?></td>
 					</tr>
 				<?php 
 				}

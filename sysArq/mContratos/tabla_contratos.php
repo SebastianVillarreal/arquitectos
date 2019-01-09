@@ -55,7 +55,17 @@
 						<td><?php echo $row[1] ?></td>
 						<td align="center"><?php echo $row[9] ?></td>
 						<td><?php echo $row[4] ?></td>
-						<td><?php echo $row[8]; ?></td>
+						<td bgcolor="#f1c40f">
+							<?php 
+								if (is_null($row[8])) {
+									$date = $row[10];
+								}else{
+									$date = $row[8];
+								}
+							 ?>
+							<?php echo $date; ?>
+								
+						</td>
 						<td class="text-center">
 							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
 						</td> 

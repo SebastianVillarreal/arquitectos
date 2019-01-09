@@ -36,7 +36,7 @@
             <div class="row">
               <div class="col-md-12">
                 <label for="">Obra</label>
-                <select class="form-control" name="obra" id="cmbObra">
+                <select class="form-control" onchange="javascript:filtrar($(this).val());" name="obra" id="cmbObra">
                   <option value="" selected disabled>Seleccione...</option>
                   <?php 
                     $sql = "SELECT id, nombre from proyectos";

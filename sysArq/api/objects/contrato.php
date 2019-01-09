@@ -18,6 +18,7 @@ class contrato{
     public $perfil_user;
     public $id_user;
     public $tipo_sp;
+    public $id_proyecto;
 
     public function __construct($db){
         $this->conn = $db;
@@ -243,6 +244,19 @@ public function read_historial(){
     $stmt->bindParam(':perfil', $this->perfil_user);
     $stmt->bindParam(':usr', $this->User_r);
     $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
+public function read_historial_filtro(){
+
+    $query = "CALL sp_select_historial_filtro(:perfil, :usr, :id_usr, :proyecto)";
+ 
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->bindParam(':proyecto', $this->id_proyecto);
     $stmt->execute();
     return $stmt;
 }
