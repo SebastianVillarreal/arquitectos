@@ -1,15 +1,20 @@
    <?php include 'mContratos/pendientes.php'; ?>
     <!-- Logo -->
+
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>A</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg">Origen</span>
+      <span class="logo-lg">Origen</span> 
     </a>
+    
     <!-- Header Navbar: style can be found in header.less -->
-    <nav class="navbar navbar-static-top">
+    <nav class="navbar navbar-static-top" > 
       <!-- Sidebar toggle button-->
-      <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+     &nbsp; <a href="#">  <span class="glyphicon glyphicon-list fa-2x" data-toggle="push-menu" 
+        role="button" > 
+       </a> 
+    
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -22,14 +27,15 @@
                 <!-- Menu toggle button -->
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                   <i class="fa fa-bell fa-2x"></i>
-                  <label class="label label-danger num_noti"><?php echo $row[0] ?></labe>
+                  <label class="label label-danger num_noti"><?php echo $row[0] ?></label>
+                  <!-- Le faltaba una L a la etiqueta de cierre de label, tal vez por eso no se veía suficientemente grande el número de notificaciones -->
                 </a>
                 <ul class="dropdown-menu">
                   <li class="header"></li>
 
                   <li>
 
-                    <!-- Inner Menu: contains the notifications -->
+                    
                     <ul class="menu arti_caducos">
 
                     </ul>
@@ -50,7 +56,7 @@
                 <img src="../d_plantilla/dist/img/personas/user.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $usr_name; ?> - <?php echo $nombre_perfil; ?>
+                  <?php echo $usr_name; ?> - Residente
                   <small>Miembro desde Sept. 2018</small>
                 </p>
               </li>

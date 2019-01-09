@@ -16,7 +16,7 @@
   <script src="funciones.js"></script>
 </head>
 <body onload="actual_time()"
-class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
+    class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
 <div class="wrapper">
 
   <header class="main-header">

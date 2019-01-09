@@ -13,7 +13,8 @@
 <head>
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
-</head>
+  </head>
+
 <body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>)">
 <div class="wrapper">
 
