@@ -39,7 +39,11 @@
 <link rel="stylesheet" href="../plugins/alertifyjs/css/themes/bootstrap.min.css">
 
 <link href="../plugins/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<link rel="shortcut icon" href="../d_plantilla/dist/img/logo.png" type='image/png'>
+
+<!-- <link rel="shortcut icon" href="../d_plantilla/dist/img/logo.png" type='image/png'> -->
+
+<link rel="shortcut icon" href="../d_plantilla/dist/img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../d_plantilla/dist/img/favicon.ico" type="image/x-icon">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
