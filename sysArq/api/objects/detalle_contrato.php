@@ -66,9 +66,9 @@ public function read(){
                 conceptos.unidad,
                 cantidad,
                 conceptos.cantidad_original,
-                costo_actual,
-                costo_tope,
-                importe_renglon,
+                FORMAT(costo_actual, 2),
+                FORMAT(costo_tope,2),
+                FORMAT(importe_renglon, 2),
                 detalle_contratos.id_contrato
             FROM
                 detalle_contratos

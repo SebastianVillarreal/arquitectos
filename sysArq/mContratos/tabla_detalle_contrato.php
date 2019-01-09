@@ -3,6 +3,7 @@
 	  session_start();
 	  $usr_name = $_SESSION['usr_login'];
 	  $id_contrato = $_SESSION["id_contrato"];
+	  $perfil = $_SESSION["usr_groupid"];
 	include '../global_settings/conexion.php';
 	include_once '../api/config/database.php';
 	include_once '../api/objects/detalle_contrato.php';
@@ -21,11 +22,11 @@
 
  ?>
 	    <script>
-    $('#lista_detalle_contrato').DataTable( {
-          'language': {"url": "../plugins/DataTables/Spanish.json"},
-          "paging":   true,
-          });
- </script>
+    		$('#lista_detalle_contrato').DataTable( {
+          	'language': {"url": "../plugins/DataTables/Spanish.json"},
+          	"paging":   true,
+          	});
+ 		</script>
 	<div class="table-responsive">
         <table id="lista_detalle_contrato" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
@@ -38,7 +39,12 @@
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>
-	                <th>Cantidad O.C</th>
+	                <?php 
+	                	if ($perfil == 5) {
+	                		echo "<th>Cantidad O.C</th>";
+	                	}
+	                 ?>
+	                
 	                <th>Costo Actual</th>
 	                <th>Costo Tope</th>
 	                <th>Importe</th>
@@ -69,7 +75,10 @@
 								<td>
 									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[8] ?>">
 								</td>
-								<td><?php echo $row[9] ?></td>
+								<?php 
+								if ($perfil == 5) {
+									echo "<td>$row[9]</td>";
+								} ?>
 								<td>							
 									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[10] ?>">
 								</td>
@@ -77,14 +86,16 @@
 									<td> 
 										<?php echo $row[8] ?>
 									</td>
-									<td><?php echo $row[9] ?></td>
+									<?php if ($perfi == 5) {
+										echo "<td>$row[9]</td>";
+									} ?>
+									
 									<td><?php echo $row[10] ?></td>
 							<? }
 						 ?>
 						<td><?php echo $row[11] ?></td>
 						<td><?php echo $row[12] ?></td>
 						<td class="text-center">
-							
 						</td>
 					</tr>
 				<?php 

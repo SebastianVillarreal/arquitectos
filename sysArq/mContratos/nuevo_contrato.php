@@ -15,7 +15,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body onload="actual_time()"
+<body
 class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
 <div class="wrapper">
 
@@ -136,9 +136,9 @@ class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
                   <label for="">Fecha</label>
                   <div class="input-group date" data-date-format="dd.mm.yyyy">
 
-                      <input  type="text" value="<?php echo $fecha ?>" class="form-control" placeholder="dd.mm.yyyy">
+                      <!-- <input  type="text" value="<?php echo $fecha ?>" class="form-control" placeholder="dd.mm.yyyy"> -->
 
-                      <input  type="text" class="form-control" id="time" >
+                      <input value="<?php echo $fecha ?>"  type="text" class="form-control" id="time" >
                       <div class="input-group-addon" >
                         <span class="glyphicon glyphicon-th"></span>
                       </div>

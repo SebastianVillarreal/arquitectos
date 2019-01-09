@@ -200,7 +200,7 @@
           <div class="box-footer">
             <?php                    
               $sql = "SELECT estatus_contratos.descripcion FROM contratos INNER JOIN
-                    estatus_contratos ON estatus_contratos.id = contratos.id WHERE contratos.id
+                    estatus_contratos ON estatus_contratos.id = contratos.`status`  WHERE contratos.id
                     = $id_contrato";
                     
                     $estatus = mysqli_query($conexion, $sql);

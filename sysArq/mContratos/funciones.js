@@ -261,16 +261,16 @@ function datos_contrato(){
             $('#txt_residente').val(element[20]);
             $('#txt_descripcion').val(element[4]);
             $('#txtFolio').val(element[0]);
-            $('#cto_normal').html("$" + new Intl.NumberFormat().format(element[10]));
-            $('#cto_extra_cliente').html("$" + new Intl.NumberFormat().format(element[11]));
-            $('#cto_extra_of').html("$" + new Intl.NumberFormat().format(element[12]));
-            $('#cto_excedido').html("$" + new Intl.NumberFormat().format(element[15]));
-            $('#total_si').html("$" + new Intl.NumberFormat().format(element[17]));
+            $('#cto_normal').html("$" + new Intl.NumberFormat("en-IN").format(element[10]));
+            $('#cto_extra_cliente').html("$" + new Intl.NumberFormat("en-IN").format(element[11]));
+            $('#cto_extra_of').html("$" + new Intl.NumberFormat("en-IN").format(element[12]));
+            $('#cto_excedido').html("$" + new Intl.NumberFormat("en-IN").format(element[15]));
+            $('#total_si').html("$" + new Intl.NumberFormat("en-IN").format(element[17]));
             $('#fecha').val(element[22]);
-            $('#tdSubTotal').html("$" + new Intl.NumberFormat().format(element[17]));
-            $('#tdIva').html('$' + new Intl.NumberFormat().format(element[9]));
-            $('#tdTotal').html('$' + new Intl.NumberFormat().format(element[18]));
-            $('#tdGtPresupuesto').html("$" + new Intl.NumberFormat().format(element[17]));
+            $('#tdSubTotal').html("$" + new Intl.NumberFormat("en-IN").format(element[17]));
+            $('#tdIva').html('$' + new Intl.NumberFormat("en-IN").format(element[9]));
+            $('#tdTotal').html('$' + new Intl.NumberFormat("en-IN").format(element[18]));
+            $('#tdGtPresupuesto').html("$" + new Intl.NumberFormat("en-IN").format(element[17]));
             var p_normal = (element[10] / element[17]) * 100;
             var p_ec = (element[11] / element[17]) * 100;
             var p_eo = (element[12] / element[17]) * 100;
@@ -397,28 +397,11 @@ function validar() {
    var contratista = $('#cmb_contratista').val();
    var residente = $('#cmb_residente').val();
    var descripcion = $('#txtDescripcion').val();
-   var radio1 = $('#radio_1').checked;
-   var radio2 = $('#radio_2').val();
-   alert(radio1);
    if (proyecto == "" || contratista =="" || residente == "" || descripcion== "" ) {
     alert("Llenar todos los campos");
-
-   
-
    }else{
-    //alert("Insertar");
     guardar_contrato();
    }
 
 
 }
-
-
-//function actual_time() {
-
-//$(document).ready(function(){
- //('#time').attr("placeholder", Date());
-  //$("#time").datepicker({ dateFormat: "yy-mm-dd"}).datepicker("setDate", Date()); 
- //$('#time').datepicker().datepicker('setDate', 'today');
- 
-//}); }
