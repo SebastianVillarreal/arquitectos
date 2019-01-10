@@ -69,7 +69,8 @@ public function read(){
                 FORMAT(costo_actual, 2),
                 FORMAT(costo_tope,2),
                 FORMAT(importe_renglon, 2),
-                detalle_contratos.id_contrato
+                detalle_contratos.id_contrato,
+                (SELECT FORMAT(total_lote,2) FROM totales_lotes WHERE id_contrato = detalle_contratos.id_contrato AND num_contrato = consecutivo)
             FROM
                 detalle_contratos
                 INNER JOIN conceptos ON  conceptos.id = detalle_contratos.concepto

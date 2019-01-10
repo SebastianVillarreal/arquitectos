@@ -54,7 +54,7 @@
 							<?php echo $row[4]; ?>
 						</td>
 						<td><?php echo $row[5] ?></td>
-						<td><?php echo $row[6] ?></td>
+						<td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
 						<td><?php echo $row[7] ?></td>
 						<td>
 							<?php echo $row[8] ?>
@@ -66,7 +66,7 @@
 						<td><?php echo $row[11] ?></td>
 						<td><?php echo $row[12] ?></td>
 						<td class="text-center">
-							
+							<?php echo "$". $row[14] ?>
 						</td>
 					</tr>
 				<?php 
