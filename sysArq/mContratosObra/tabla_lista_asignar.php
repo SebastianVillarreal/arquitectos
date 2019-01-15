@@ -39,24 +39,27 @@
 	            </tr>
 	        </thead>
 	        <tbody>
+	        	 
 	        <?php 
 	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
 					?>
 					
 					<tr>
 						<td align="center">
-							<input type="checkbox" name="">
+							<input id="marca_<? echo $row[0]; ?>" onchange="javascript:cambiar_estado(<?php echo $row[0] ?>, this)" type="checkbox">
 						</td>
 						<td align="center">
 							<?php echo $row[0] ?>
 						</td>
 						<td align="center">
 							<?php echo $row[1]; ?>
+							<input type="hidden" id="contrato_<? echo $row[0] ?>" value="<?php echo $row[0] ?>">
 						</td>
 					</tr>
 				<?php 
 				}
 				 ?>
+				 </form>
 	        </tbody>  
 		</table>
 	</div>

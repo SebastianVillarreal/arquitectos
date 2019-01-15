@@ -9,7 +9,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:set_session_type(1)">
+<body class="hold-transition skin-red sidebar-mini" onload="">
 <div class="wrapper">
 
   <header class="main-header">
@@ -27,16 +27,18 @@
     <!-- Content Header (Page header) -->
     <!-- Main content -->
     <section class="content">
+
         <div class="box box-danger">
           <div class="box-header">
-            <h3 class="box-title">Contratos Autorizados</h3>
+            <h3 class="box-title">Lista de asignacion</h3>
           </div>
           <div class="box-body">
+            <form id="frmTabla">
             <div class="row">
               <div class="col-md-12">
-               <label>Obra</label>
-                <select onchange="javascript:filtrar_autorizados($(this).val())" class="form-control" name="proyecto">
-                  <option>Seleccione...</option>
+                <label>Proyecto</label>
+                <select onchange="javascript:read($(this).val())" name="proyecto" class="form-control">
+                  <option selected disabled>Seleccione...</option>
                   <?php 
                     $sql = "SELECT id, nombre FROM proyectos";
                     $exSql = mysqli_query($conexion, $sql);
@@ -44,14 +46,18 @@
                       echo "<option value=$row[0]>$row[1]</option>";
                     }
                    ?>
-                </select> 
+                </select>
               </div>
             </div>
-            <br>
+            <div class="row">
+              <div class="col-md-12">
+                <br>
+              </div>
+            </div>
+            <hr>
             <div class="row">
               <div class="col-md-12" id="tabla">
-                <?php $tipo_sp = 1; ?>
-                <?php include 'tabla_contratos_autorizados.php'; ?>
+                
               </div>
             </div>
           </div>

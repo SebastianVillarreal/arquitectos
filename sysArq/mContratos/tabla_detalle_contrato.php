@@ -28,7 +28,7 @@
           	});
  		</script>
 	<div class="table-responsive">
-        <table id="lista_detalle_contrato" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="lista_detalle_contrato" class="table  table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	                <th>Tipo</th>
@@ -39,11 +39,7 @@
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>
-	                <?php 
-	                	if ($perfil == 5) {
-	                		echo "<th>Cantidad O.C</th>";
-	                	}
-	                 ?>
+	                <th>Cantidad O.C</th>
 	                
 	                <th>Costo Actual</th>
 	                <th>Costo Tope</th>
@@ -58,7 +54,12 @@
 	        			$exSql = mysqli_query($conexion, $sql);
 	        			$r = mysqli_fetch_row($exSql);
 					?>
-					<tr>
+					<?php if ($r[0] == $row[3]) {
+						echo "<tr>";
+					}else{
+						echo "<tr bgcolor='#ecf0f1'>";
+					} ?>
+					
 						<td>
 							<?php echo $row[1] ?>
 						</td>
@@ -73,14 +74,14 @@
 						<?php 
 							if ($r[0] == $row[3]) {?>
 								<td>
-									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[8] ?>">
+									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control" value="<?php echo $row[8] ?>">
 								</td>
 								<?php 
-								if ($perfil == 5) {
+								
 									echo "<td>$row[9]</td>";
-								} ?>
+								 ?>
 								<td>							
-									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[10] ?>">
+									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control" value="<?php echo $row[10] ?>">
 								</td>
 							<? }else{?>
 									<td> 
