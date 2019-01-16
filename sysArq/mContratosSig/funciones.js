@@ -284,3 +284,38 @@ function seleccionar_contrato(id_contrato) {
 function cargar_tabla_resumen() {
     $('#contenedor_tabla_resumen').load('tabla_resumen.php');
 }
+
+function filtrar(id_obra) {
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_obra": id_obra}) 
+        
+    })
+    .then(function(response){
+        $('#tabla').load('tabla_contratos.php');
+    });
+}
+
+function update(id) {
+    alert(id);
+    var url = "update.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id": id}) 
+        
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            alert(text);    
+        });
+        
+        //$('#tabla').load('tabla_contratos.php');
+    });
+}

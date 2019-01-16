@@ -212,6 +212,15 @@ public function read(){
     return $stmt;
 }
 
+public function read_siguientes(){
+    $query = "CALL sp_select_contratos_sig(:obra, :id_usr)";
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':obra', $this->id_proyecto);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
 public function read_desarrollo(){
 
     $query = "CALL sp_select_contratos_desarrollo(:perfil, :usr, :id_usr)";

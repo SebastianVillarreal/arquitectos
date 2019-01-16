@@ -29,7 +29,7 @@
     <section class="content">
         <div class="box box-danger">
           <div class="box-header">
-            <h1>Contratos Pendientes</h1>
+            <h3 class="box-title">Contratos Pendientes</h3>
           </div>
           <div class="box-body">
             <div class="row">

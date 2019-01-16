@@ -9,14 +9,14 @@
   	$id_proyecto = $_SESSION["id_proyecto"];
 	 
 	// instantiate database and product object
-	$database = new Database();
-	$db = $database->getConnection();
+	// $database = new Database();
+	// $db = $database->getConnection();
 	 
-	// initialize object
-	$contratos = new contrato($db);
-	$contratos->id_proyecto = $id_proyecto;
-	$contratos->id_user = $id_user;
-	$stmt2 = $contratos->read_siguientes();
+	// // initialize object
+	// $contratos = new contrato($db);
+	// $contratos->id_proyecto = $id_proyecto;
+	// $contratos->id_user = $id_user;
+	// $stmt2 = $contratos->read_siguientes();
 
  ?>
  	    <script>
@@ -38,24 +38,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	        <?php 
-	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
-					?>
-					
-					<tr>
-						<td align="center">
-							<?php echo $row[0]; ?>
-						</td>
-						<td align="center">
-							<?php echo $row[1]?>
-						</td>
-						<td align="center">
-							<input value="<?php echo $row[0] ?>" onchange="javascript:update($(this).val())" type="checkbox" name="marca_"<?php echo $row[0] ?>>
-						</td>
-					</tr>
-				<?php 
-				}
-				 ?>
+
 	        </tbody>  
 		</table>
 	</div>
