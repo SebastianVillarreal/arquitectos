@@ -7,6 +7,8 @@
       <span class="logo-lg">Origen</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
+
+
     <nav class="navbar navbar-static-top">
       <!-- Sidebar toggle button-->
       <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
@@ -15,6 +17,8 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
+
+
 
       <div id= "sidemenu" class="navbar-custom-menu">
         <ul class="nav navbar-nav">
