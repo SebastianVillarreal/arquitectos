@@ -24,7 +24,7 @@
  ?>
 
 	<div class="table-responsive">
-        <table id="lista_contratos" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <table id="lista_contratos" class="table  table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	            	<th>Folio</th>
@@ -60,11 +60,23 @@
 						<td align="center">
 							<?php echo $row[4]; ?>
 						</td>
-						<td align="center"><?php echo $row[13] ?></td>
+						<td align="center"><?php echo $row[17] ?></td>
 						<td><?php echo $row[12] ?></td>
-						<td><?php echo $row[8] ?></td>
-						<td><?php echo $row[9] ?></td>
-						<td><?php echo $row[10] ?></td>
+						<?php if ($row[14] > 4) {
+							echo "<td bgcolor = 'red'>$row[8]</td>";
+						}else{
+							echo "<td>$row[8]</td>";
+						} ?><!-- Fecha Residente -->
+						<?php if ($row[15] > 2) {
+							echo "<td bgcolor='red'>$row[9]</td>";
+						}else{
+							echo "<td>$row[9]</td>";
+						} ?><!-- Fecha Supervisor -->
+						<?php if ($row[16] > 2){
+							echo "<td bgcolor='red'>$row[10]</td>";
+						}else{
+							echo "<td>$row[10]</td>";
+						} ?><!-- Fecha Costos o autorizado --> 
 					</tr>
 				<?php 
 				}

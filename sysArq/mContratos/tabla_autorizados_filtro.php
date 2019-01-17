@@ -21,7 +21,7 @@
 	$contratos->perfil_user = $perfil_user;
 	$contratos->id_user = $id_user;
 	$contratos->id_proyecto = $id_proyecto;
-	$stmt2 = $contratos->read_historial_filtro();
+	$stmt2 = $contratos->read_autorizados_filtro();
 
  ?>
      <script>
@@ -33,9 +33,8 @@
      });
    });
  </script>
-
 	<div class="table-responsive">
-        <table id="lista_contratos" class="table  table-bordered" cellspacing="0" width="100%">
+        <table id="lista_contratos" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	            	<th>Folio</th>
@@ -43,16 +42,15 @@
 	                <th>Residente</th>
 	                <th>Contratista</th>
 	                <th>Descripcion</th>
-	                <th>Nivel</th>
-	                <th>Inicio</th>
-	                <th>VOBO Residente</th>
-	                <th>VOBO Supervisor</th>
-	                <th>Autorizado</th>
+	                <th>Total</th>
+	                <th>Fecha Aut</th>
+	                <th>Seleccionar</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        <?php 
 	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
+	        		extract($row);
 					?>
 					
 					<tr>
@@ -71,23 +69,11 @@
 						<td align="center">
 							<?php echo $row[4]; ?>
 						</td>
-						<td align="center"><?php echo $row[17] ?></td>
-						<td><?php echo $row[12] ?></td>
-						<?php if ($row[14] > 4) {
-							echo "<td bgcolor = 'red'>$row[8]</td>";
-						}else{
-							echo "<td>$row[8]</td>";
-						} ?><!-- Fecha Residente -->
-						<?php if ($row[15] > 2) {
-							echo "<td bgcolor='red'>$row[9]</td>";
-						}else{
-							echo "<td>$row[9]</td>";
-						} ?><!-- Fecha Supervisor -->
-						<?php if ($row[16] > 2){
-							echo "<td bgcolor='red'>$row[10]</td>";
-						}else{
-							echo "<td>$row[10]</td>";
-						} ?><!-- Fecha Costos o autorizado --> 
+						<td>$<?php echo $row[5] ?></td>
+						<td><?php echo $row[7] ?></td>
+						<td class="text-center">
+							<a href="javascript:seleccionar_contrato_aut(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
+						</td>
 					</tr>
 				<?php 
 				}

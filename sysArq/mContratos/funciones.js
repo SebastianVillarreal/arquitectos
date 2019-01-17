@@ -1,6 +1,6 @@
 function add_concepts(){
     
-    var url = "add_concepts.php";
+    var url = "../api/contrato/agregar_lote.php";
     fetch(url,{
         method: 'POST',
         headers: {
@@ -9,9 +9,13 @@ function add_concepts(){
     })
     .then(function(response){
         return response.text().then(function (text){
-            //alert(text);
-            alert("Ahora puedes añadir conceptos nuevos");
-            location.href ="editar_contrato.php";
+            if (text == 1) {
+                alert("Ahora puedes añadir conceptos nuevos");
+                location.href ="editar_contrato.php";
+            }else{
+                alert("Ha ocurrido un error, favor de notificarlo al administrador del sistema");
+            }
+            
         });
         
     });
@@ -37,7 +41,7 @@ function agregar_comentarios(comentarios){
 }
 
 
-function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto) {
+function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, perfil) {
     var url = "../api/detalle_contrato/update.php";
     fetch(url,{
         method: 'POST',
@@ -50,7 +54,7 @@ function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto) {
         return response.text().then(function (text){
             if (text == "1") {
                 alertify.success("Cantidad Cambiada");
-                calcular_totales(tipo_concepto);
+                calcular_totales(tipo_concepto, perfil);
             }else{
                 alertify.error("Cantidad Superada");
             }
@@ -59,7 +63,7 @@ function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto) {
     });
 }
 
-function calcular_totales(tipo_concepto){
+function calcular_totales(tipo_concepto, perfil){
     var url = "../api/detalle_contrato/calcular_totales.php";
     fetch(url,{
         method: 'POST',
@@ -72,7 +76,7 @@ function calcular_totales(tipo_concepto){
         return response.text().then(function (text){
             if (text == "1") {
                 //alertify.success("Cantidad Cambiada");
-                datos_contrato();
+                datos_contrato('', perfil);
             }else{
                 //alertify.error("Cantidad Superada");
             }
@@ -81,7 +85,7 @@ function calcular_totales(tipo_concepto){
     });
 }
 
-function modificar_costo(id_renglon, costo_nuevo, tipo_concepto) {
+function modificar_costo(id_renglon, costo_nuevo, tipo_concepto, perfil) {
     var url = "../api/detalle_contrato/update_costo.php";
     fetch(url,{
         method: 'POST',
@@ -94,7 +98,7 @@ function modificar_costo(id_renglon, costo_nuevo, tipo_concepto) {
         return response.text().then(function (text){
             if (text == "1") {
                 alertify.success("Costo Cambiado");
-                calcular_totales(tipo_concepto);
+                calcular_totales(tipo_concepto, perfil);
             }else{
                 alertify.error("Costo superado");
             }
@@ -235,11 +239,16 @@ function mostrar() {
     $('#cnt_resumen').show();
 }
 
-function cargar_tabla() {
-    $('#cont_table').load('tabla_detalle_contrato.php');
+function cargar_tabla(perfil) {
+    if (perfil == 3) {
+        $('#cont_table').load('tabla_detalle_contrato.php');
+    }else{
+        $('#cont_table').load('tabla_detalle_contrato_sup.php');
+    }
+    
 }
 
-function datos_contrato(){
+function datos_contrato(id_contrato, perfil){
     var url = "datos_contrato.php";
     fetch(url,{
         method: 'POST',
@@ -261,16 +270,16 @@ function datos_contrato(){
             $('#txt_residente').val(element[20]);
             $('#txt_descripcion').val(element[4]);
             $('#txtFolio').val(element[0]);
-            $('#cto_normal').html("$" + new Intl.NumberFormat("en-IN").format(element[10]));
-            $('#cto_extra_cliente').html("$" + new Intl.NumberFormat("en-IN").format(element[11]));
-            $('#cto_extra_of').html("$" + new Intl.NumberFormat("en-IN").format(element[12]));
-            $('#cto_excedido').html("$" + new Intl.NumberFormat("en-IN").format(element[15]));
-            $('#total_si').html("$" + new Intl.NumberFormat("en-IN").format(element[17]));
+            $('#cto_normal').html("$" + new Intl.NumberFormat("en-US").format(element[10]));
+            $('#cto_extra_cliente').html("$" + new Intl.NumberFormat("en-US").format(element[11]));
+            $('#cto_extra_of').html("$" + new Intl.NumberFormat("en-US").format(element[12]));
+            $('#cto_excedido').html("$" + new Intl.NumberFormat("en-US").format(element[15]));
+            $('#total_si').html("$" + new Intl.NumberFormat("en-US").format(element[17]));
             $('#fecha').val(element[22]);
-            $('#tdSubTotal').html("$" + new Intl.NumberFormat("en-IN").format(element[17]));
-            $('#tdIva').html('$' + new Intl.NumberFormat("en-IN").format(element[9]));
-            $('#tdTotal').html('$' + new Intl.NumberFormat("en-IN").format(element[18]));
-            $('#tdGtPresupuesto').html("$" + new Intl.NumberFormat("en-IN").format(element[17]));
+            $('#tdSubTotal').html("$" + new Intl.NumberFormat("en-US").format(element[17]));
+            $('#tdIva').html('$' + new Intl.NumberFormat("en-US").format(element[9]));
+            $('#tdTotal').html('$' + new Intl.NumberFormat("en-US").format(element[18]));
+            $('#tdGtPresupuesto').html("$" + new Intl.NumberFormat("en-US").format(element[17]));
             var p_normal = (element[10] / element[17]) * 100;
             var p_ec = (element[11] / element[17]) * 100;
             var p_eo = (element[12] / element[17]) * 100;
@@ -284,7 +293,7 @@ function datos_contrato(){
             $('#p_ec').html(p_ec + "%");
             $('#p_eo').html(p_eo + "%");
             $('#p_ex').html(p_ex + "%");
-            cargar_tabla();
+            cargar_tabla(perfil);
             cargar_tabla_coments();
             cargar_tabla_resumen();
         }); 
@@ -402,6 +411,19 @@ function validar() {
    }else{
     guardar_contrato();
    }
+}
 
-
+function filtrar_autorizados(id_obra) {
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_obra": id_obra}) 
+        
+    })
+    .then(function(response){
+        $('#tabla').load('tabla_autorizados_filtro.php');
+    });
 }

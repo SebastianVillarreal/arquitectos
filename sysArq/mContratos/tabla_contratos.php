@@ -53,10 +53,9 @@
 							<?php echo $row[2]; ?>
 						</td>
 						<td><?php echo $row[1] ?></td>
-						<td align="center"><?php echo $row[9] ?></td>
+						<td align="center"><?php echo $row[9]//nivel ?></td>
 						<td><?php echo $row[4] ?></td>
-						<?php 
-							if ($perfil_user == 5) {
+						<?php if ($perfil_user == 5 || $perfil_user == 1) {
 								//costos
 								if ($row[11] == 0) {
 									if ($row[12] >= 2) {
@@ -75,7 +74,7 @@
 							}elseif($perfil_user == 3){
 								//residente
 								if (is_null($row[8])) {
-
+									//no es devuelto
 									if ($row[12] >= 4) {
 										echo "<td bgcolor='red'>$row[10]</td>";
 									}else{
@@ -83,6 +82,7 @@
 									}
 									
 								}else{
+									//Es devuelto
 									if ($row[12] >= 4) {
 										echo "<td bgcolor='red'>$row[8]</td>";
 									}else{
@@ -93,12 +93,14 @@
 							}elseif ($perfil_user == 2) {
 								//supervisor
 								if ($row[11] == 0) {
+									//No es devuelto
 									if ($row[12] >= 2) {
 										echo "<td bgcolor='red'>$row[8]</td>";
 									}else{
 										echo "<td bgcolor=''>$row[8]</td>";
 									}
 								}else{
+									//es devuelto
 									if ($row[12] >= 4) {
 										echo "<td bgcolor='red'>$row[8]</td>";
 									}else{
@@ -107,6 +109,7 @@
 									
 								}
 							}
+							
 						 ?>
 						<td class="text-center">
 							<a href="javascript:seleccionar_contrato(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>

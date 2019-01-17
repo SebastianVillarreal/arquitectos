@@ -33,10 +33,11 @@
             <h3 class="box-title">Asignacion</h3>
           </div>
           <div class="box-body">
+            <form id="frmTabla">
             <div class="row">
               <div class="col-md-12">
                 <label>Proyecto</label>
-                <select class="form-control">
+                <select name="proyecto" class="form-control">
                   <option selected disabled>Seleccione...</option>
                   <?php 
                     $sql = "SELECT id, nombre FROM proyectos";
@@ -51,7 +52,7 @@
             <div class="row">
               <div class="col-md-12">
                 <br>
-                <a href="#" class="btn btn-danger">Guardar</a>
+                <a href="javascript:asignar()" class="btn btn-danger">Guardar</a>
               </div>
             </div>
             <hr>

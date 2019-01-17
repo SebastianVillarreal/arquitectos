@@ -14,6 +14,7 @@
         <li class="header">Opciones del módulo</li>
         <li class="active"><a href="index.php"><i class="fa fa-bars"></i> <span>Lista de contratos</span></a></li>
         <li class="active"><a href="asignacion.php"><i class="fa fa-bars"></i> <span>Asignacion</span></a></li>
+        <li class="active"><a href="lista_asignacion.php"><i class="fa fa-bars"></i> <span>Contratos asignados</span></a></li>
         
 
       </ul>

@@ -212,6 +212,15 @@ public function read(){
     return $stmt;
 }
 
+public function read_siguientes(){
+    $query = "CALL sp_select_contratos_sig(:obra, :id_usr)";
+    $stmt = $this->conn->prepare( $query );
+    $stmt->bindParam(':obra', $this->id_proyecto);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->execute();
+    return $stmt;
+}
+
 public function read_desarrollo(){
 
     $query = "CALL sp_select_contratos_desarrollo(:perfil, :usr, :id_usr)";
@@ -285,43 +294,32 @@ public function read_autorizados(){
     return $stmt;
 }
 
-// read products with pagination
-public function readPaging($from_record_num, $records_per_page){
+public function read_autorizados_filtro(){
 
-    // select query
-    $query = "SELECT
-                c.Nombre as Area, p.IDEncuesta, p.Nombre, p.Estatus, p.Fecha_Alta, p.Fecha_Limite, p.IDArea, p.IDUsuario
-            FROM
-                " . $this->table_name . " p
-                LEFT JOIN
-                    Cat_Area c
-                        ON p.IDArea = c.IDArea
-            ORDER BY p.IDArea,p.IDEncuesta DESC
-            LIMIT ?, ?";
+    $query = "CALL sp_select_autorizados_filtro(:perfil, :usr, :id_usr, :obra)";
 
-    // prepare query statement
     $stmt = $this->conn->prepare( $query );
-
-    // bind variable values
-    $stmt->bindParam(1, $from_record_num, PDO::PARAM_INT);
-    $stmt->bindParam(2, $records_per_page, PDO::PARAM_INT);
-
-    // execute query
+    $stmt->bindParam(':perfil', $this->perfil_user);
+    $stmt->bindParam(':usr', $this->User_r);
+    $stmt->bindParam(':id_usr', $this->id_user);
+    $stmt->bindParam(':obra', $this->id_proyecto);
     $stmt->execute();
-
-    // return values from database
     return $stmt;
 }
-// used for paging products
-public function count(){
-    $query = "SELECT COUNT(*) as total_rows FROM " . $this->table_name . "";
 
-    $stmt = $this->conn->prepare( $query );
-    $stmt->execute();
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    return $row['total_rows'];
+public function add_concepts(){
+    $call = "CALL sp_add_concepts(:id_c)";
+    $stmt = $this->conn->prepare($call);
+    $stmt ->bindParam(':id_c', $this->id_contrato);
+    
+    if ($stmt->execute()) {
+        return true;
+    }else{
+        return false;
+    }
 }
+
+
 
 }
 

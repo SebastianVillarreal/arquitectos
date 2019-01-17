@@ -3,6 +3,7 @@
   session_start();
   $usr_name = $_SESSION['usr_login'];
   $id_contrato = $_SESSION["id_contrato"];
+  $perfil = $_SESSION['usr_groupid'];
 
    //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
@@ -15,7 +16,7 @@
   <script src="funciones.js"></script>
   </head>
 
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>)">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>, <?php echo $perfil ?>)">
 <div class="wrapper">
 
   <header class="main-header">

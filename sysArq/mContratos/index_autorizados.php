@@ -27,12 +27,27 @@
     <!-- Content Header (Page header) -->
     <!-- Main content -->
     <section class="content">
-
         <div class="box box-danger">
           <div class="box-header">
-            <h1>Contratos Autorizados</h1>
+            <h3 class="box-title">Contratos Autorizados</h3>
           </div>
           <div class="box-body">
+            <div class="row">
+              <div class="col-md-12">
+               <label>Obra</label>
+                <select onchange="javascript:filtrar_autorizados($(this).val())" class="form-control" name="proyecto">
+                  <option>Seleccione...</option>
+                  <?php 
+                    $sql = "SELECT id, nombre FROM proyectos";
+                    $exSql = mysqli_query($conexion, $sql);
+                    while ($row = mysqli_fetch_row($exSql)) {
+                      echo "<option value=$row[0]>$row[1]</option>";
+                    }
+                   ?>
+                </select> 
+              </div>
+            </div>
+            <br>
             <div class="row">
               <div class="col-md-12" id="tabla">
                 <?php $tipo_sp = 1; ?>
