@@ -3,6 +3,7 @@
   session_start();
   $usr_name = $_SESSION['usr_login'];
   $id_contrato = $_SESSION["id_contrato"];
+  $perfil = $_SESSION['usr_groupid'];
 
    //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
@@ -13,8 +14,9 @@
 <head>
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
-</head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>); datos_tabla()">
+  </head>
+
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>, <?php echo $perfil ?>)">
 <div class="wrapper">
 
   <header class="main-header">
@@ -126,8 +128,8 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="id_perfil">*Tipo de contrato</label><br>
-                    <input value="1"  type="radio" name="tipo_c">Contrato mano de obra <br>
-                    <input value="2" type="radio" name="tipo_c">Sub-contrato
+                    <input value="1" id="radio_1"  type="radio" name="tipo_c">Contrato mano de obra <br>
+                    <input value="2"  id="radio_2" type="radio" name="tipo_c">Sub-contrato
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -198,22 +200,37 @@
               </div>
             </div>
           <div class="box-footer">
+            <?php                    
+              $sql = "SELECT estatus_contratos.descripcion FROM contratos INNER JOIN
+                    estatus_contratos ON estatus_contratos.id = contratos.`status`  WHERE contratos.id
+                    = $id_contrato";
+                    
+                    $estatus = mysqli_query($conexion, $sql);
+                    $resultado = mysqli_fetch_row($estatus); 
+            ?>
+
             <div class="">
-              <button type="button" class="btn btn-danger">
-                    Autorizado <span class="badge badge-light"></span>
+              <button type="button" class="btn btn-success" >
+                     <span class="badge badge-light"></span>
+
+                    <?php 
+
+                    echo $resultado[0];
+                    ?>
+
               </button>
               <a href="javascript:add_concepts()" class="btn btn-success">Agregar</a>
-              <a href="#" class="btn btn-success">Imprimir</a>
+              <a href="../mContratos/reporte.php" class="btn btn-success">Imprimir</a>
 
-<!--               <a href="" class="btn btn-success">Aplicar</a>
+              <a href="" class="btn btn-success">Aplicar</a>
               <a href="../mComplementarios/" class="btn btn-success">Anexos</a>
               <a href="javascript:cambiar_estatus(1)" class="btn btn-success">Autorizar</a>
               <a href="javascript:rechazar(1)" class="btn btn-success">Rechazar</a>
               <a href="" class="btn btn-success">Finiquitar</a>
-              <a href="" class="btn btn-danger">Cancelar</a> -->
+              <a href="" class="btn btn-danger">Cancelar</a>
             </div>
             <div class="text-right">
-              <a href="#" class="btn btn-warning">Guardar</a>
+              <a href="javascript:guardar_contrato()" class="btn btn-warning">Guardar</a>
             </div>
           </div>
           </form>
@@ -224,8 +241,8 @@
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-12" id="">
-                <?php include 'tabla_detalle_aut.php'; ?>
+              <div class="col-md-12" id="cont_table">
+                
               </div>
             </div>
           </div>
@@ -309,7 +326,7 @@
 ?>
 
   <script>
-    $('#lista_detalle_contrato').DataTable( {
+    $('#lista_conceptos').DataTable( {
           'language': {"url": "../plugins/DataTables/Spanish.json"},
           "paging":   true,
           });

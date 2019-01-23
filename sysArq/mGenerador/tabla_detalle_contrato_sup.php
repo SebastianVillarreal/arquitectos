@@ -3,6 +3,7 @@
 	  session_start();
 	  $usr_name = $_SESSION['usr_login'];
 	  $id_contrato = $_SESSION["id_contrato"];
+	  $perfil = $_SESSION["usr_groupid"];
 	include '../global_settings/conexion.php';
 	include_once '../api/config/database.php';
 	include_once '../api/objects/detalle_contrato.php';
@@ -20,31 +21,49 @@
 
 
  ?>
-
+	    <script>
+    		$('#lista_detalle_contrato').DataTable( {
+          	'language': {"url": "../plugins/DataTables/Spanish.json"},
+          	"paging":   true,
+          	});
+ 		</script>
 	<div class="table-responsive">
-        <table id="lista_detalle_contrato" class="table table-bordered" cellspacing="0" width="100%">
+        <table id="lista_detalle_contrato" class="table  table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	                <th>Tipo</th>
 	                <th>Cons</th>
 	                <th>Contr</th>
 	                <th>Desc. Partida</th>
-	                <th>Concepto</th>
+	                <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th>
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>
+	                <?php 
+	                	if ($perfil == 5) {
+	                		echo "<th>Cantidad O.C</th>";
+	                	}
+	                 ?>
+	                
 	                <th>Costo Actual</th>
 	                <th>Costo Tope</th>
 	                <th>Importe</th>
-	                <th >Total contratos</th>
+	                <th>Total contratos</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        <?php 
-	        	$n = 0;
-	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){	
+	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
+	        			$sql = "SELECT MAX(consecutivo)FROM contratos WHERE id = '$row[13]'";
+	        			$exSql = mysqli_query($conexion, $sql);
+	        			$r = mysqli_fetch_row($exSql);
 					?>
-					<tr bgcolor="#bdc3c7">
+					<?php if ($r[0] == $row[3]) {
+						echo "<tr>";
+					}else{
+						echo "<tr bgcolor='#ecf0f1'>";
+					} ?>
+					
 						<td>
 							<?php echo $row[1] ?>
 						</td>
@@ -54,34 +73,31 @@
 							<?php echo $row[4]; ?>
 						</td>
 						<td><?php echo $row[5] ?></td>
-						<td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
+						 <td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
 						<td><?php echo $row[7] ?></td>
-						<td>
+						<td> 
 							<?php echo $row[8] ?>
 						</td>
-						<td>
-							<?php echo $row[10] ?>							
-						</td>
+							<?php if ($perfil == 5) {
+								echo "<td>$row[9]</td>";
+							} ?>
+									
+						<td><?php echo $row[10] ?></td>
 						<td><?php echo $row[11] ?></td>
 						<td><?php echo $row[12] ?></td>
-						
-						<?php 
-							if ($row[15] == 1) {?>
-								<td rowspan="<?php echo $row[16] ?>"><?php echo $row[14] ?></td>
-								
-							<?}else{
-								echo "<td class='borrar'></td>";
-							}
-						 ?>
-						
-							
-
+						<td class="text-center">
+							<?php echo "$". $row[14] ?>
+						</td>
 					</tr>
 				<?php 
-				$n = $n+1;
-			}
+				}
 				 ?>
 	        </tbody>  
 		</table>
 	</div>
+	<script>
+		$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+	</script>
 

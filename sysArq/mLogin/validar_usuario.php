@@ -5,9 +5,11 @@
 	$id_contrato_post = $json->id_contrato;
 	$type_post = $json->type;
 	$id_proyecto = $json->id_obra;
+	$id_renglon = $json->id_renglon;
 	$_SESSION["id_contrato"] = $id_contrato_post;
 	$_SESSION["type"] = $type_post;
 	$_SESSION["id_proyecto"] = $id_proyecto;
+	$_SESSION['id_renglon']=$id_renglon;
 	$s = $_SESSION["type"];
 	include'../global_settings/conexion.php';
 	$p_user = $_POST['nombre_usuario'];

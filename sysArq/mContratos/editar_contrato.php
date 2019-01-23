@@ -122,7 +122,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="">Folio</label>
-                    <input readonly type="text" id="txtFolio" class="form-control">  
+                    <input readonly type="text" id="txtFolio" class="form-control"> 
                   </div>
                 </div>
                 <div class="col-md-4">
