@@ -19,6 +19,7 @@
 
 
 
+
  ?>
 
 	<div class="table-responsive">
@@ -36,12 +37,14 @@
 	                <th>Costo Actual</th>
 	                <th>Costo Tope</th>
 	                <th>Importe</th>
-	                <th>Total contratos</th>
+	                <th rowspan="3">Total contratos </th>
 	            </tr>
 	        </thead>
+
 	        <tbody>
+
 	        <?php 
-	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){	
+	           	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){	
 					?>
 					<tr bgcolor="#bdc3c7">
 						<td>
@@ -62,15 +65,24 @@
 							<?php echo $row[10] ?>							
 						</td>
 						<td><?php echo $row[11] ?></td>
-						<td><?php echo $row[12] ?></td>
-						<td class="text-center">
-							<?php echo "$". $row[14] ?>
-						</td>
+						<td><?php echo $row[12];
+						 ?></td>
+
+						
+					</tr>
+					<tr>
+						
 					</tr>
 				<?php 
 				}
 				 ?>
+				 <td class="text-center">
+					<?php 
+					echo "$" .$row[14];?>
+				 </td>
 	        </tbody>  
 		</table>
+
 	</div>
+
 
