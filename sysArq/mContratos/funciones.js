@@ -1,3 +1,32 @@
+function generador(id_renglon, id_contrato){
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_renglon": id_renglon, "id_contrato": id_contrato})
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            location.href="../mGenerador/index.php";
+            // alertify.success("Comentario Insertado");
+            // $('#comentarios').val("");
+            // cargar_tabla_coments();
+        });
+        
+    });
+    location.href="../mGenerador/index.php";
+}
+
+function datos_tabla(){
+    $('.borrar').remove();
+    // // $('#0').html('1');
+    //  $('#2').attr('rowspan', '2');
+    //  $('#3').html('');
+    //  $('#3').remove();
+}
+
 function add_concepts(){
     
     var url = "../api/contrato/agregar_lote.php";

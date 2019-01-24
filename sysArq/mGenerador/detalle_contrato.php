@@ -66,13 +66,10 @@ public function read(){
                 conceptos.unidad,
                 cantidad,
                 conceptos.cantidad_original,
-                FORMAT(costo_actual, 2),
-                FORMAT(costo_tope,2),
-                FORMAT(importe_renglon, 2),
-                detalle_contratos.id_contrato,
-                (SELECT FORMAT(total_lote,2) FROM totales_lotes WHERE id_contrato = detalle_contratos.id_contrato AND num_contrato = consecutivo),
-                detalle_contratos.consecutivo_lote,
-                (SELECT MAX(consecutivo_lote) FROM detalle_contratos d WHERE d.id_contrato = detalle_contratos.id_contrato AND d.consecutivo = detalle_contratos.consecutivo)
+                costo_actual,
+                costo_tope,
+                importe_renglon,
+                detalle_contratos.id_contrato
             FROM
                 detalle_contratos
                 INNER JOIN conceptos ON  conceptos.id = detalle_contratos.concepto
@@ -122,7 +119,7 @@ function update(){
  
     
     //update procedure
-    $call = 'CALL sp_update_cantidad_costo(:id_detalle, :cantidad_nueva)';
+    $call = 'CALL sp_update_cantidad_costo(:id_detalle,:cantidad_nueva)';
  
     // prepare query statement
     $stmt = $this->conn->prepare($call);
@@ -138,9 +135,8 @@ function update(){
     $stmt->bindParam(':cantidad_nueva', $this->cantidad_nueva);
  
     // execute the query
-    
-    //print_r($stmt);
-     $stmt->execute();
+    $stmt->execute();
+
     return $stmt;
      
 }
@@ -170,35 +166,6 @@ function update_costo(){
 
      
 }
-
-function actualizar_importes(){
- 
-    
-    //update procedure
-    $call = 'CALL sp_totales_conceptos(:id_contrato, :tipo_concepto)';
- 
-    // prepare query statement
-    $stmt = $this->conn->prepare($call);
- 
-    // sanitize
-    $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
-
-    // bind new values
-    $stmt->bindParam(':id_contrato', $this->id_contrato);
-    $stmt->bindParam(':tipo_concepto', $this->tipo_concepto);
- 
-    // execute the query
-    if ($stmt->execute()) {
-
-        return true;
-    }else{
-        return false;
-    }
-
-
-     
-}
-
 // delete the product
 function delete(){
  

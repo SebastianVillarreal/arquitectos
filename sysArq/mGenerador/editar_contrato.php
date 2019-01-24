@@ -4,6 +4,7 @@
   $usr_name = $_SESSION['usr_login'];
   $id_contrato = $_SESSION["id_contrato"];
   $perfil = $_SESSION['usr_groupid'];
+
    //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
 
@@ -121,7 +122,7 @@
                 <div class="col-md-4">
                   <div class="form-group">
                     <label for="">Folio</label>
-                    <input readonly type="text" id="txtFolio" class="form-control"> 
+                    <input readonly type="text" id="txtFolio" class="form-control">  
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -219,7 +220,8 @@
 
               </button>
               <a href="javascript:add_concepts()" class="btn btn-success">Agregar</a>
-              <a href="../mContratos/reporte.php?id_contrato=<?php echo $id_contrato ?>" class="btn btn-success">Imprimir</a>
+              <a href="../mContratos/reporte.php" class="btn btn-success">Imprimir</a>
+
               <a href="" class="btn btn-success">Aplicar</a>
               <a href="../mComplementarios/" class="btn btn-success">Anexos</a>
               <a href="javascript:cambiar_estatus(1)" class="btn btn-success">Autorizar</a>
