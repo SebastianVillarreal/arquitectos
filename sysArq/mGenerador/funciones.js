@@ -1,3 +1,19 @@
+function cargar_concepto(id_renglon) {
+    var url = "../api/generador/read.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_renglon" :id_renglon})
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+          $('#h3').html(text);
+        });
+    });
+}
+
 function validar(total, id_cuarto, largo, ancho) {
     var url = "../api/generador/validar_cantidad.php";
     fetch(url,{
@@ -14,6 +30,7 @@ function validar(total, id_cuarto, largo, ancho) {
             $('#btnNew').attr('disabled', true);
           }else{
             alertify.success("Cantidad Insertada");
+            $('#contenedor_tabla').load('tabla_generador.php');
           }
         });
         
@@ -24,7 +41,7 @@ function calcular_area(largo, ancho) {
   var area = largo * ancho;
   $('#txtTotal').val(area);
   $('#txtTotal').focus();
-  $('#txtTotal').blur();
+  //$('#txtTotal').blur();
 }
 
 function insert_generador(id_cuarto, largo, ancho, total) {

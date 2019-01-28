@@ -13,6 +13,8 @@ class generador{
     public $ancho;
     public $total;
     public $usuario;
+    public $id_concepto;
+    public $id;
 
     public function __construct($db){
         $this->conn = $db;
@@ -76,29 +78,29 @@ function update(){
 
 
     //update procedure
-    $call = 'CALL sp_update_status(:id_contrato, :tipo, :fecha)';
+    $call = "CALL sp_update_generador(".$this->id.",". $this->largo.",".$this->ancho.",".$this->id_renglon.")";
 
     // prepare query statement
     $stmt = $this->conn->prepare($call);
-
-    // sanitize
-    $this->id_contrato=htmlspecialchars(strip_tags($this->id_contrato));
-    $this->tipo=htmlspecialchars(strip_tags($this->tipo));
     //$this->fecha=htmlspecialchars(strip_tags($this->tipo));
 
     // bind new values
-    $stmt->bindParam(':id_contrato', $this->id_contrato);
-    $stmt->bindParam(':tipo', $this->tipo);
-    $stmt->bindParam(':fecha', $this->fecha);
+    $stmt->bindParam(':id_generador', $this->id);
+    $stmt->bindParam(':nuevo_largo', $this->largo);
+    $stmt->bindParam(':nuevo_ancho', $this->ancho);
+    $stmt->bindParam(':id_renglon', $this->id_renglon);
+    
 
     // execute the query
     if($stmt->execute()){
-        return true;
+        //return $this->id;
+        return $stmt;
+        //return "1";
     }else{
-        return false;
+        //return "0";
     }
 
-    return false;
+    //return false;
 }
 
 function rechazar_contrato(){
@@ -152,70 +154,19 @@ function delete(){
 }
 
 // used when filling up the update product form
-function readOne(){
-
-    // query to read single record
-    $query = "SELECT
-                    contratos.id,
-                    contratos.nombre,
-                    contratos.contratista,
-                    usuarios.nombre_usuario,
-                    contratos.descripcion,
-                    contratos.`status`,
-                    contratos.tipo_contrato,
-                    contratos.monto_anticipo,
-                    contratos.monto_fondo_garantia,
-                    contratos.monto_iva,
-                    contratos.total_a,
-                    contratos.total_b,
-                    contratos.total_c,
-                    contratos.total_c,
-                    contratos.total_d,
-                    contratos.total_e,
-                    contratos.monto_pendiente,
-                    contratos.total_contrato,
-                    contratos.total_contrato_impuestos,
-                    proyectos.nombre,
-                    (
-                    SELECT
-                        CONCAT( nombre, ' ', ap_paterno, ' ', ap_materno )
-                    FROM
-                        personas
-                        INNER JOIN usuarios ON usuarios.id_persona = personas.id
-                    WHERE
-                        usuarios.id = contratos.residente
-                    ),
-                    CONCAT( contratistas.nombre, ' ', contratistas.ap_paterno, ' ', contratistas.ap_materno ),
-                    contratos.fecha
-                FROM
-                    contratos
-                    INNER JOIN proyectos ON proyectos.id = contratos.nombre
-                    INNER JOIN usuarios ON usuarios.id = contratos.residente
-                    INNER JOIN contratistas ON contratistas.id = contratos.contratista
-                WHERE
-                    contratos.id = '".$this->id_contrato."'";
-
-    // prepare query statement
-    $stmt = $this->conn->prepare( $query );
-
-    // bind id of product to be updated
-    $stmt->bindParam(1, $this->id_contrato);
-
-    // execute query
+function read(){
+    $call = "CALL sp_select_generador(:id_renglon)";
+    $stmt = $this->conn->prepare( $call );
+    $stmt->bindParam(':id_renglon', $this->id_renglon);
     $stmt->execute();
-
-    // get retrieved row
     return $stmt;
 }
 
-public function read(){
+public function read_one(){
 
-    $query = "CALL sp_select_contratos(:perfil, :usr, :id_usr)";
+    $query = "SELECT concepto FROM detalle_contratos WHERE id =".$this->id_renglon;
 
     $stmt = $this->conn->prepare( $query );
-    $stmt->bindParam(':perfil', $this->perfil_user);
-    $stmt->bindParam(':usr', $this->User_r);
-    $stmt->bindParam(':id_usr', $this->id_user);
     $stmt->execute();
     return $stmt;
 }

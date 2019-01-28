@@ -14,7 +14,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_combo_zona()">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_combo_zona(); cargar_concepto(<?php echo $id_renglon ?>)">
 <div class="wrapper">
 
   <header class="main-header">
@@ -40,7 +40,7 @@
             <div class="row">
               <div class="col-md-12">
                 <!-- <a href="javascript:validar($('#txtTotal').val(), $('#cmbCuartos').val(), $('#txtLargo').val(), $('#txtAncho').val())" class="btn btn-danger" id="btnNew">Nuevo</a> -->
-                <button class="btn btn-danger" onclick="javascript:validar($('#txtTotal').val(), $('#cmbCuartos').val(), $('#txtLargo').val(), $('#txtAncho').val()" id="btnNew" >Nuevo</button>
+                <button class="btn btn-danger" onclick="javascript:validar($('#txtTotal').val(), $('#cmbCuartos').val(), $('#txtLargo').val(), $('#txtAncho').val())" id="btnNew" >Nuevo</button>
               </div>
             </div>
             <br>
@@ -74,15 +74,15 @@
                 </div>
                 <div class="col-md-2">
                   <label>Total</label>
-                  <input type="text" onblur="javascript:validar()" name="txtTotal" id="txtTotal" class="form-control" readonly>
+                  <input type="text" onkeypress="javascript:validar()" name="txtTotal" id="txtTotal" class="form-control" readonly>
                 </div>
               </form>
             </div>
             <br>
             <hr>
             <div class="row">
-              <div class="col-md-12" id="tabla">
-                <?php include 'tabla_contratos.php'; ?>
+              <div class="col-md-12" id="contenedor_tabla">
+                <?php include 'tabla_generador.php'; ?>
               </div>
             </div>
           </div>
@@ -104,7 +104,7 @@
 <!-- ./wrapper -->
 
 <?php include '../footer.php'; ?>
-    <script>
+<!--     <script>
    $(document).ready(function() {
      $('#lista_contratos').dataTable({
        "language": {
@@ -112,32 +112,16 @@
        }
      });
    });
- </script>
-<!--  <script>
-  $(function () {
-    $('#proveedor').select2({
-      placeholder: 'Seleccione una opcion',
-      lenguage: 'es',
-      //minimumResultsForSearch: Infinity
-      ajax: { 
-     url: "consulta_proveedores.php",
-     type: "post",
-     dataType: 'json',
-     delay: 250,
-     data: function (params) {
-      return {
-        searchTerm: params.term // search term
-      };
-     },
-     processResults: function (response) {
-       return {
-          results: response
-       };
-     },
-     cache: true
+ </script> -->
+ <script>
+   $('#lista_contratos').Tabledit({
+    url: '../api/generador/update.php',
+    columns: {
+        identifier: [0, 'id'],
+        editable: [[4, 'largo'], [5, 'ancho']]
+        
     }
-    })
-  })
-</script>
- --></body>
+});
+ </script>
+</body>
 </html>
