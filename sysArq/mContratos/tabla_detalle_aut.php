@@ -19,6 +19,7 @@
 
 
 
+
  ?>
 
 	<div class="table-responsive">
@@ -36,52 +37,34 @@
 	                <th>Costo Actual</th>
 	                <th>Costo Tope</th>
 	                <th>Importe</th>
-	                <th >Total contratos</th>
+
 	            </tr>
 	        </thead>
+
 	        <tbody>
+
 	        <?php 
-	        	$n = 0;
-	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){	
-					?>
-					<tr bgcolor="#bdc3c7">
-						<td>
-							<?php echo $row[1] ?>
-						</td>
-						<td><?php echo $row[2] ?></td>
-						<td><?php echo $row[3] ?></td>
-						<td>
-							<?php echo $row[4]; ?>
-						</td>
-						<td><?php echo $row[5] ?></td>
-						<td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
-						<td><?php echo $row[7] ?></td>
-						<td>
-							<?php echo $row[8] ?>
-						</td>
-						<td>
-							<?php echo $row[10] ?>							
-						</td>
-						<td><?php echo $row[11] ?></td>
-						<td><?php echo $row[12] ?></td>
+
+						<td><?php echo $row[12];
+						 ?></td>
+
 						
-						<?php 
-							if ($row[15] == 1) {?>
-								<td rowspan="<?php echo $row[16] ?>"><?php echo $row[14] ?></td>
-								
-							<?}else{
-								echo "<td class='borrar'></td>";
-							}
-						 ?>
+					</tr>
+					<tr>
 						
-							
 
 					</tr>
 				<?php 
 				$n = $n+1;
 			}
 				 ?>
+				 <td class="text-center">
+					<?php 
+					echo "$" .$row[14];?>
+				 </td>
 	        </tbody>  
 		</table>
+
 	</div>
+
 
