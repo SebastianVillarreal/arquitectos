@@ -53,13 +53,15 @@
 						<td align="center">
 							<?php echo $row[1]?>
 						</td>
-						<td align="center">
+						<td align="right">
 							<?php echo $row[4]; ?>
 						</td>
-						<td align="center">
+						<td align="right">
 							<?php echo $row[5]; ?>
 						</td>
-						<td><?php echo $row[6] ?></td>
+						<td align="right">
+							<?php echo $row[6] ?>
+						</td>
 					</tr>
 				<?php 
 				}

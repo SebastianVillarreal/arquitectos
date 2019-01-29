@@ -26,7 +26,7 @@ if (typeof jQuery === 'undefined') {
 
         var defaults = {
             url: window.location.href,
-            inputClass: 'form-control input-sm',
+            inputClass: 'col-sm-3 col-form-label',
             toolbarClass: 'btn-toolbar',
             groupClass: 'btn-group btn-group-sm',
             dangerClass: 'danger',
@@ -37,7 +37,7 @@ if (typeof jQuery === 'undefined') {
             hideIdentifier: false,
             autoFocus: true,
             editButton: true,
-            deleteButton: true,
+            deleteButton: false,
             saveButton: true,
             restoreButton: true,
             buttons: {
@@ -46,11 +46,11 @@ if (typeof jQuery === 'undefined') {
                     html: '<span class="glyphicon glyphicon-pencil"></span>',
                     action: 'edit'
                 },
-                delete: {
-                    class: 'btn btn-sm btn-default',
-                    html: '<span class="glyphicon glyphicon-trash"></span>',
-                    action: 'delete'
-                },
+               // delete: {
+              //    class: 'btn btn-sm btn-default',
+             //    html: '<span class="glyphicon glyphicon-trash"></span>',
+            //    action: 'delete'
+            // },
                 save: {
                     class: 'btn btn-sm btn-success',
                     html: 'Save'
@@ -98,7 +98,8 @@ if (typeof jQuery === 'undefined') {
                         var span = '<span class="tabledit-span tabledit-identifier">' + $(this).text() + '</span>';
                         var input = '<input class="tabledit-input tabledit-identifier" type="hidden" name="' + settings.columns.identifier[1] + '" value="' + $(this).text() + '" disabled>';
 
-                        // Add elements to table cell.
+ 
+                       // Add elements to table cell.
                         $(this).html(span + input);
 
                         // Add attribute "id" to table row.
