@@ -46,11 +46,11 @@ if (typeof jQuery === 'undefined') {
                     html: '<span class="glyphicon glyphicon-pencil"></span>',
                     action: 'edit'
                 },
-               // delete: {
-              //    class: 'btn btn-sm btn-default',
-             //    html: '<span class="glyphicon glyphicon-trash"></span>',
-            //    action: 'delete'
-            // },
+               delete: {
+                 class: 'btn btn-sm btn-default',
+                html: '<span class="glyphicon glyphicon-trash"></span>',
+               action: 'delete'
+            },
                 save: {
                     class: 'btn btn-sm btn-success',
                     html: 'Save'
@@ -112,7 +112,9 @@ if (typeof jQuery === 'undefined') {
 
                         $td.each(function() {
                             // Get text of this cell.
+                            //var text = "prueba";
                             var text = $(this).text();
+                            var st = text.trim();
 
                             // Add pointer as cursor.
                             if (!settings.editButton) {
@@ -120,7 +122,7 @@ if (typeof jQuery === 'undefined') {
                             }
 
                             // Create span element.
-                            var span = '<span class="tabledit-span">' + text + '</span>';
+                            var span = '<span class="tabledit-span">' + st + '</span>';
 
                             // Check if exists the third parameter of editable array.
                             if (typeof settings.columns.editable[i][2] !== 'undefined') {
@@ -129,7 +131,7 @@ if (typeof jQuery === 'undefined') {
 
                                 // Create options for select element.
                                 $.each(jQuery.parseJSON(settings.columns.editable[i][2]), function(index, value) {
-                                    if (text === value) {
+                                    if (st === value) {
                                         input += '<option value="' + index + '" selected>' + value + '</option>';
                                     } else {
                                         input += '<option value="' + index + '">' + value + '</option>';
@@ -140,7 +142,8 @@ if (typeof jQuery === 'undefined') {
                                 input += '</select>';
                             } else {
                                 // Create text input element.
-                                var input = '<input class="tabledit-input ' + settings.inputClass + '" type="text" name="' + settings.columns.editable[i][1] + '" value="' + $(this).text() + '" style="display: none;" disabled>';
+                                //var input = '<input class="tabledit-input ' + settings.inputClass + '" type="text" name="' + settings.columns.editable[i][1] + '" value="' + $(this).text() + '" style="display: none;" disabled>';
+                                var input = '<input class="tabledit-input ' + settings.inputClass + '" type="text" name="' + settings.columns.editable[i][1] + '" value="' + st + '" style="display: none;" disabled>';
                             }
 
                             // Add elements and class "view" to table cell.
