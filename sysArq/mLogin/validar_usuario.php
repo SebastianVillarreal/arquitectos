@@ -6,10 +6,12 @@
 	$type_post = $json->type;
 	$id_proyecto = $json->id_obra;
 	$id_renglon = $json->id_renglon;
+	$id_estimacion = $json->id_estimacion;
 	$_SESSION["id_contrato"] = $id_contrato_post;
 	$_SESSION["type"] = $type_post;
 	$_SESSION["id_proyecto"] = $id_proyecto;
 	$_SESSION['id_renglon']=$id_renglon;
+	$_SESSION['id_estimacion'] = $id_estimacion;
 	$s = $_SESSION["type"];
 	include'../global_settings/conexion.php';
 	$p_user = $_POST['nombre_usuario'];

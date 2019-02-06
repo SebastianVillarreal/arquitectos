@@ -1,3 +1,117 @@
+function cargar_proyectos() {
+    $('#cmbProyectos').select2({
+      placeholder: 'Seleccione una opcion',
+      lenguage: 'es',
+      //minimumResultsForSearch: Infinity
+      ajax: { 
+     url: "consulta_proyectos.php",
+     type: "post",
+     dataType: 'json',
+     delay: 250,
+     data: function (params) {
+      return {
+        searchTerm: params.term // search term
+      };
+     },
+     processResults: function (response) {
+
+       return {
+          results: response
+       };
+     },
+     cache: true
+    }
+    })
+}
+
+function cargar_contratos(id_proyecto) {
+    $('#cmbContratos').select2({
+      placeholder: 'Seleccione una opcion',
+      lenguage: 'es',
+      //minimumResultsForSearch: Infinity
+      ajax: { 
+     url: "consulta_contratos.php",
+     type: "post",
+     dataType: 'json',
+     delay: 250,
+     data: function (params) {
+      return {
+        searchTerm: params.term,
+         proyecto: id_proyecto// search term
+      };
+     },
+     processResults: function (response) {
+
+       return {
+          results: response
+       };
+     },
+     cache: true
+    }
+    })
+}
+
+function nueva_estimacion(id_contrato) {
+    var url = "../api/estimacion/create.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_contrato": id_contrato})
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            if(text == 0){
+                alert("No se ha podido insertar la estimacion, falta informacion de importes");
+            }else{
+                alert("Estimacion insertada");
+                set_id_contrato(id_contrato, text);
+                location.href="datos_estimacion.php";
+            }
+        });
+        
+    });
+}
+
+function seleccionar_estimacion(id_estimacion) {
+    var id_contrato = $('#cmbContratos').val();
+    set_id_contrato(id_contrato, id_estimacion);
+    location.href = "datos_estimacion.php";
+}
+
+function cargar_estimaciones(id_contrato) {
+    var url = "tabla_estimaciones.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_contrato": id_contrato})
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            $('#contenedor_tabla').html(text);
+        });
+        
+    });
+}
+
+function set_id_contrato(id_contrato, id_estimacion) {
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_contrato": id_contrato, "id_estimacion": id_estimacion}) 
+        
+    })
+    .then(function(response){
+           //location.href = "../mContratos/editar_contrato.php"; 
+    });
+}
+
 function generador(id_renglon, id_contrato){
     var url = "../mLogin/validar_usuario.php";
     fetch(url,{
@@ -19,13 +133,7 @@ function generador(id_renglon, id_contrato){
     location.href="../mGenerador/index.php";
 }
 
-function datos_tabla(){
-    $('.borrar').remove();
-    // // $('#0').html('1');
-    //  $('#2').attr('rowspan', '2');
-    //  $('#3').html('');
-    //  $('#3').remove();
-}
+
 
 function add_concepts(){
     
@@ -50,28 +158,11 @@ function add_concepts(){
     });
 }
 
-function agregar_comentarios(comentarios){
-    var url = "agregar_comentarios.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"comentarios": comentarios})
-    })
-    .then(function(response){
-        return response.text().then(function (text){
-            alertify.success("Comentario Insertado");
-            $('#comentarios').val("");
-            cargar_tabla_coments();
-        });
-        
-    });
-}
 
 
-function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, perfil) {
-    var url = "../api/detalle_contrato/update.php";
+
+function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, tipo_concepto, perfil) {
+    var url = "../api/estimacion/update.php";
     fetch(url,{
         method: 'POST',
         headers: {
@@ -114,27 +205,7 @@ function calcular_totales(tipo_concepto, perfil){
     });
 }
 
-function modificar_costo(id_renglon, costo_nuevo, tipo_concepto, perfil) {
-    var url = "../api/detalle_contrato/update_costo.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"id_renglon": id_renglon, "costo_nuevo": costo_nuevo})
-    })
-    .then(function(response){
-        return response.text().then(function (text){
-            if (text == "1") {
-                alertify.success("Costo Cambiado");
-                calcular_totales(tipo_concepto, perfil);
-            }else{
-                alertify.error("Costo superado");
-            }
-        });
-        
-    });
-}
+
 
 function cargar_folio() {
     var url = "consulta_folio.php";
@@ -154,44 +225,11 @@ function cargar_folio() {
     });
 }
 
-function modal(id_contrato, tipo_contrato) {
-	$('#modal').modal('show');
-    $('#id_contrato').val(id_contrato);
-    $('#tipo_contrato').val(tipo_contrato);
-}
 
-function cambiar_estado(n, elemento) {
-    var e = elemento.checked;
-    if (e == true) {
-        $('#marca_' + n).attr("name", "marca[]");
-        $('#concepto_' + n).attr("name", "concepto[]");
-        $('#tipo_concepto_' + n).attr("name", "tipo_concepto[]");
 
-    }else{
-        $('#marca_' + n).removeAttr("name");
-        $('#concepto_' + n).removeAttr("name");
-        $('#tipo_concepto_' + n).removeAttr("name");
-    }
-}
 
-function agregar_concepto() {
-    var url = "../api/detalle_contrato/create.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: $('#frmTabla2').serialize()
-    })
-    .then(function(response){
-        
-        //cargar_tabla();
-        return response.text().then(function (text){
-            //alert(text);
-            location.reload();
-        });
-    });
-}
+
+
 
 function guardar_contrato() {
     var url = "../api/contrato/create.php";
@@ -201,11 +239,6 @@ function guardar_contrato() {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: $('#form_datos').serialize()
-
-
-
-
-
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -269,12 +302,12 @@ function mostrar() {
 }
 
 function cargar_tabla(perfil) {
-    if (perfil == 3) {
-        $('#cont_table').load('tabla_detalle_contrato.php');
-    }else{
-        $('#cont_table').load('tabla_detalle_contrato_sup.php');
-    }
-    
+    $('#cont_table').load('tabla_detalle_contrato.php');
+    // if (perfil == 3) {
+    //     $('#cont_table').load('tabla_detalle_contrato.php');
+    // }else{
+    //     $('#cont_table').load('tabla_detalle_contrato_sup.php');
+    // }
 }
 
 function datos_contrato(id_contrato, perfil){
@@ -341,21 +374,6 @@ function seleccionar_contrato(id_contrato) {
     })
     .then(function(response){
            location.href = "../mContratos/editar_contrato.php"; 
-    });
-}
-
-function set_id_contrato(id_contrato) {
-    var url = "../mLogin/validar_usuario.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"id_contrato": id_contrato}) 
-        
-    })
-    .then(function(response){
-           //location.href = "../mContratos/editar_contrato.php"; 
     });
 }
 

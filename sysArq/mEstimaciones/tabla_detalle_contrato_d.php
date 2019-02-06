@@ -20,9 +20,14 @@
 
 
  ?>
-
+	    <script>
+    $('#lista_detalle_contrato').DataTable( {
+          'language': {"url": "../plugins/DataTables/Spanish.json"},
+          "paging":   true,
+          });
+ </script>
 	<div class="table-responsive">
-        <table id="lista_detalle_contrato" class="table table-bordered" cellspacing="0" width="100%">
+        <table id="lista_detalle_contrato" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
 	                <th>Tipo</th>
@@ -33,18 +38,18 @@
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>
+	                <th>Cantidad O.C</th>
 	                <th>Costo Actual</th>
 	                <th>Costo Tope</th>
 	                <th>Importe</th>
-	                <th >Total contratos</th>
+	                <th>Total contratos</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        <?php 
-	        	$n = 0;
 	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){	
 					?>
-					<tr bgcolor="#bdc3c7">
+					<tr>
 						<td>
 							<?php echo $row[1] ?>
 						</td>
@@ -54,32 +59,23 @@
 							<?php echo $row[4]; ?>
 						</td>
 						<td><?php echo $row[5] ?></td>
-						<td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
+						<td><?php echo $row[6] ?></td>
 						<td><?php echo $row[7] ?></td>
 						<td>
-							<?php echo $row[8] ?>
+							<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[8] ?>">
 						</td>
-						<td>
-							<?php echo $row[10] ?>							
+						<td><?php echo $row[9] ?></td>
+						<td>							
+							<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>')" type="text" class="form-control" value="<?php echo $row[10] ?>">
 						</td>
 						<td><?php echo $row[11] ?></td>
 						<td><?php echo $row[12] ?></td>
-						
-						<?php 
-							if ($row[15] == 1) {?>
-								<td rowspan="<?php echo $row[16] ?>"><?php echo $row[14] ?></td>
-								
-							<?}else{
-								echo "<td class='borrar'></td>";
-							}
-						 ?>
-						
+						<td class="text-center">
 							
-
+						</td>
 					</tr>
 				<?php 
-				$n = $n+1;
-			}
+				}
 				 ?>
 	        </tbody>  
 		</table>

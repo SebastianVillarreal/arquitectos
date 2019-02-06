@@ -71,6 +71,7 @@
 						<td><?php echo $row[5] ?></td>
 						 <td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
 						<td align="center"><?php echo $row[7] ?></td>
+						
 						<td align="center"><a href="javascript:generador(<?php echo $row[0] ?>, <?php echo $row[13] ?>)"><i class="fas fa-calculator fa-2x"></i></a></td>
 						<?php 
 							if ($r[0] == $row[3]) {?>
