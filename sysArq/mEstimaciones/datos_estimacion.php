@@ -41,8 +41,10 @@
           <div class="box-body">
             <div class="col-md-6">
               <form id="form_datos">
+
+            <div class="container">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-5">
                   <div class="form-group">
                     <label for="nombre">*Proyecto:</label>
                     <input type="text" id="txt_proyecto" class="form-control" readonly>
@@ -58,17 +60,20 @@
                     </select> -->
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <label>Fecha Inicio</label>
+                <div class="col-sm-3">
+                  <label>*Fecha Inicio:</label>
                   <input type="text" name="" class="form-control" readonly>
                 </div>
-                <div class="col-md-4">
-                  <label>Fecha Fin</label>
+                <div class="col-sm-3">
+                  <label>*Fecha Fin:</label>
                   <input type="text" name="" class="form-control" readonly>
                 </div>
               </div>
+            </div>
+
+            <div class="container">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-5">
                   <div class="form-group">
                       <label class = "" for="">*Contratista:</label>
                       <input readonly type="text" class="form-control" id="txt_contratista">
@@ -84,19 +89,22 @@
                       </select> -->
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <label>Anticipo Retenido</label>
+                <div class="col-sm-3">
+                  <label>*Anticipo Retenido:</label>
                   <input type="text" class="form-control" readonly name="">
                 </div>
-                <div class="col-md-4">
-                  <label>Monto IVA</label>
+                <div class="col-sm-3">
+                  <label>*Monto IVA:</label>
                   <input type="text" name="" class="form-control" readonly>
                 </div>
               </div>
+            </div>
+
+            <div class="container">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-5">
                   <div class="form-group">
-                    <label for="ap_materno">*Residente</label>
+                    <label for="ap_materno">*Residente:</label>
                     <input type="text" id="txt_residente" class="form-control" readonly>
 <!--                     <select readonly name="residente" id="cmb_residente" onchange="javascript:cargar_descripcion(3)" class="form-control">
                       <option value="">Seleccione...</option>
@@ -110,62 +118,62 @@
                     </select> -->
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <label>Fondo Garantia</label>
+                <div class="col-sm-3">
+                  <label>*Fondo Garantia:</label>
                   <input type="text" readonly class="form-control" name="">
                 </div>
-                <div class="col-md-4">
-                  <label>Dev. Fondo Garantia</label>
+                <div class="col-sm-3">
+                  <label>*Dev. Fondo Garantia:</label>
                   <input type="text" class="form-control" readonly name="">
                 </div>
               </div>
+            </div>
+
+            <div class="container">
               <div class="row">
-                <div class="col-md-4">
+                <div class="col-sm-5">
                   <div class="form-group">
-                    <label for="">Folio Contrato</label>
+                    <label for="">*Folio Contrato:</label>
                     <input readonly type="text" id="txtFolio" class="form-control">
                     
 <!--                     <label for="id_sucursal">*Descripcion</label>
                     <input name="descripcion" readonly id="txt_descripcion" type="text" class="form-control"> -->
                   </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-sm-3">
                   <div class="form-group">
-                    <label>Folio Estimacion</label>
+                    <label>*Folio Estimacion:</label>
                     <input class="form-control" value="<?php echo $id_estimacion ?>" readonly type="text" name=""> 
                   </div>
                 </div>
-                <div class="col-md-4">
-                    <label for="">Monto Descuentos</label>
+                <div class="col-sm-3">
+                    <label for="">*Monto Descuentos:</label>
                     <input readonly type="text" class="form-control"> 
                 </div>
               </div>
+            </div>
+
+            <div class="container">
               <div class="row">
-                <div class="col-md-4">
                   <div class="form-group">
-                    
+                    <div class="col-md-5">
+                        <div class="form-group">
+                          <label for="total"><br>*Total Estimaciones:</label><br>
+                          <input readonly type="text" class="form-control">
+                        </div>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  
-                </div>
-                <div class="col-md-4">
                   <div class="form-group">
-                    <label for="id_perfil">*Tipo de contrato</label><br>
-                    <input value="1" id="radio_1"  type="radio" name="tipo_c">Contrato mano de obra <br>
-                    <input value="2"  id="radio_2" type="radio" name="tipo_c">Sub-contrato
+                    <div class="col-md-6">
+                      <label for="comments">*Observaciones:</label>
+                      <input class="form-control input-lg" id="comments" type="text">
+                      <br><br>
+                    </div>
                   </div>
-                </div>
-                <div class="col-md-4">
-                  <label for="">Fecha</label>
-                  <div class="input-group date" data-date-format="dd.mm.yyyy">
-                      <input readonly  type="text" class="form-control" id="fecha" placeholder="dd.mm.yyyy">
-                      <div class="input-group-addon" >
-                        <span class="glyphicon glyphicon-th"></span>
-                      </div>
-                  </div>
-                </div>
               </div>
+            </div>
+
+
               <div class="row">
                 <div class="col-md-9 ">
                 </div>
