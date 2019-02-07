@@ -14,6 +14,29 @@ function cargar_concepto(id_renglon) {
     });
 }
 
+function eliminar_renglon(id) {
+    var url = "../mGenerador/borrar_fila.php";
+     if (confirm("Esta seguro de eliminar este registro?") == true) {
+      fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id" :id})
+         })
+       .then(function(response){
+        return response.text().then(function (text){
+          location.reload();
+        });
+    });
+             return true;
+           }
+
+           else{
+            return false;
+           }        
+}
+
 function validar(total, id_cuarto, largo, ancho) {
     var url = "../api/generador/validar_cantidad.php";
     fetch(url,{

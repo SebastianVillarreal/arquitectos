@@ -32,6 +32,7 @@
 	                <th>Largo</th>
 	                <th>Ancho</th>
 	                <th>Total</th>
+	                <th></th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -62,6 +63,7 @@
 						<td align="right">
 							<?php echo $row[6] ?>
 						</td>
+						<td align="center"><a href="javascript:eliminar_renglon(<?php echo $row[0]; ?>)"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
 					</tr>
 				<?php 
 				}
