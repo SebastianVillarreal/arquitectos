@@ -61,7 +61,7 @@
 						<td><?php echo $row[2] ?></td>
 						<td><?php echo $row[7] ?></td>
 						<td class="text-center">
-							<a href="javascript:seleccionar_estimacion(<?php echo $row[0] ?>)">Seleccionar<!-- <i class="far fa-arrow-alt-circle-right fa-2x"></i> --></a>
+							<a href="javascript:seleccionar_estimacion(<?php echo $row[0] ?>)"><i class="far fa-arrow-alt-circle-right fa-2x"></i></a>
 						</td>
 					</tr>
 				<?php 

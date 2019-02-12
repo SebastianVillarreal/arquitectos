@@ -56,10 +56,10 @@
 						 <td align="center"><?php echo $row[3] ?></td> 
 						<td align="center"><?php echo $row[1] ?></td>
 						<td>
-							<input onchange="javascript:agregar_cantidad_estimacion(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control" value=<?php echo $row[10] ?>>
+							<input onchange="javascript:agregar_cantidad_estimacion(<?php echo $row[9] ?>, $(this).val(), <?php echo $id_estimacion ?>)" type="text" class="form-control" value=<?php echo $row[10] ?>>
 						</td>
 						<td align="center"><?php echo $row[7] ?></td>
-						<td align="center"><?php echo $row[6] ?></td>
+						<td align="center">$<?php echo $row[6] ?></td>
 					</tr>
 				<?php 
 				}
