@@ -63,7 +63,7 @@
 						<td align="right">
 							<?php echo $row[6] ?>
 						</td>
-						<td align="center"><a href="javascript:eliminar_renglon(<?php echo $row[0]; ?>)"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
+						<td align="center"><a href="javascript:eliminar_renglon(<?php echo $row[0]; ?>, <?php echo $row[7]; ?>, <?php echo $row[8]; ?>)"><button type="button" class="btn btn-danger">Eliminar</button></a></td>
 					</tr>
 				<?php 
 				}

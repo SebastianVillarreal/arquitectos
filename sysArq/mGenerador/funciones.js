@@ -14,7 +14,7 @@ function cargar_concepto(id_renglon) {
     });
 }
 
-function eliminar_renglon(id) {
+function eliminar_renglon(id, id_concepto, id_detalle) {
     var url = "../mGenerador/borrar_fila.php";
      if (confirm("Esta seguro de eliminar este registro?") == true) {
       fetch(url,{
@@ -22,7 +22,7 @@ function eliminar_renglon(id) {
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id" :id})
+        body: JSON.stringify({"id" :id, "id_concepto" :id_concepto, "id_detalle" :id_detalle})
          })
        .then(function(response){
         return response.text().then(function (text){
