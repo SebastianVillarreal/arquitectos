@@ -23,21 +23,10 @@ $data = json_decode(file_get_contents("php://input"));
 // set ID property of product to be edited
 $estimacion->id = $data->id_estimacion;
 $estimacion->id_renglon = $data->id_renglon;
-$estimacion->cantidad = $data->cantidad;
+$estimacion->cantidad = $data->cantidad_nueva;
  
 // set product property values
- 
-// update the product
-if($encuesta->update()){
-    echo '{';
-        echo '"message": "encuesta was updated."';
-    echo '}';
-}
- 
-// if unable to update the product, tell the user
-else{
-    echo '{';
-        echo '"message": "Unable to update encuesta."';
-    echo '}';
-}
+ $st = $estimacion->update();
+ $row = $st->fetch(PDO::FETCH_NUM);
+ echo "$row[0]";
 ?>

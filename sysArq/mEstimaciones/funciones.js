@@ -63,9 +63,9 @@ function nueva_estimacion(id_contrato) {
     .then(function(response){
         return response.text().then(function (text){
             if(text == 0){
-                alert("No se ha podido insertar la estimacion, falta informacion de importes");
+                alert("No se ha podido crear la estimacion, falta informacion de importes");
             }else{
-                alert("Estimacion insertada");
+                alert("Estimacion creada");
                 set_id_contrato(id_contrato, text);
                 location.href="datos_estimacion.php";
             }
@@ -78,6 +78,29 @@ function seleccionar_estimacion(id_estimacion) {
     var id_contrato = $('#cmbContratos').val();
     set_id_contrato(id_contrato, id_estimacion);
     location.href = "datos_estimacion.php";
+    //cargar_datos_estimacion(id_estimacion);
+}
+
+function cargar_datos_estimacion(id_estimacion) {
+    var url = "../api/estimacion/read.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_contrato": id_contrato})
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            var array = eval(text);
+            $('#monto_iva').val("$"+array[3]);
+            $('#total_estimacion').val("$"+ array[4]);
+            $('#fecha_inicio').val(array[6]);
+            $('#fecha_fin').val(array[5]);
+            
+        });
+        
+    }); 
 }
 
 function cargar_estimaciones(id_contrato) {
@@ -161,20 +184,22 @@ function add_concepts(){
 
 
 
-function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, tipo_concepto, perfil) {
+function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, id_estimacion) {
+    alert(id_renglon);
     var url = "../api/estimacion/update.php";
     fetch(url,{
         method: 'POST',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id_renglon": id_renglon, "cantidad_nueva": cantidad_nueva})
+        body: JSON.stringify({"id_renglon": id_renglon, "cantidad_nueva": cantidad_nueva, "id_estimacion": id_estimacion})
     })
     .then(function(response){
         return response.text().then(function (text){
             if (text == "1") {
                 alertify.success("Cantidad Cambiada");
-                calcular_totales(tipo_concepto, perfil);
+                cargar_tabla();
+                //calcular_totales(tipo_concepto, perfil);
             }else{
                 alertify.error("Cantidad Superada");
             }
@@ -396,30 +421,6 @@ function cargar_tabla_resumen() {
     $('#contenedor_tabla_resumen').load('tabla_resumen.php');
 }
 
-function cambiar_estatus(valor) {
-    var url = "cambiar_estatus.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"valor": valor}) 
-        
-    })
-    .then(function(response){
-           return response.text().then(function (data){
-            alert("Contrato Autorizado");
-            // swal(
-            //   'Hecho!',
-            //   'Se ha enviado a revision el contrato!',
-            //   'success'
-            // );
-            location.href="index.php";
-        
-        });
-    });
-}
-
 function rechazar(valor) {
     var url = "rechazar_contrato.php";
     fetch(url,{
@@ -443,49 +444,27 @@ function rechazar(valor) {
     });
 }
 
-function set_session_type(type){
-    var url = "../mLogin/validar_usuario.php";
+function autorizar_estimacion(id_estimacion, tipo) {
+    var url = "../api/estimacion/autorizaciones.php";
     fetch(url,{
         method: 'POST',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"type": type}) 
-        
+        body: JSON.stringify({"id_estimacion": id_estimacion, "tipo": tipo}) 
     })
     .then(function(response){
-        //    return response.text().then(function (data){
-        //     alert(data);
+           return response.text().then(function (data){
+            if (data == 1) {
+                alert("Estimacion Enviada");
+                location.href="index.php";
+            }else{
+                alert("Ha ocurrido un error");
+            }
         
-        // });
-    });
-
-}
-
-function validar() {
-
-   var proyecto = $('#cmb_proyecto').val();
-   var contratista = $('#cmb_contratista').val();
-   var residente = $('#cmb_residente').val();
-   var descripcion = $('#txtDescripcion').val();
-   if (proyecto == "" || contratista =="" || residente == "" || descripcion== "" ) {
-    alert("Llenar todos los campos");
-   }else{
-    guardar_contrato();
-   }
-}
-
-function filtrar_autorizados(id_obra) {
-    var url = "../mLogin/validar_usuario.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"id_obra": id_obra}) 
-        
-    })
-    .then(function(response){
-        $('#tabla').load('tabla_autorizados_filtro.php');
+        });
     });
 }
+
+
+

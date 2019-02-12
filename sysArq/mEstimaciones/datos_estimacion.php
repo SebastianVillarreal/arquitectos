@@ -16,7 +16,7 @@
   <script src="funciones.js"></script>
   </head>
 
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>, <?php echo $perfil ?>)">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:datos_contrato(<?php echo $id_contrato ?>, <?php echo $perfil ?>); cargar_datos_estimacion(<?php echo $id_estimacion ?>)">
 <div class="wrapper">
 
   <header class="main-header">
@@ -62,11 +62,11 @@
                 </div>
                 <div class="col-sm-3">
                   <label>*Fecha Inicio:</label>
-                  <input type="text" name="" class="form-control" readonly>
+                  <input type="text" name="" id="fecha_inicio" class="form-control" readonly>
                 </div>
                 <div class="col-sm-3">
                   <label>*Fecha Fin:</label>
-                  <input type="text" name="" class="form-control" readonly>
+                  <input type="text" name="" id="fecha_fin" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -95,7 +95,7 @@
                 </div>
                 <div class="col-sm-3">
                   <label>*Monto IVA:</label>
-                  <input type="text" name="" class="form-control" readonly>
+                  <input type="text" name="" id="monto_iva" class="form-control" readonly>
                 </div>
               </div>
             </div>
@@ -158,8 +158,8 @@
                   <div class="form-group">
                     <div class="col-md-5">
                         <div class="form-group">
-                          <label for="total"><br>*Total Estimaciones:</label><br>
-                          <input readonly type="text" class="form-control">
+                          <label for="total"><br>*Total Estimacion:</label><br>
+                          <input readonly type="text" id="total_estimacion"  class="form-control">
                         </div>
                     </div>
                   </div>
@@ -242,27 +242,18 @@
             ?>
 
             <div class="">
-              <button type="button" class="btn btn-success" >
-                     <span class="badge badge-light"></span>
-
-                    <?php 
-
-                    echo $resultado[0];
-                    ?>
-
-              </button>
-              <a href="javascript:add_concepts()" class="btn btn-success">Agregar</a>
-              <a href="../mContratos/reporte.php?id_contrato=<?php echo $id_contrato ?>" class="btn btn-success">Imprimir</a>
-              <a href="" class="btn btn-success">Aplicar</a>
-              <a href="../mComplementarios/" class="btn btn-success">Anexos</a>
-              <a href="javascript:cambiar_estatus(1)" class="btn btn-success">Autorizar</a>
-              <a href="javascript:rechazar(1)" class="btn btn-success">Rechazar</a>
-              <a href="" class="btn btn-success">Finiquitar</a>
-              <a href="" class="btn btn-danger">Cancelar</a>
+              <?php if ($perfil == 1) {
+                $valor = "Autorizar";
+                $boton = "<a href='javascript:funcion()' class='btn btn-danger'>Rechazar</a>";
+              }else{
+                $valor = "Guardar";
+              } ?>
+              <a href="javascript:cambiar_estatus(<?php echo $id_estimacion ?>)" class="btn btn-success"><?php echo $valor ?></a>
             </div>
             <div class="text-right">
-              <a href="javascript:guardar_contrato()" class="btn btn-warning">Guardar</a>
+              <a href="javascript:autorizar_estimacion(<?php echo $id_estimacion ?>, <?php echo $perfil ?>)" class="btn btn-warning">Guardar</a>
             </div>
+            <?php echo $boton ?>
           </div>
           </form>
         </div>
@@ -282,7 +273,7 @@
               <div class="col-md-8">
               </div>
               <div class="col-md-4">
-                <table class="table table-striped">
+<!--                 <table class="table table-striped">
                   <tr>
                     <th>Subtotal:</th>
                     <td align="center" id="tdSubTotal">$</td>
@@ -296,46 +287,46 @@
                     <th>Total:</th>
                     <td align="center" id="tdTotal">$</td>
                   </tr>
-                </table>
+                </table> -->
               </div>
             </div>
             <div class="row">
               <div class="col-md-6"></div>
               <div class="col-md-6">
-                <table class="table">
+<!--                 <table class="table">
                   <tr>
                     <th bgcolor="#2ecc71">GRAN TOTAL PRESUPUESTO</th>
                     <td id="tdGtPresupuesto" style="font-size: 20px" bgcolor="#2ecc71" align="center">$</td>
                   </tr>
-                </table>
+                </table> -->
               </div>
             </div>
           </div>
         </div>
-        <div class="box box-success">
-          <div class="box-header">
+        <!-- <div class="box box-success"> -->
+<!--           <div class="box-header">
             <h3 class="box-title"></h3>
-          </div>
-          <div class="box-body">
+          </div> -->
+<!--           <div class="box-body">
             <div class="row">
               <div class="col-md-5">
                
                   <label for="">Comentarios</label>
                   <input type="text" id="comentarios" name="comentarios" onkeyup = "if(event.keyCode == 13) agregar_comentarios($(this).val())" class="form-control">
                 
-                <div id="tabla_coments"></div>
+                <div id="tabla_coment"></div>
               </div>
               <div class="col-md-1"></div>
-              <div class="col-md-6" id="contenedor_tabla_resumen">
+              <div class="col-md-6" id="contenedor_tabla_resume">
 
               </div>
             </div>
-          </div>
-          <div class="box-footer text-right">
+          </div> -->
+<!--           <div class="box-footer text-right"> -->
             <!-- <a class="btn btn-warning" href="javascript:guardar_contrato()">Guardar</a> -->
             <!-- <button type="submit" class="btn btn-warning" id="guardar">Guardar</button> -->
-          </div>
-        </div>
+<!--           </div> -->
+        <!-- </div> -->
       <!-- /.row -->
     </section>
     <!-- /.content -->
