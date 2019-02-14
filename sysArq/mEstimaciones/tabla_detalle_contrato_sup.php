@@ -3,23 +3,19 @@
 	  session_start();
 	  $usr_name = $_SESSION['usr_login'];
 	  $id_contrato = $_SESSION["id_contrato"];
+	  	$id_estimacion = $_SESSION['id_estimacion'];
 	  $perfil = $_SESSION["usr_groupid"];
 	include '../global_settings/conexion.php';
 	include_once '../api/config/database.php';
-	include_once '../api/objects/detalle_contrato.php';
+	include_once '../api/objects/estimacion.php';
 	// instantiate database and product object
 	$database = new Database();
 	$db = $database->getConnection();
-	$select = mysqli_query($conexion, "SELECT tipo_contrato FROM contratos WHERE id = '$id_contrato'");
-	$r_s = mysqli_fetch_row($select);
-	$tipo_contrato = $r_s[0];
 	// initialize object
-	$detalle_contrato = new detalle_cont($db);
-	$detalle_contrato->id_contrato = $id_contrato;
-	$stmt2 = $detalle_contrato->read();
 
-
-
+	$estimacion = new estimacion($db);
+	$estimacion->id = $id_estimacion;
+	$stmt2 = $estimacion->read_detalle_estimacion();
  ?>
 	    <script>
     		$('#lista_detalle_contrato').DataTable( {
@@ -31,63 +27,39 @@
         <table id="lista_detalle_contrato" class="table  table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
-	                <th>Tipo</th>
-	                <th>Cons</th>
-	                <th>Contr</th>
-	                <th>Desc. Partida</th>
-	                <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th>
+	                <th>Descripcion Partida</th>
+	                <th>Renglon</th>
+	                <th>Concepto</th>
 	                <th>Descripcion Larga</th>
+	                <th>Estimado</th>
 	                <th>Unidad</th>
+	                <th>Por estimar</th>
 	                <th>Cantidad</th>
-	                <?php 
-	                	if ($perfil == 5) {
-	                		echo "<th>Cantidad O.C</th>";
-	                	}
-	                 ?>
-	                
-	                <th>Costo Actual</th>
-	                <th>Costo Tope</th>
+	                <th>Costo</th>
 	                <th>Importe</th>
-	                <th>Total contratos</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        <?php 
 	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
-	        			$sql = "SELECT MAX(consecutivo)FROM contratos WHERE id = '$row[13]'";
-	        			$exSql = mysqli_query($conexion, $sql);
-	        			$r = mysqli_fetch_row($exSql);
-					?>
-					<?php if ($r[0] == $row[3]) {
-						echo "<tr>";
-					}else{
-						echo "<tr bgcolor='#ecf0f1'>";
-					} ?>
-					
+					 ?>
+					<tr>
 						<td>
-							<?php echo $row[1] ?>
-						</td>
-						<td><?php echo $row[2] ?></td>
-						<td><?php echo $row[3] ?></td>
-						<td>
-							<?php echo $row[4]; ?>
-						</td>
-						<td><?php echo $row[5] ?></td>
-						 <td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
-						<td><?php echo $row[7] ?></td>
-						<td> 
 							<?php echo $row[8] ?>
 						</td>
-							<?php if ($perfil == 5) {
-								echo "<td>$row[9]</td>";
-							} ?>
-									
-						<td><?php echo $row[10] ?></td>
-						<td><?php echo $row[11] ?></td>
-						<td><?php echo $row[12] ?></td>
-						<td class="text-center">
-							<?php echo "$". $row[14] ?>
+						<td><?php echo $row[2] ?></td>
+						<td><?php echo $row[4] ?></td>
+						<td>
+							<label data-toggle="tooltip" data-placement="right" title="<?php echo $row[5] ?>"><?php echo substr($row[5], 0, 15); ?></label>
 						</td>
+						<td><?php echo $row[0] ?></td>
+						 <td align="center"><?php echo $row[3] ?></td> 
+						<td align="center"><?php echo $row[1] ?></td>
+						<td> 
+							<?php echo $row[10] ?>
+						</td>
+						<td align="center"><?php echo $row[7] ?></td>
+						<td align="center">$<?php echo $row[6] ?></td>
 					</tr>
 				<?php 
 				}

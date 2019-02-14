@@ -10,6 +10,7 @@
   	$perfil_user = $_SESSION['usr_groupid'];
   	$data = json_decode(file_get_contents("php://input"));
   	$id_contrato = $data->id_contrato;
+
 	 
 	// instantiate database and product object
 	$database = new Database();
@@ -18,6 +19,7 @@
 	// initialize object
 	$estimaciones = new estimacion($db);
 	$estimaciones->id_contrato = $id_contrato;
+	$estimaciones->perfil = $perfil_user;
 	$stmt2 = $estimaciones->read();
 
  ?>

@@ -48,7 +48,7 @@
             </div>
             <div class="row">
               <div class="col-md-12" id="contenedor_tabla">
-                <?php include 'tabla_contratos.php'; ?>
+                <?php //include 'tabla_contratos.php'; ?>
               </div>
             </div>
           </div>

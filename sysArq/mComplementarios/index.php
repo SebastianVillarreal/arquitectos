@@ -4,9 +4,7 @@
   session_name("sysOrigen");
   session_start();
   $id_contrato = $_SESSION['id_contrato'];
-  $s = "SELECT id, p_anticipo, p_iva, p_fondo_garantia, t_iva, t_anticipo, t_fondo_garantia FROM importes WHERE id_contrato = '$id_contrato' ORDER BY id DESC LIMIT 1";
-  $exS = mysqli_query($conexion, $s);
-  $row = mysqli_fetch_row($exS);
+
  ?>
 <!DOCTYPE html>
 <html>
@@ -16,7 +14,7 @@
   <link rel="stylesheet" href="style_tabs.css">
   <script src="style_tabs.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_datos(<?php echo $id_contrato ?>)">
 <div class="wrapper">
 
   <header class="main-header">
@@ -47,36 +45,52 @@
 
             <!-- Tab content -->
             <div id="importes" class="tabcontent">
-              <h3>IMPORTES</h3>
+              <h4>Anticipo</h4>
               <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-12">
                   <form action="" id="form_datos">
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-4">
                         <label for="">% Anticipo</label>
                         <input onchange="javascript:calcular_importes()" type="text" class="form-control" value="<?php echo $row[1] ?>" name="p_anticipo" id="p_anticipo">
                       </div>
-                      <div class="col-md-6">
-                        <label for="">Monto Anticipo</label>
+                      <div class="col-md-4">
+                        <label for="">Monto Anticipo Contrato</label>
                         <input type="text" value="<?php echo $row[5] ?>" readonly class="form-control" name="m_anticipo" id="m_anticipo">
                       </div>
+                      <div class="col-md-4">
+                        <label for="">Anticipo Retenido</label>
+                        <input type="text" value="<?php echo $row[5] ?>" readonly class="form-control" name="a_retenido" id="a_retenido">
+                      </div>
                     </div>
+                    <hr>
+                    <h4>Fondo Garantía</h4>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                         <label for="">% Fondo Garantia</label>
                         <input type="text" onchange="javascript:calcular_importes()"  class="form-control" value="<?php echo $row[3] ?>"  name="p_fondo" id="p_fondo">
                       </div>
-                      <div class="col-md-6">
-                        <label for="">Monto Garantia</label>
+                      <div class="col-md-3">
+                        <label for="">Monto Garantia Contrato</label>
                         <input type="text" readonly class="form-control" name="m_fondo" value="<?php echo $row[6] ?>" id="m_fondo">
                       </div>
+                      <div class="col-md-3">
+                        <label for="">Fondo de Garantia retenido</label>
+                        <input type="text" readonly class="form-control" name="m_fondo" id="g_retenido">
+                      </div>
+                      <div class="col-md-3">
+                        <label for="">Fondo de Garantia devuelto</label>
+                        <input type="text" readonly class="form-control" name="m_fondo" value="<?php echo $row[6] ?>" id="g_devuelto">
+                      </div>                      
                     </div>
+                    <hr>
+                    <h4>IVA</h4>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                         <label for="">% IVA</label>
                         <input type="text" onchange="javascript:calcular_importes()" class="form-control" value="<?php echo $row[2] ?>" name="p_iva" id="p_iva">
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-3">
                         <label for="">Monto Iva</label>
                         <input type="text" value="<?php echo $row[4] ?>" readonly class="form-control" name="m_iva" id="m_iva">
                       </div>

@@ -10,8 +10,10 @@ include_once '../objects/estimacion.php';
 // instantiate database and product object
 $database = new Database();
 $db = $database->getConnection();
- 
-$id_estimacion = 1;
+
+session_name("sysOrigen"); 
+session_start();
+$id_estimacion = $_SESSION['id_estimacion'];
 
 // initialize object
 $estimacion = new estimacion($db);
@@ -27,7 +29,8 @@ $array = array(
     $row[3],
     $row[4],
     $row[5],
-    $row[6]
+    $row[6],
+    $row[7]
 );
 
 echo json_encode($array);

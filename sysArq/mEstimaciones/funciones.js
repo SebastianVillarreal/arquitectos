@@ -1,3 +1,22 @@
+function insertar_devolucion(cantidad, id_estimacion) {
+    // alert(cantidad);
+    // alert(id_estimacion);
+    var url = "../api/estimacion/devolucion.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"cantidad": cantidad, "id_estimacion": id_estimacion})
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+
+        });
+        
+    });
+}
+
 function cargar_proyectos() {
     $('#cmbProyectos').select2({
       placeholder: 'Seleccione una opcion',
@@ -97,6 +116,7 @@ function cargar_datos_estimacion(id_estimacion) {
             $('#total_estimacion').val("$"+ array[4]);
             $('#fecha_inicio').val(array[6]);
             $('#fecha_fin').val(array[5]);
+            $('#dev_garantia').val(array[7]);
             
         });
         
@@ -184,8 +204,8 @@ function add_concepts(){
 
 
 
-function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, id_estimacion) {
-    alert(id_renglon);
+function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, id_estimacion, perfil) {
+
     var url = "../api/estimacion/update.php";
     fetch(url,{
         method: 'POST',
@@ -198,7 +218,7 @@ function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, id_estimacion) 
         return response.text().then(function (text){
             if (text == "1") {
                 alertify.success("Cantidad Cambiada");
-                cargar_tabla();
+                cargar_tabla(perfil);
                 //calcular_totales(tipo_concepto, perfil);
             }else{
                 alertify.error("Cantidad Superada");
@@ -327,12 +347,12 @@ function mostrar() {
 }
 
 function cargar_tabla(perfil) {
-    $('#cont_table').load('tabla_detalle_contrato.php');
-    // if (perfil == 3) {
-    //     $('#cont_table').load('tabla_detalle_contrato.php');
-    // }else{
-    //     $('#cont_table').load('tabla_detalle_contrato_sup.php');
-    // }
+    //$('#cont_table').load('tabla_detalle_contrato.php');
+    if (perfil == 3) {
+        $('#cont_table').load('tabla_detalle_contrato.php');
+    }else{
+        $('#cont_table').load('tabla_detalle_contrato_sup.php');
+    }
 }
 
 function datos_contrato(id_contrato, perfil){

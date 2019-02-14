@@ -10,6 +10,8 @@ class estimacion{
     public $id;
     public $cantidad;
     public $id_renglon;
+    public $perfil;
+    public $cantidad_devolucion;
 
     public function __construct($db){
         $this->conn = $db;
@@ -18,7 +20,7 @@ class estimacion{
    // create product
 function create(){
 
-    // Procedure Insert Pregunta
+    // Procedure Insert estimacion
     $id_c = $this->id_contrato;
     $call = "CALL sp_insert_estimaciones(".$id_c.")";
 
@@ -70,10 +72,11 @@ public function read_detalle_estimacion(){
 
 public function read(){
 
-    $query = "CALL sp_select_estimaciones(:id_contrato)";
+    $query = "CALL sp_select_estimaciones(:id_contrato, :perfil)";
 
     $stmt = $this->conn->prepare( $query );
     $stmt->bindParam(':id_contrato', $this->id_contrato);
+    $stmt->bindParam(':perfil', $this->perfil);
     $stmt->execute();
     return $stmt;
 }
@@ -97,6 +100,22 @@ public function autorizar_estimacion()
     }else{
         return false;
     }
+}
+
+public function insertar_devolucion()
+{
+    $call = "CALL sp_insert_devolucion_garantia(:valor, :estimacion)";
+    $stmt = $this->conn->prepare($call);
+    $stmt->bindParam(':valor', $this->cantidad_devolucion);
+    $stmt->bindParam(':estimacion', $this->id);
+    
+    if ($stmt->execute()) {
+        return true;
+    }else{
+        return false;
+    }
+    
+    
 }
 
 }

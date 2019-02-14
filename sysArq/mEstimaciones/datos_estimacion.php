@@ -124,7 +124,7 @@
                 </div>
                 <div class="col-sm-3">
                   <label>*Dev. Fondo Garantia:</label>
-                  <input type="text" class="form-control" readonly name="">
+                  <input type="text" class="form-control" id="dev_garantia" onchange="javascript:insertar_devolucion($(this).val(), <?php echo $id_estimacion ?>)" name="">
                 </div>
               </div>
             </div>
@@ -240,20 +240,18 @@
                     $estatus = mysqli_query($conexion, $sql);
                     $resultado = mysqli_fetch_row($estatus); 
             ?>
-
-            <div class="">
               <?php if ($perfil == 1) {
                 $valor = "Autorizar";
-                $boton = "<a href='javascript:funcion()' class='btn btn-danger'>Rechazar</a>";
+                $boton = "<a href='javascript:autorizar_estimacion($id_estimacion, 2)' class='btn btn-danger'>Rechazar</a>";
               }else{
                 $valor = "Guardar";
               } ?>
-              <a href="javascript:cambiar_estatus(<?php echo $id_estimacion ?>)" class="btn btn-success"><?php echo $valor ?></a>
+              
+            <div class="text-left">
+              <a href="javascript:autorizar_estimacion(<?php echo $id_estimacion ?>, <?php echo $perfil ?>)" class="btn btn-success"><?php echo $valor ?></a>
+              <?php echo $boton ?>
             </div>
-            <div class="text-right">
-              <a href="javascript:autorizar_estimacion(<?php echo $id_estimacion ?>, <?php echo $perfil ?>)" class="btn btn-warning">Guardar</a>
-            </div>
-            <?php echo $boton ?>
+            
           </div>
           </form>
         </div>

@@ -60,35 +60,11 @@ function create(){
 }
 
 public function read(){
- 
-    //select all data
-    $query = "SELECT
-                detalle_contratos.id,
-                detalle_contratos.tipo_concepto,
-                consecutivo_contrato,
-                consecutivo,
-                familias.familia,
-                conceptos.concepto,
-                conceptos.descripcion_larga,
-                conceptos.unidad,
-                cantidad,
-                conceptos.cantidad_original,
-                costo_actual,
-                costo_tope,
-                importe_renglon,
-                detalle_contratos.id_contrato
-            FROM
-                detalle_contratos
-                INNER JOIN conceptos ON  conceptos.id = detalle_contratos.concepto
-                INNER JOIN familias ON familias.id_clave = conceptos.id_clave
-                WHERE id_contrato = ".$this->id_contrato."
-                ORDER BY detalle_contratos.consecutivo_contrato";
- 
-    $stmt = $this->conn->prepare( $query );
-    $stmt->bindParam(1, $this->id_contrato);
-    $stmt->execute();
- 
-    return $stmt;
+    $call = "CALL sp_select_importes(:contrato)";
+    $st = $this->conn->prepare($call);
+    $st->bindParam(':contrato', $this->id_contrato);
+    $st->execute();
+    return $st;
 }
 
 // used when filling up the update product form

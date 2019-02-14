@@ -69,7 +69,7 @@
                     <input type="text" id="txtLargo" name="txtLargo" class="form-control">
                 </div>
                 <div class="col-md-2">
-                    <label>Ancho</label>
+                    <label>Ancho/Alto</label>
                     <input type="text" onchange="javascript:calcular_area($('#txtLargo').val(), $(this).val())" id="txtAncho" name="txtAncho" class="form-control">
                 </div>
                 <div class="col-md-2">
