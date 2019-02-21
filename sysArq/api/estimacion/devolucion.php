@@ -12,16 +12,10 @@
 	$db = $database->getConnection();
 	$estimacion = new estimacion($db);
 	$data = json_decode(file_get_contents("php://input"));
-	echo "$data->id_estimacion";
 	$estimacion->id = $data->id_estimacion;
 	$estimacion->cantidad_devolucion = $data->cantidad;
 
-	if ($stmt = $estimacion->insertar_devolucion()) {
-		print_r($data->id_estimacion);
-	}else{
-		print_r($stmt);
-	}
-
-
-
+	$st = $estimacion->insertar_devolucion();
+	$row = $st->fetch(PDO::FETCH_NUM);
+	echo "$row[0]";
  ?>

@@ -52,11 +52,19 @@
 						<td>
 							<label data-toggle="tooltip" data-placement="right" title="<?php echo $row[5] ?>"><?php echo substr($row[5], 0, 15); ?></label>
 						</td>
-						<td><?php echo $row[0] ?></td>
+						<td><?php echo $row[12] ?></td>
 						 <td align="center"><?php echo $row[3] ?></td> 
-						<td align="center"><?php echo $row[1] ?></td>
-						<td>
-							<input onchange="javascript:agregar_cantidad_estimacion(<?php echo $row[9] ?>, $(this).val(), <?php echo $id_estimacion ?>, <?php echo $perfil ?>)" type="text" class="form-control" value=<?php echo $row[10] ?>>
+						<td align="center"><?php echo $row[13] ?></td>
+						<td align="center">
+
+							<?php 
+								if ($row[11] == 0) { ?>
+									<input onchange="javascript:agregar_cantidad_estimacion(<?php echo $row[9] ?>, $(this).val(), <?php echo $id_estimacion ?>, <?php echo $perfil ?>)" type="text" class="form-control" value=<?php echo $row[10] ?>>
+								<?}else{ ?>
+									<a href="javascript:open_generador(<?php echo $row[9] ?>, <?php echo $id_estimacion ?>, <?php echo $id_contrato ?>)">Generador</a>
+								<?}
+							 ?>
+							
 						</td>
 						<td align="center"><?php echo $row[7] ?></td>
 						<td align="center">$<?php echo $row[6] ?></td>

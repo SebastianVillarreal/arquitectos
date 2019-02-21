@@ -1,6 +1,4 @@
 function insertar_devolucion(cantidad, id_estimacion) {
-    // alert(cantidad);
-    // alert(id_estimacion);
     var url = "../api/estimacion/devolucion.php";
     fetch(url,{
         method: 'POST',
@@ -11,7 +9,11 @@ function insertar_devolucion(cantidad, id_estimacion) {
     })
     .then(function(response){
         return response.text().then(function (text){
-
+            if (text == "1") {
+                alertify.success("Devolucion Agregada");
+            }else{
+                alertify.error("No se ha podido agregar la devolucion");
+            }
         });
         
     });
@@ -117,6 +119,8 @@ function cargar_datos_estimacion(id_estimacion) {
             $('#fecha_inicio').val(array[6]);
             $('#fecha_fin').val(array[5]);
             $('#dev_garantia').val(array[7]);
+            $('#a_retenido').val("$"+array[1]);
+            $('#garantia').val("$"+array[2]);
             
         });
         
@@ -219,6 +223,7 @@ function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, id_estimacion, 
             if (text == "1") {
                 alertify.success("Cantidad Cambiada");
                 cargar_tabla(perfil);
+                cargar_datos_estimacion(id_estimacion);
                 //calcular_totales(tipo_concepto, perfil);
             }else{
                 alertify.error("Cantidad Superada");
@@ -486,5 +491,50 @@ function autorizar_estimacion(id_estimacion, tipo) {
     });
 }
 
+function open_generador(id_renglon, id_estimacion, id_contrato) {
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            "id_renglon": id_renglon,
+            "id_estimacion": id_estimacion,
+            "id_contrato": id_contrato
+        }) 
+    })
+    .then(function(response){
+           return response.text().then(function (data){
+            location.href="index_generador.php";
+        });
+    });
+}
 
-
+function estimar_generador(id_renglon, porcentaje, total, area, id_estimacion) {
+    var url = "../api/estimacion/estimar_generador.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            "id_renglon": id_renglon,
+            "porcentaje": porcentaje,
+            "total": total, 
+            "area": area,
+            "id_estimacion": id_estimacion
+        }) 
+    })
+    .then(function(response){
+           return response.text().then(function (data){
+            if (data == 1) {
+                alertify.success("Estimado");
+                $('#contenedor_tabla').load('tabla_generador.php');
+            }else{
+                alertify.error("No se ha podido estimar");
+            }
+            
+        });
+    });
+}

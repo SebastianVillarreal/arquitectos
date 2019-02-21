@@ -1,12 +1,13 @@
 <?php
   session_name("sysOrigen");
   session_start();
-  $usr_name = $_SESSION['usr_login'];
+
+   //include '../global_seguridad/verificar_sesion.php';
+  include '../global_settings/conexion.php';
+    $usr_name = $_SESSION['usr_login'];
   $id_contrato = $_SESSION["id_contrato"];
   $perfil = $_SESSION['usr_groupid'];
   $id_estimacion = $_SESSION['id_estimacion'];
-   //include '../global_seguridad/verificar_sesion.php';
-  include '../global_settings/conexion.php';
 
  ?>
 <!DOCTYPE html>
@@ -91,7 +92,7 @@
                 </div>
                 <div class="col-sm-3">
                   <label>*Anticipo Retenido:</label>
-                  <input type="text" class="form-control" readonly name="">
+                  <input id="a_retenido" type="text" class="form-control" readonly name="">
                 </div>
                 <div class="col-sm-3">
                   <label>*Monto IVA:</label>
@@ -120,7 +121,7 @@
                 </div>
                 <div class="col-sm-3">
                   <label>*Fondo Garantia:</label>
-                  <input type="text" readonly class="form-control" name="">
+                  <input type="text" id="garantia" readonly class="form-control" name="">
                 </div>
                 <div class="col-sm-3">
                   <label>*Dev. Fondo Garantia:</label>
@@ -232,14 +233,6 @@
               </div>
             </div>
           <div class="box-footer">
-            <?php                    
-              $sql = "SELECT estatus_contratos.descripcion FROM contratos INNER JOIN
-                    estatus_contratos ON estatus_contratos.id = contratos.`status`  WHERE contratos.id
-                    = $id_contrato";
-                    
-                    $estatus = mysqli_query($conexion, $sql);
-                    $resultado = mysqli_fetch_row($estatus); 
-            ?>
               <?php if ($perfil == 1) {
                 $valor = "Autorizar";
                 $boton = "<a href='javascript:autorizar_estimacion($id_estimacion, 2)' class='btn btn-danger'>Rechazar</a>";
@@ -251,7 +244,6 @@
               <a href="javascript:autorizar_estimacion(<?php echo $id_estimacion ?>, <?php echo $perfil ?>)" class="btn btn-success"><?php echo $valor ?></a>
               <?php echo $boton ?>
             </div>
-            
           </div>
           </form>
         </div>

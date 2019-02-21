@@ -203,7 +203,9 @@
                     Autorizado <span class="badge badge-light"></span>
               </button>
               <a href="javascript:add_concepts()" class="btn btn-success">Agregar</a>
+              <a href="../mComplementarios/" class="btn btn-success">Anexos</a>
               <a href="#" class="btn btn-success">Imprimir</a>
+
 
 <!--               <a href="" class="btn btn-success">Aplicar</a>
               <a href="../mComplementarios/" class="btn btn-success">Anexos</a>

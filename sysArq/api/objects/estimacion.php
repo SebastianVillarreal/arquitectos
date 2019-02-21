@@ -12,6 +12,9 @@ class estimacion{
     public $id_renglon;
     public $perfil;
     public $cantidad_devolucion;
+    public $porcentaje;
+    public $valor;
+    public $id_area;
 
     public function __construct($db){
         $this->conn = $db;
@@ -108,14 +111,31 @@ public function insertar_devolucion()
     $stmt = $this->conn->prepare($call);
     $stmt->bindParam(':valor', $this->cantidad_devolucion);
     $stmt->bindParam(':estimacion', $this->id);
-    
-    if ($stmt->execute()) {
-        return true;
-    }else{
-        return false;
-    }
-    
-    
+    $stmt->execute();
+    return $stmt; 
+}
+
+public function read_generador()
+{
+    $call = "CALL sp_select_generador_estimaciones(:renglon, :estimacion)";
+    $stmt = $this->conn->prepare($call);
+    $stmt->bindParam('renglon', $this->id_renglon);
+    $stmt->bindParam('estimacion', $this->id);
+    $stmt->execute();
+    return $stmt;
+}
+
+public function estimar_generador()
+{
+    $call = "CALL sp_estimar_porcentaje(:renglon, :valor, :cantidad_total, :estimacion, :area)";
+    $stmt = $this->conn->prepare($call);
+    $stmt->bindParam(':renglon', $this->id_renglon);
+    $stmt->bindParam(':valor', $this->porcentaje);
+    $stmt->bindParam(':cantidad_total', $this->valor);
+    $stmt->bindParam(':estimacion', $this->id);
+    $stmt->bindParam(':area', $this->id_area);
+    $stmt->execute();
+    return $stmt;
 }
 
 }
