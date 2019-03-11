@@ -216,7 +216,11 @@ function agregar_cantidad_estimacion(id_renglon, cantidad_nueva, id_estimacion, 
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id_renglon": id_renglon, "cantidad_nueva": cantidad_nueva, "id_estimacion": id_estimacion})
+        body: JSON.stringify({
+            "id_renglon": id_renglon,
+            "cantidad_nueva": cantidad_nueva,
+            "id_estimacion": id_estimacion
+        })
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -511,7 +515,7 @@ function open_generador(id_renglon, id_estimacion, id_contrato) {
     });
 }
 
-function estimar_generador(id_renglon, porcentaje, total, area, id_estimacion) {
+function estimar_generador(id_renglon, porcentaje, total, cuarto, id_estimacion) {
     var url = "../api/estimacion/estimar_generador.php";
     fetch(url,{
         method: 'POST',
@@ -522,12 +526,13 @@ function estimar_generador(id_renglon, porcentaje, total, area, id_estimacion) {
             "id_renglon": id_renglon,
             "porcentaje": porcentaje,
             "total": total, 
-            "area": area,
+            "cuarto": cuarto,
             "id_estimacion": id_estimacion
         }) 
     })
     .then(function(response){
            return response.text().then(function (data){
+            alert(data);
             if (data == 1) {
                 alertify.success("Estimado");
                 $('#contenedor_tabla').load('tabla_generador.php');
@@ -535,6 +540,23 @@ function estimar_generador(id_renglon, porcentaje, total, area, id_estimacion) {
                 alertify.error("No se ha podido estimar");
             }
             
+        });
+    });
+}
+
+function filtrar_autorizados(id_obra) {
+    var url = "tabla_contratos_autorizados_filtrados.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({"id_obra": id_obra}) 
+        
+    })
+    .then(function(response){
+        return response.text().then(function (data){
+            $('#contenedor_tabla').html(data);
         });
     });
 }

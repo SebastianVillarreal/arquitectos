@@ -22,7 +22,11 @@ function eliminar_renglon(id, id_concepto, id_detalle) {
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id" :id, "id_concepto" :id_concepto, "id_detalle" :id_detalle})
+        body: JSON.stringify({
+            "id": id, 
+            "id_concepto": id_concepto,
+            "id_detalle": id_detalle
+          })
          })
        .then(function(response){
         return response.text().then(function (text){
@@ -37,35 +41,77 @@ function eliminar_renglon(id, id_concepto, id_detalle) {
            }        
 }
 
-function validar(total, id_cuarto, largo, ancho) {
-    var url = "../api/generador/validar_cantidad.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"total" :total, "id_cuarto" :id_cuarto, "largo": largo, "ancho": ancho})
-    })
-    .then(function(response){
-        return response.text().then(function (text){
-          if (text == 0) {
-            alertify.error("Cantidad Superada");
-            $('#btnNew').attr('disabled', true);
-          }else{
-            alertify.success("Cantidad Insertada");
-            $('#contenedor_tabla').load('tabla_generador.php');
-          }
-        });
-        
-    });
+function validar(total, id_cuarto, largo, ancho, tipo_concepto) {
+
+    if (!total || !id_cuarto || !largo || !ancho || !tipo_concepto) {
+
+      alertify.error("Favor de llenar todos los campos");
+
+    }else{
+      if (total < 0) {
+        alertify.error("No se permiten cantidades negativas");
+      }else{
+              var url = "../api/generador/validar_cantidad.php";
+              fetch(url,{
+                  method: 'POST',
+                  headers: {
+                      "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+                  },
+                  body: JSON.stringify({
+                    "total" :total, 
+                    "id_cuarto" :id_cuarto, 
+                    "largo": largo, 
+                    "ancho": ancho
+                  })
+              })
+              .then(function(response){
+                  return response.text().then(function (text){
+                    if (text == 0) {
+                      alertify.error("Cantidad Superada");
+                      //$('#btnNew').attr('disabled', true);
+                    }else{
+                      alertify.success("Cantidad Insertada");
+                      $('#contenedor_tabla').load('tabla_generador.php');
+                      calcular_totales(tipo_concepto);
+                    }
+                  });
+                  
+              });
+        }
+  }
 }
 
 function calcular_area(largo, ancho) {
   var area = largo * ancho;
   $('#txtTotal').val(area);
-  $('#txtTotal').focus();
+  //$('#txtTotal').focus();
   //$('#txtTotal').blur();
 }
+
+function calcular_totales(tipo_concepto){
+    var url = "../api/detalle_contrato/calcular_totales.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+          "tipo_concepto": tipo_concepto
+        })
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            // if (text == "1") {
+            //     //alertify.success("Cantidad Cambiada");
+            //     datos_contrato('', perfil);
+            // }else{
+            //     //alertify.error("Cantidad Superada");
+            // }
+        });
+        
+    });
+}
+
 
 function insert_generador(id_cuarto, largo, ancho, total) {
     var url = "../api/generador/create.php";

@@ -5,7 +5,10 @@ function generador(id_renglon, id_contrato){
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id_renglon": id_renglon, "id_contrato": id_contrato})
+        body: JSON.stringify({
+            "id_renglon": id_renglon, 
+            "id_contrato": id_contrato
+        })
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -16,7 +19,7 @@ function generador(id_renglon, id_contrato){
         });
         
     });
-    location.href="../mGenerador/index.php";
+    // location.href="../mGenerador/index.php";
 }
 
 function datos_tabla(){
@@ -71,25 +74,29 @@ function agregar_comentarios(comentarios){
 
 
 function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, perfil) {
-    var url = "../api/detalle_contrato/update.php";
-    fetch(url,{
-        method: 'POST',
-        headers: {
-            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
-        },
-        body: JSON.stringify({"id_renglon": id_renglon, "cantidad_nueva": cantidad_nueva})
-    })
-    .then(function(response){
-        return response.text().then(function (text){
-            if (text == "1") {
-                alertify.success("Cantidad Cambiada");
-                calcular_totales(tipo_concepto, perfil);
-            }else{
-                alertify.error("Cantidad Superada");
-            }
+    if (cantidad_nueva < 0) {
+        alertify.error("No se permiten cantidades negativas");
+    }else{
+        var url = "../api/detalle_contrato/update.php";
+        fetch(url,{
+            method: 'POST',
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+            },
+            body: JSON.stringify({"id_renglon": id_renglon, "cantidad_nueva": cantidad_nueva})
+        })
+        .then(function(response){
+            return response.text().then(function (text){
+                if (text == "1") {
+                    alertify.success("Cantidad Cambiada");
+                    calcular_totales(tipo_concepto, perfil);
+                }else{
+                    alertify.error("Cantidad Superada");
+                }
+            });
+            
         });
-        
-    });
+    }
 }
 
 function calcular_totales(tipo_concepto, perfil){
@@ -313,6 +320,19 @@ function datos_contrato(id_contrato, perfil){
             var p_ec = (element[11] / element[17]) * 100;
             var p_eo = (element[12] / element[17]) * 100;
             var p_ex = (element[15] / element[17]) * 100;
+
+            if (isNaN(p_normal)) {
+                p_normal = '0';
+            }
+            if (isNaN(p_ec)) {
+                p_ec = '0';
+            }
+            if (isNaN(p_eo)) {
+                p_eo = '0';
+            }
+            if (isNaN(p_ex)) {
+                p_ex = '0';
+            }
 
             p_normal = Math.round(p_normal * 100) / 100;
             p_ec = Math.round(p_ec * 100) / 100;

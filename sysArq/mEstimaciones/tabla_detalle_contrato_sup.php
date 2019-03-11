@@ -31,7 +31,7 @@
 	                <th>Renglon</th>
 	                <th>Concepto</th>
 	                <th>Descripcion Larga</th>
-	                <th>Estimado</th>
+	                
 	                <th>Unidad</th>
 	                <th>Por estimar</th>
 	                <th>Cantidad</th>
@@ -52,7 +52,7 @@
 						<td>
 							<label data-toggle="tooltip" data-placement="right" title="<?php echo $row[5] ?>"><?php echo substr($row[5], 0, 15); ?></label>
 						</td>
-						<td><?php echo $row[0] ?></td>
+						
 						 <td align="center"><?php echo $row[3] ?></td> 
 						<td align="center"><?php echo $row[1] ?></td>
 						<td> 

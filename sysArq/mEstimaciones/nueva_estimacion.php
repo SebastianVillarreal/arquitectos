@@ -49,7 +49,7 @@
             </div>
             <br>
             <div class="row">
-              <div class="col-md-12" id="tabla">
+              <div class="col-md-12" id="contenedor_tabla">
                 <?php $tipo_sp = 1; ?>
                 <?php include 'tabla_contratos_autorizados.php'; ?>
               </div>

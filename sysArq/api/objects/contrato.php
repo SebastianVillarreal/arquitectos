@@ -302,7 +302,7 @@ public function read_autorizados_filtro(){
     $stmt->bindParam(':perfil', $this->perfil_user);
     $stmt->bindParam(':usr', $this->User_r);
     $stmt->bindParam(':id_usr', $this->id_user);
-    $stmt->bindParam(':obra', $this->id_proyecto);
+    $stmt->bindParam(':obra', $this->nombre);
     $stmt->execute();
     return $stmt;
 }

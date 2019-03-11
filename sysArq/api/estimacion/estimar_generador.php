@@ -34,7 +34,7 @@
 	$estimacion->porcentaje = $data->porcentaje;
 	$estimacion->id_renglon = $data->id_renglon;
 	$estimacion->valor = $data->total;
-	$estimacion->id_area = $data->area;
+	$estimacion->id_cuarto = $data->cuarto;
 	$st = $estimacion->estimar_generador();
 	$row = $st->fetch(PDO::FETCH_NUM);
 	echo $row[0];

@@ -15,6 +15,8 @@ class estimacion{
     public $porcentaje;
     public $valor;
     public $id_area;
+    public $obra;
+    public $id_cuarto;
 
     public function __construct($db){
         $this->conn = $db;
@@ -127,16 +129,17 @@ public function read_generador()
 
 public function estimar_generador()
 {
-    $call = "CALL sp_estimar_porcentaje(:renglon, :valor, :cantidad_total, :estimacion, :area)";
+    $call = "CALL sp_estimar_porcentaje(:renglon, :valor, :cantidad_total, :estimacion, :cuarto)";
     $stmt = $this->conn->prepare($call);
     $stmt->bindParam(':renglon', $this->id_renglon);
     $stmt->bindParam(':valor', $this->porcentaje);
     $stmt->bindParam(':cantidad_total', $this->valor);
     $stmt->bindParam(':estimacion', $this->id);
-    $stmt->bindParam(':area', $this->id_area);
+    $stmt->bindParam(':cuarto', $this->id_cuarto);
     $stmt->execute();
     return $stmt;
 }
+
 
 }
 

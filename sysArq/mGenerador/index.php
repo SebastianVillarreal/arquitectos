@@ -5,6 +5,9 @@
   session_start();
   $id_renglon = $_SESSION['id_renglon'];
   $id_contrato = $_SESSION['id_contrato'];
+  $sql = "SELECT tipo_concepto FROM detalle_contratos WHERE id = '$id_renglon'";
+  $exSql = mysqli_query($conexion, $sql);
+  $tipo = mysqli_fetch_row($exSql);
 
 
  ?>
@@ -40,7 +43,7 @@
             <div class="row">
               <div class="col-md-12">
                 <!-- <a href="javascript:validar($('#txtTotal').val(), $('#cmbCuartos').val(), $('#txtLargo').val(), $('#txtAncho').val())" class="btn btn-danger" id="btnNew">Nuevo</a> -->
-                <button class="btn btn-danger" onclick="javascript:validar($('#txtTotal').val(), $('#cmbCuartos').val(), $('#txtLargo').val(), $('#txtAncho').val())" id="btnNew" >Nuevo</button>
+                <button class="btn btn-danger" onclick="javascript:validar($('#txtTotal').val(), $('#cmbCuartos').val(), $('#txtLargo').val(), $('#txtAncho').val(), '<?php echo $tipo[0] ?>')" id="btnNew" >Nuevo</button>
               </div>
             </div>
             <br>
@@ -66,11 +69,11 @@
                 </div>
                 <div class="col-md-2">
                     <label>Largo</label>
-                    <input type="text" id="txtLargo" name="txtLargo" class="form-control">
+                    <input type="text" onchange="javascript:calcular_area($('#txtLargo').val(), $('#txtAncho').val())" id="txtLargo" name="txtLargo" class="form-control">
                 </div>
                 <div class="col-md-2">
                     <label>Ancho/Alto</label>
-                    <input type="text" onchange="javascript:calcular_area($('#txtLargo').val(), $(this).val())" id="txtAncho" name="txtAncho" class="form-control">
+                    <input type="text" onchange="javascript:calcular_area($('#txtLargo').val(), $('#txtAncho').val())" id="txtAncho" name="txtAncho" class="form-control">
                 </div>
                 <div class="col-md-2">
                   <label>Total</label>

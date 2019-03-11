@@ -30,6 +30,7 @@
 	            	<th>#</th>
 	            	<th>Zona</th>
 	                <th>Area</th>
+	                <th>Cuarto</th>
 	                <th>Total</th>
 	                <th>% Estimado</th>
 	                <th>Estimar</th>
@@ -50,23 +51,24 @@
 							<?php echo $n ?>
 						</td>
 						<td align="center">
-							<?php echo $row[0] ?>
+							<?php echo $row[3] ?>
 						</td>
+						<td><?php echo $row[2] ?></td>
 						<td align="center">
 							<?php echo $row[1]; ?>
 						</td>
 						<td align="center">
-							<?php echo $row[2]?>
+							<?php echo $row[6]?>
 						</td>
-						<td align="center"><?php echo $row[5] ?>%</td>
+						<td align="center"><?php echo $row[9] ?>%</td>
 						<td align="right">
 
-							<?php if (is_null($row[6])) {
+							<?php if (is_null($row[10])) {
 								$read = "";
 							}else{
 								$read = "readonly";
 							} ?>
-							<input value="<?php echo $row[6] ?>" <?php echo $read ?> type="text" onchange="javascript:estimar_generador(<?php echo $id_renglon ?>, $(this).val(), <?php echo $row[2] ?>, <?php echo $row[4] ?>, <?php echo $id_estimacion ?>)" class="form-control" name="" >
+							<input value="<?php echo $row[10] ?>" <?php echo $read ?> type="text" onchange="javascript:estimar_generador(<?php echo $id_renglon ?>, $(this).val(), <?php echo $row[11] ?>, <?php echo $row[12] ?>, <?php echo $id_estimacion ?>)" class="form-control" name="" >
 						</td>
 					</tr>
 				<?php
