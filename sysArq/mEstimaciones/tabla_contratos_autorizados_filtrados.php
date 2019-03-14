@@ -22,6 +22,7 @@
 	$contratos->id_user = $id_user;
 	$contratos->tipo_sp = $tipo_sp;
 	$contratos->nombre = $data->id_obra;
+	//print_r($contratos);
 	$stmt2 = $contratos->read_autorizados_filtro();
 
  ?>

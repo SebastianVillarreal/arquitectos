@@ -9,6 +9,8 @@ class rayas{
     public $obra;
     public $contratista;
     public $asiste;
+    public $fecha_i;
+    public $fecha_fin;
 
     public function __construct($db){
         $this->conn = $db;
@@ -79,7 +81,6 @@ public function insertar_asistencia()
     $stmt->bindParam(':obra', $this->obra);
     $stmt->bindParam(':contratista', $this->contratista);
     $stmt->bindParam(':asiste', $this->asiste);
-    $stmt->execute();
     if ($stmt->execute()) {
         return true;
     }else{
@@ -89,9 +90,11 @@ public function insertar_asistencia()
 
 public function seleccionar_rayas()
 {
-    $query = "CALL sp_select_rayas_admin(:obra)";
+    $query = "CALL sp_select_rayas_admin(:obra, :fecha_i, :fecha_fin)";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':obra', $this->obra);
+    $stmt->bindParam(':fecha_i', $this->fecha_i);
+    $stmt->bindParam(':fecha_fin', $this->fecha_fin);
     $stmt->execute();
     return $stmt;
 }

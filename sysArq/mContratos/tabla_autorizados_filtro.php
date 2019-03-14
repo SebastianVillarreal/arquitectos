@@ -9,6 +9,8 @@
   	$id_contrato = $_SESSION["id_contrato"];
   	$perfil_user = $_SESSION['usr_groupid'];
   	$id_proyecto = $_SESSION['id_proyecto'];
+
+  	//echo "$id_proyecto";
 	 
 	// instantiate database and product object
 	$database = new Database();
@@ -20,7 +22,8 @@
 	$contratos->User_r = $usr;
 	$contratos->perfil_user = $perfil_user;
 	$contratos->id_user = $id_user;
-	$contratos->id_proyecto = $id_proyecto;
+	$contratos->nombre = $id_proyecto;
+	//print_r($contratos);
 	$stmt2 = $contratos->read_autorizados_filtro();
 
  ?>

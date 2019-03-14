@@ -8,6 +8,7 @@
 <head>
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
+  <script src="../d_plantilla/bower_components/jquery/dist/jquery.min.js"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
@@ -29,20 +30,53 @@
     <section class="content">
         <div class="box box-danger">
           <div class="box-header">
-            <h3 class="box-title">Modulo| Rayas</h3>
-            <br>
-            <br>
+            <h3 class="box-title">Módulo| Rayas</h3>
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-12" id="tabla">
-                <form id="frmDatos">
-                  <?php include 'tabla_rayas.php'; ?>
+              <div class="col-md-12" id="fechas" >
+                <form id="frmFecha">
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Obra</label>
+                      <select class="form-control" id="obra">
+                        <option value="" selected disabled>Seleccione...</option>
+                        <?php 
+                          $sql = "SELECT id, nombre FROM proyectos";
+                          $exSql = mysqli_query($conexion, $sql);
+                          while ($row = mysqli_fetch_row($exSql)) {
+                            echo "<option value='$row[0]'>$row[1]</option>";
+                          }
+                         ?>
+                      </select>
+                    </div>
+                    <div class="col-md-4">
+                      <label>Fecha Inicial</label>
+                      <input type="date" name="fecha_inicial" id="fecha_inicial" class="form-control"> 
+                    </div>
+                    <div class="col-md-4">
+                      <label>Fecha Final</label>
+                      <input type="date" name="fecha_final" id="fecha_final" class="form-control">
+                    </div>
+                    <div class="col-md-4">
+                      <br>
+                      <a href="#" onclick="consultar()" class="btn btn-danger">Consultar</a>
+                    </div>
+                  </div>
                 </form>
-                
               </div>
             </div>
           </div>
+          <div class="box-body" style="display: none" id="datos_raya">
+            <div class="row">
+              <div class="col-md-12" id="tabla" >
+                <form id="frmDatos">
+                  <?php include 'tabla_rayas.php'; ?>
+                </form>
+              </div>
+            </div>
+          </div>
+
         </div>
       <!-- /.row -->
     </section>

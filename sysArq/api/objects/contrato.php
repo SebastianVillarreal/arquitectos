@@ -19,6 +19,7 @@ class contrato{
     public $id_user;
     public $tipo_sp;
     public $id_proyecto;
+    public $tipo_rayas;
 
     public function __construct($db){
         $this->conn = $db;
@@ -28,7 +29,7 @@ class contrato{
 function create(){
 
     // Procedure Insert Pregunta
-    $call = "CALL sp_insert_contrato(:id_proyecto, :contratista, :fecha, :tipo, :residente, :usuario_m, :UserRegistro, :descripcion)";
+    $call = "CALL sp_insert_contrato(:id_proyecto, :contratista, :fecha, :tipo, :residente, :usuario_m, :UserRegistro, :descripcion, :tipo_rayas)";
     //$call = 'CALL sp_Alta_Encuesta(:nombre,:estatus,:fechalimite,:idarea,:idusuario)';
 
     $stmt = $this->conn->prepare($call);
@@ -42,6 +43,7 @@ function create(){
     $this->Usuario_m=htmlspecialchars(strip_tags($this->Usuario_m));
     $this->User_r=htmlspecialchars(strip_tags($this->User_r));
     $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
+    $this->tipo_rayas=htmlspecialchars(strip_tags($this->tipo_rayas));
 
 
     // bind values
@@ -53,6 +55,7 @@ function create(){
     $stmt->bindParam(":usuario_m", $this->Usuario_m);
     $stmt->bindParam(":UserRegistro", $this->User_r);
     $stmt->bindParam(":descripcion", $this->descripcion);
+    $stmt->bindParam(":tipo_rayas", $this->tipo_rayas);
 
     // execute query
     if($stmt->execute()){

@@ -15,8 +15,10 @@
 	
  	// initialize object
 	$rayas = new rayas($db);
-	$rayas->obra = 1;
-
+	$rayas->fecha_i = $data->fecha_inicial;
+	$rayas->fecha_fin = $data->fecha_final;
+	$rayas->obra = $data->obra;
+	//print_r($rayas);
 
 	$stmt2 = $rayas->seleccionar_rayas();
 
@@ -26,6 +28,7 @@
         <table id="lista_contratos" class="table  table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
+	            	<th>Folio</th>
 	            	<th>Contratos</th>
 	            	<th>Contratista</th>
 	            	<th>Concepto</th>
@@ -40,12 +43,14 @@
 						?>
 						<tr>
 							<td align="center">
+								<?php echo $row[0] ?>
+							</td>
+							<td align="center">
 								<?php echo $row[1]?>
-								<input type="hidden" value="<?php echo $row[0] ?>"name="contratista">
 							</td>
 							<td><?php echo $row[2] ?></td>
 							<td></td>
-							<td></td>
+							<td>$<?php echo $row[3] ?></td>
 							<td></td>
 						</tr>
 					<?php 

@@ -53,6 +53,7 @@
                   </select>
               </div>
             </div>
+            <br>
             <a href="#" onclick="guardar_asistencia()" class="btn btn-danger">Guardar</a>
           </div>
           <div class="box-body">

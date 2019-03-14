@@ -24,20 +24,19 @@
 	$c = count($marca);
 	$obra = $_SESSION['id_obra'];
 	$obra = 1;
-	$i = 0;
+		// $rayas->obra=$obra;
+		// $rayas->contratista = $contratista[$i];
+		// $rayas->asiste = $marca[$i];
+		// $st = $rayas->insertar_asistencia();
+	for ($i=0; $i < $c; $i++) { 
+
+		//echo $i;
 		$rayas->obra=$obra;
 		$rayas->contratista = $contratista[$i];
 		$rayas->asiste = $marca[$i];
 		$st = $rayas->insertar_asistencia();
-	// for ($i=0; $i < $c; $i++) { 
 
-	// 	echo $i;
-	// 	$rayas->obra=$obra;
-	// 	$rayas->contratista = $contratista[$i];
-	// 	$rayas->asiste = $marca[$i];
-	// 	$st = $rayas->insertar_asistencia();
-
-	// }
+	}
 	echo "1";
 
 

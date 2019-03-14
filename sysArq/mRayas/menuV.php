@@ -12,8 +12,8 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">Opciones del módulo</li>
-        <li class="active"><a href="nuevo_contrato.php"><i class="fa fa-bars"></i> <span>Asistencia</span></a></li>
-        
+        <li class="active"><a href="../mAsistencia/"><i class="fa fa-bars"></i> <span>Asistencia</span></a></li>
+        <li class="active"><a href="../mRayas/"><i class="fa fa-bars"></i> <span>Rayas</span></a></li>
 
       </ul>
       <ul class="sidebar-menu" data-widget="tree">

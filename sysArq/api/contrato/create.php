@@ -28,6 +28,7 @@ $contrato = new contrato($db);
   	$hora = date('H:i:s');
 // get posted data
 $usr = $_SESSION['usr_login'];
+$perfil = $_SESSION['usr_groupid'];
 $id_proyecto = $_POST['proyecto'];
 $contratista = $_POST['contratista'];
 $tipo = $_POST['tipo_c'];
@@ -35,6 +36,12 @@ $residente = $_POST['residente'];
 $descripcion = $_POST['descripcion'];
 $usuario_m = $usr;
 $usr_registro = $usr;
+
+if ($perfil == 1) {
+	$tipo_rayas = 1;
+}else{
+	$tipo_rayas = 2;
+}
 //$data = json_decode(file_get_contents("php://input"));
  
 // set product property values
@@ -46,6 +53,7 @@ $contrato->residente = $residente;
 $contrato->Usuario_m = $usuario_m;
 $contrato->User_r = $usr_registro;
 $contrato->descripcion = $descripcion;
+$contrato->tipo_rayas = $tipo_rayas;
  
 // create the product
 if($contrato->create()){

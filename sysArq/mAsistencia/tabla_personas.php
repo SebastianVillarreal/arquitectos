@@ -39,13 +39,13 @@
 						<tr>
 							<td align="center">
 								<?php echo $row[0]?>
-								<input type="text" value="<?php echo $row[0] ?>"	 name="contratista[]">
+								<input type="hidden" value="<?php echo $row[0] ?>"	 name="contratista[]">
 							</td>
 							<td align="center"><?php echo $row[1] ?></td>
 							<td align="center"><?php echo $row[2] ?></td>
 							<td align="center">
 								<input type="checkbox" name="marca" id="<? echo $row[0] ?>" onchange="asistir(<?php echo $row[0] ?>, this)">
-								<input type="text" name="cal[]" id="cal_<? echo $row[0]?>" value="0">
+								<input type="hidden" name="cal[]" id="cal_<? echo $row[0]?>" value="0">
 							</td>
 						</tr>
 					<?php 

@@ -21,6 +21,7 @@
 	$contratos->perfil_user = $perfil_user;
 	$contratos->id_user = $id_user;
 	$contratos->id_proyecto = $id_proyecto;
+	print_r($contratos);
 	$stmt2 = $contratos->read_autorizados_filtro();
 
  ?>

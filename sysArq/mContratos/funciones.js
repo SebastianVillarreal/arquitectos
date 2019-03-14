@@ -309,7 +309,7 @@ function datos_contrato(id_contrato, perfil){
             $('#cto_normal').html("$" + new Intl.NumberFormat("en-US").format(element[10]));
             $('#cto_extra_cliente').html("$" + new Intl.NumberFormat("en-US").format(element[11]));
             $('#cto_extra_of').html("$" + new Intl.NumberFormat("en-US").format(element[12]));
-            $('#cto_excedido').html("$" + new Intl.NumberFormat("en-US").format(element[15]));
+            $('#cto_excedido').html("$" + new Intl.NumberFormat("en-US").format(element[14]));
             $('#total_si').html("$" + new Intl.NumberFormat("en-US").format(element[17]));
             $('#fecha').val(element[22]);
             $('#tdSubTotal').html("$" + new Intl.NumberFormat("en-US").format(element[17]));
@@ -319,7 +319,7 @@ function datos_contrato(id_contrato, perfil){
             var p_normal = (element[10] / element[17]) * 100;
             var p_ec = (element[11] / element[17]) * 100;
             var p_eo = (element[12] / element[17]) * 100;
-            var p_ex = (element[15] / element[17]) * 100;
+            var p_ex = (element[14] / element[17]) * 100;
 
             if (isNaN(p_normal)) {
                 p_normal = '0';
@@ -484,7 +484,9 @@ function filtrar_autorizados(id_obra) {
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id_obra": id_obra}) 
+        body: JSON.stringify({
+            "id_obra": id_obra
+        }) 
         
     })
     .then(function(response){

@@ -20,6 +20,7 @@
 	$contratos->perfil_user = $perfil_user;
 	$contratos->id_user = $id_user;
 	$contratos->tipo_sp = $tipo_sp;
+	print_r($contratos);
 	$stmt2 = $contratos->read_autorizados();
 
  ?>
