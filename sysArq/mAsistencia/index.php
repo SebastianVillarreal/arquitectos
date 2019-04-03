@@ -9,7 +9,7 @@
   <?php include '../head.php'; ?>
   <script src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_contratistas()">
 <div class="wrapper">
 
   <header class="main-header">
@@ -33,19 +33,6 @@
             <br>
             <br>
             <div class="row">
-              <div class="col-md-6">
-                  <label>Obra</label>
-                  <select class="form-control" onchange="cargar_contratistas($(this).val())">
-                    <option value="" selected disabled>Seleccione...</option>
-                    <?php 
-                      $sql = "SELECT id, nombre FROM proyectos";
-                      $exSql = mysqli_query($conexion, $sql);
-                      while ($row = mysqli_fetch_row($exSql)) {
-                        echo "<option value='$row[0]'>$row[1]</option>";
-                      }
-                     ?>
-                  </select>
-              </div>
               <div class="col-md-6">
                   <label>Contratista</label>
                   <select class="form-control" id="cmbContratistas" onchange="cargar_empleados($(this).val())">

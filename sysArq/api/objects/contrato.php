@@ -20,6 +20,7 @@ class contrato{
     public $tipo_sp;
     public $id_proyecto;
     public $tipo_rayas;
+    public $folio_erp;
 
     public function __construct($db){
         $this->conn = $db;
@@ -29,7 +30,7 @@ class contrato{
 function create(){
 
     // Procedure Insert Pregunta
-    $call = "CALL sp_insert_contrato(:id_proyecto, :contratista, :fecha, :tipo, :residente, :usuario_m, :UserRegistro, :descripcion, :tipo_rayas)";
+    $call = "CALL sp_insert_contrato(:id_proyecto, :contratista, :fecha, :tipo, :residente, :usuario_m, :UserRegistro, :descripcion, :tipo_rayas, :folio_erp)";
     //$call = 'CALL sp_Alta_Encuesta(:nombre,:estatus,:fechalimite,:idarea,:idusuario)';
 
     $stmt = $this->conn->prepare($call);
@@ -44,6 +45,7 @@ function create(){
     $this->User_r=htmlspecialchars(strip_tags($this->User_r));
     $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
     $this->tipo_rayas=htmlspecialchars(strip_tags($this->tipo_rayas));
+    $this->folio_erp=htmlspecialchars(strip_tags($this->folio_erp));
 
 
     // bind values
@@ -56,6 +58,7 @@ function create(){
     $stmt->bindParam(":UserRegistro", $this->User_r);
     $stmt->bindParam(":descripcion", $this->descripcion);
     $stmt->bindParam(":tipo_rayas", $this->tipo_rayas);
+    $stmt->bindParam(":folio_erp", $this->folio_erp);
 
     // execute query
     if($stmt->execute()){
@@ -181,7 +184,8 @@ function readOne(){
                         usuarios.id = contratos.residente
                     ),
                     CONCAT( contratistas.nombre, ' ', contratistas.ap_paterno, ' ', contratistas.ap_materno ),
-                    contratos.fecha
+                    contratos.fecha,
+                    contratos.folio_erp
                 FROM
                     contratos
                     INNER JOIN proyectos ON proyectos.id = contratos.nombre
@@ -314,8 +318,24 @@ public function add_concepts(){
     $call = "CALL sp_add_concepts(:id_c)";
     $stmt = $this->conn->prepare($call);
     $stmt ->bindParam(':id_c', $this->id_contrato);
-    
-    if ($stmt->execute()) {
+    $stmt->execute();
+    return $stmt;
+}
+
+public function consulta_anticipos(){
+    $call = "CALL sp_select_anticipos(:obra)";
+    $stmt = $this->conn->prepare($call);
+    $stmt ->bindParam(':obra', $this->nombre);
+    $stmt->execute();
+    return $stmt;
+}
+
+public function pagar_anticipo(){
+    $call = "CALL sp_pagar_anticipo(:id_c, :lvl)";
+    $stmt = $this->conn->prepare($call);
+    $stmt->bindParam(':id_c', $this->id_contrato);
+    $stmt->bindParam(':lvl', $this->nivel);
+    if($stmt->execute()){
         return true;
     }else{
         return false;

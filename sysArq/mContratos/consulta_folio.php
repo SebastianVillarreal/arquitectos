@@ -1,7 +1,7 @@
 <?php 
 	include '../global_settings/conexion.php';
-	$sql = "SELECT MAX(id) FROM contratos";
+	$sql = "SELECT MAX(id), nombre FROM contratos";
 	$exSql = mysqli_query($conexion, $sql);
 	$row = mysqli_fetch_row($exSql);
-	echo "$row[0]";
+	echo json_encode($row[0]);
  ?>

@@ -34,6 +34,7 @@ $contratista = $_POST['contratista'];
 $tipo = $_POST['tipo_c'];
 $residente = $_POST['residente'];
 $descripcion = $_POST['descripcion'];
+$folio_erp = $_POST['folio_erp'];
 $usuario_m = $usr;
 $usr_registro = $usr;
 
@@ -54,6 +55,7 @@ $contrato->Usuario_m = $usuario_m;
 $contrato->User_r = $usr_registro;
 $contrato->descripcion = $descripcion;
 $contrato->tipo_rayas = $tipo_rayas;
+$contrato->folio_erp = $folio_erp;
  
 // create the product
 if($contrato->create()){

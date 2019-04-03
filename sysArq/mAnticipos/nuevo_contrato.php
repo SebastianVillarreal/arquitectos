@@ -138,7 +138,7 @@ class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
 
                       <!-- <input  type="text" value="<?php echo $fecha ?>" class="form-control" placeholder="dd.mm.yyyy"> -->
 
-                      <input value="<?php echo $fecha ?>"  type="text" class="form-control" id="time" >
+                      <input readonly value="<?php echo $fecha ?>"  type="text" class="form-control" id="time" >
                       <div class="input-group-addon" >
                         <span class="glyphicon glyphicon-th"></span>
                       </div>
@@ -227,8 +227,8 @@ class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-12" id="cont_table">
-                <?php include 'tabla_detalle_contrato.php'; ?>
+              <div class="col-md-12" id="con_table">
+                <?php //include 'tabla_detalle_contrato.php'; ?>
               </div>
             </div>
           </div>
@@ -389,7 +389,7 @@ class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
   include 'modal.php';
   ?>
   <script>
-     $('.input-group.date').datepicker({format: "dd/mm/yyyy"});
+     //$('.input-group.date').datepicker({format: "dd/mm/yyyy"});
     $("#cmb_proyecto").select2({
       allowClear: true
     });

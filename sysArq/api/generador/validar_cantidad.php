@@ -12,6 +12,12 @@
 	session_start();
 	$id_renglon = $_SESSION['id_renglon'];
 	$id_contrato = $_SESSION['id_contrato'];
+
+	if ($id_contrato  == "" || $id_renglon == "") {
+		echo "error";
+	}else{
+
+
 	//variables post
 	$data = json_decode(file_get_contents("php://input"));
 	$total = $data->total;
@@ -35,5 +41,6 @@
 	$stmt = $generador->validar_cantidad();
 	$row = $stmt->fetch(PDO::FETCH_NUM);
 	echo "$row[0]";
+	}
 
  ?>

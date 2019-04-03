@@ -26,7 +26,6 @@ $pConcepto = $_POST['marca'];
 $pTipoConcepto = $_POST['tipo_concepto'];
 $pClaveConcepto = $_POST['concepto'];
 $marca = $_POST['marca'];
-$pTipoContrato = $_POST['tipo_contrato'];
 $c = count($marca);
 echo "$c";
 
@@ -37,7 +36,6 @@ for ($i=0; $i < $c; $i++) {
 	$detalle_contrato->concepto = $pConcepto[$i];
 	$detalle_contrato->tipo_concepto = $pTipoConcepto[$i];
 	$detalle_contrato->fecha = $fecha;
-	$detalle_contrato->tipo_contrato = $pTipoContrato;
 
 	 
 	// create the product

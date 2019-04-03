@@ -178,7 +178,8 @@ function readOne(){
                         usuarios.id = contratos.residente
                     ),
                     CONCAT( contratistas.nombre, ' ', contratistas.ap_paterno, ' ', contratistas.ap_materno ),
-                    contratos.fecha
+                    contratos.feca,
+                    contratos.flio_erp
                 FROM
                     contratos
                     INNER JOIN proyectos ON proyectos.id = contratos.nombre

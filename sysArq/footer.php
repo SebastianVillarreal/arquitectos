@@ -31,7 +31,9 @@
 <script src="../d_plantilla/dist/js/demo.js"></script>
 
 <script src="../plugins/alertifyjs/alertify.min.js"></script>
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<script src="../plugins/sweetalert2-master/dist/sweetalert2.js"></script>
 <script src="../plugins/jquery-validation-1.17.0/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="../plugins/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="../plugins/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.es.js" charset="UTF-8"></script>

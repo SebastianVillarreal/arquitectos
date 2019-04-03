@@ -9,9 +9,8 @@
 					contratistas.nombre 
 				FROM
 					obras_contratistas
-					INNER JOIN contratistas ON contratistas.id = obras_contratistas.id_contratista 
-				WHERE
-					obras_contratistas.id_obra = '$id_obra'";
+					INNER JOIN contratistas ON contratistas.id = obras_contratistas.id_contratista
+					GROUP BY 1";
 	}else{
   		$search = $_POST['searchTerm'];
   		$sql = "SELECT

@@ -84,7 +84,7 @@ function nueva_estimacion(id_contrato) {
     .then(function(response){
         return response.text().then(function (text){
             if(text == 0){
-                alert("No se ha podido crear la estimacion, falta informacion de importes");
+                alert("No se ha podido crear la estimacion, falta informacion de importes o hay anticipo pendientes de pagar");
             }else{
                 alert("Estimacion creada");
                 set_id_contrato(id_contrato, text);
@@ -357,7 +357,7 @@ function mostrar() {
 
 function cargar_tabla(perfil) {
     //$('#cont_table').load('tabla_detalle_contrato.php');
-    if (perfil == 3) {
+    if (perfil == 3 || perfil == 1)  {
         $('#cont_table').load('tabla_detalle_contrato.php');
     }else{
         $('#cont_table').load('tabla_detalle_contrato_sup.php');
@@ -385,7 +385,7 @@ function datos_contrato(id_contrato, perfil){
             $('#cmb_residente').val(element[3]);
             $('#txt_residente').val(element[20]);
             $('#txt_descripcion').val(element[4]);
-            $('#txtFolio').val(element[0]);
+            $('#txtFolio').val(element[23]);
             $('#cto_normal').html("$" + new Intl.NumberFormat("en-US").format(element[10]));
             $('#cto_extra_cliente').html("$" + new Intl.NumberFormat("en-US").format(element[11]));
             $('#cto_extra_of').html("$" + new Intl.NumberFormat("en-US").format(element[12]));

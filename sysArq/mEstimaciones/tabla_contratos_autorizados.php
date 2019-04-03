@@ -28,7 +28,7 @@
         <table id="lista_contratos" class="table table-striped table-bordered" cellspacing="0" width="100%">
 	        <thead>
 	            <tr>
-	            	<th>Folio</th>
+	            	<th>Folio ERP</th>
 	                <th>Obra</th>
 	                <th>Residente</th>
 	                <th>Contratista</th>
@@ -46,7 +46,7 @@
 					
 					<tr>
 						<td align="center">
-							<?php echo $row[0] ?>
+							<?php echo $row[8] ?>
 						</td>
 						<td align="center">
 							<?php echo $row[3]; ?>

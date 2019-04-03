@@ -70,9 +70,10 @@ function validar(total, id_cuarto, largo, ancho, tipo_concepto) {
                       alertify.error("Cantidad Superada");
                       //$('#btnNew').attr('disabled', true);
                     }else{
-                      alertify.success("Cantidad Insertada");
-                      $('#contenedor_tabla').load('tabla_generador.php');
-                      calcular_totales(tipo_concepto);
+                      location.reload();
+                      //alertify.success("Cantidad Insertada");
+                      // $('#contenedor_tabla').load('tabla_generador.php');
+                       calcular_totales(tipo_concepto);
                     }
                   });
                   

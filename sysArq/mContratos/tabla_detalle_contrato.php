@@ -35,7 +35,8 @@
 	                <th>Cons</th>
 	                <th>Contr</th>
 	                <th>Desc. Partida</th>
-	                <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th>
+	                <!-- <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th> -->
+	                <th><a href='#' data-id = '<?php echo $id_contrato ?>' data-toggle = 'modal' data-target = '#modal_conceptos' target='blank'>Conceptos</a></th>
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>
@@ -80,7 +81,7 @@
 									<?php echo $row[13] ?>)"><i class="fas fa-calculator fa-2x"></i></a></td>
 							 <?php } else{ ?>
 								<td>
-									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control input-sm" value="<?php echo $row[8] ?>">
+									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>, <?php echo $id_contrato ?>)" type="text" class="form-control input-sm" value="<?php echo $row[8] ?>">
 								</td>
 								<?php } ?>
 								<?php 
@@ -88,7 +89,7 @@
 									echo "<td>$row[9]</td>";
 								 ?>
 								<td>							
-									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control input-sm" value="<?php echo $row[10] ?>">
+									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>, <?php echo $id_contrato ?>)" type="text" class="form-control input-sm" value="<?php echo $row[10] ?>">
 								</td>
 
 								<? }	else{?>

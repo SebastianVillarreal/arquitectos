@@ -121,8 +121,9 @@ class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="">Folio</label>
-                    <input readonly type="text" id="txtFolio" class="form-control">  
+                    <label for="">Folio ERP</label>
+                    <input type="text" name="folio_erp" id="folio_erp" class="form-control">
+                    <input readonly type="hidden" id="txtFolio" class="form-control">  
                   </div>
                 </div>
                 <div class="col-md-4">

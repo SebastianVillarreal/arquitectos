@@ -38,7 +38,6 @@
 	                <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th>
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
-	                <th>Gen</th>
 	                <th>Cantidad</th>
 	                <th>Cantidad O.C</th>
 	                <th>Costo Actual</th>
@@ -48,7 +47,7 @@
 	            </tr>
 	        </thead>
 	        <tbody>
-	        <?php 
+ <?php 
 	        	while ($row = $stmt2->fetch(PDO::FETCH_NUM)){
 	        			$sql = "SELECT MAX(consecutivo)FROM contratos WHERE id = '$row[13]'";
 	        			$exSql = mysqli_query($conexion, $sql);
@@ -71,29 +70,43 @@
 						<td><?php echo $row[5] ?></td>
 						 <td><label data-toggle="tooltip" data-placement="right" title="<?php echo $row[6] ?>"><?php echo substr($row[6], 0, 15); ?></label></td> 
 						<td align="center"><?php echo $row[7] ?></td>
-						<td align="center"><a href=""><i class="fas fa-calculator fa-2x"></i></a></td>
+						
+
 						<?php 
+
 							if ($r[0] == $row[3]) {?>
+								<?php if ($row[7] == "M2" || $row[7] == "ML") { ;?>
+									<td align="center"><a href="javascript:generador(<?php echo $row[0] ?>, 
+									<?php echo $row[13] ?>)"><i class="fas fa-calculator fa-2x"></i></a></td>
+							 <?php } else{ ?>
 								<td>
-									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control" value="<?php echo $row[8] ?>">
+									<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control input-sm" value="<?php echo $row[8] ?>">
 								</td>
+								<?php } ?>
 								<?php 
 								
 									echo "<td>$row[9]</td>";
 								 ?>
 								<td>							
-									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control" value="<?php echo $row[10] ?>">
+									<input onchange="javascript:modificar_costo(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control input-sm" value="<?php echo $row[10] ?>">
 								</td>
-							<? }else{?>
+
+								<? }	else{?>
+									<?php if ($row[7] == "M2" || $row[7] == "ML") { ?>
+										<td align="center"><a href="javascript:generador(<?php echo $row[0] ?>, 
+										<?php echo $row[13] ?>)"><i class="fas fa-calculator fa-2x"></i></a></td>
+									 <?php } else{ ?>
+										<td>
+											<input onchange="javascript:agregar_cantidad_concepto(<?php echo $row[0] ?>, $(this).val(), '<?php echo $row[1] ?>', <?php echo $perfil ?>)" type="text" class="form-control input-sm" value="<?php echo $row[8] ?>">
+										</td>
+								<?php } ?>
 									<td> 
 										<?php echo $row[8] ?>
 									</td>
-									<?php 
-										echo "<td>$row[9]</td>";
-									 ?>
-									
-									<td><?php echo $row[10] ?></td>
-							<? }
+									<td>
+										<?php echo $row[10] ?>
+									</td>
+								<? }
 						 ?>
 						<td><?php echo $row[11] ?></td>
 						<td><?php echo $row[12] ?></td>

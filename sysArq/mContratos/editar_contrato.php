@@ -4,6 +4,8 @@
   $usr_name = $_SESSION['usr_login'];
   $id_contrato = $_SESSION["id_contrato"];
   $perfil = $_SESSION['usr_groupid'];
+  $id_proyecto = $_SESSION["id_proyecto"];
+
    //include '../global_seguridad/verificar_sesion.php';
   include '../global_settings/conexion.php';
 
@@ -35,7 +37,7 @@
     <section class="content">
         <div class="box box-success">
           <div class="box-header">
-            <h3 class="box-title">CONTRATOS DE PROVEEDORES</h3>
+            <h3 class="box-title">CONTRATOS DE PROVEEDORES <?php echo "$id_proyecto"; ?></h3>
           </div>
           <div class="box-body">
             <div class="col-md-6">
@@ -120,8 +122,9 @@
               <div class="row">
                 <div class="col-md-4">
                   <div class="form-group">
-                    <label for="">Folio</label>
-                    <input readonly type="text" id="txtFolio" class="form-control"> 
+                    <label for="">Folio ERP</label>
+                    <input readonly type="hidden" id="txtFolio" class="form-control"> 
+                    <input type="text" readonly id="folio_erp" class="form-control" name="">
                   </div>
                 </div>
                 <div class="col-md-4">
@@ -322,11 +325,29 @@
         include 'modal.php';
 ?>
 
-  <script>
-    $('#lista_conceptos').DataTable( {
-          'language': {"url": "../plugins/DataTables/Spanish.json"},
-          "paging":   true,
-          });
+
+ <script type="text/javascript">
+     $(document).ready(function (e) {
+  $('#modal_conceptos').on('show.bs.modal', function(e) {    
+    
+     var id_referencia = $(e.relatedTarget).data().id;
+     //alert(id_referencia);
+     //alert(id);
+     var url = "tabla_conceptos.php"; // El script a dónde se realizará la petición.
+      $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            id_referencia:id_referencia
+          }, // Adjuntar los campos del formulario enviado.
+        success: function(respuesta)
+        {
+          $('#tabla').html(respuesta);
+          $('#id_contrato').val(id_referencia);
+        }
+      });
+  });
+})
  </script>
 </body>
 </html>

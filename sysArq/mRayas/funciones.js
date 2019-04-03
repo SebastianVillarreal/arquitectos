@@ -2,8 +2,6 @@ function consultar() {
     var fecha_inicial = $('#fecha_inicial').val();
     var fecha_final = $('#fecha_final').val();
     var obra = $('#obra').val();
-
-    
     var url = "tabla_rayas.php";
     fetch(url,{
         method: 'POST',

@@ -17,6 +17,10 @@ class estimacion{
     public $id_area;
     public $obra;
     public $id_cuarto;
+    public $folio_erp;
+    public $concepto;
+    public $total;
+    public $usuario;
 
     public function __construct($db){
         $this->conn = $db;
@@ -138,6 +142,21 @@ public function estimar_generador()
     $stmt->bindParam(':cuarto', $this->id_cuarto);
     $stmt->execute();
     return $stmt;
+}
+
+public function captura()
+{
+    $call = "CALL sp_insert_captura(:folio, :concepto, :total, :usuario)";
+    $stmt = $this->conn->prepare($call);
+    $stmt->bindParam(':folio', $this->folio_erp);
+    $stmt->bindParam(':concepto', $this->concepto);
+    $stmt->bindParam(':total', $this->total);
+    $stmt->bindParam(':usuario', $this->usuario);
+    if ($stmt->execute()) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 

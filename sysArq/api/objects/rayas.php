@@ -99,7 +99,27 @@ public function seleccionar_rayas()
     return $stmt;
 }
 
+public function seleccionar_anticipos(){
+    $query = "CALL sp_select_anticipos_pagados(:obra, :fecha_i, :fecha_fin)";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':obra', $this->obra);
+    $stmt->bindParam(':fecha_i', $this->fecha_i);
+    $stmt->bindParam(':fecha_fin', $this->fecha_fin);
+    $stmt->execute();
+    return $stmt;
+}
 
+public function datos_reportes()
+{
+    $query = "CALL sp_reporte_asistencia(:contratista, :obra, :fecha_i, :fecha_f)";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':contratista', $this->contratista);
+    $stmt->bindParam(':obra', $this->obra);
+    $stmt->bindParam(':fecha_i', $this->fecha_i);
+    $stmt->bindParam(':fecha_f', $this->fecha_fin);
+    $stmt->execute();
+    return $stmt;
+}
 
 }
 

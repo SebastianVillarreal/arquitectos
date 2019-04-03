@@ -43,7 +43,8 @@ function guardar_asistencia(){
     .then(function(response){
         return response.text().then(function (text){
             if (text== 1) {
-                alertify.success('Asistencia Guardada');
+                alert('Asistencia Guardada');
+                location.reload();
             }else{
                 alertify.error("Ha ocurrido un error");
             }
@@ -76,8 +77,7 @@ function cargar_contratistas(obra) {
      delay: 250,
      data: function (params) {
       return {
-        searchTerm: params.term,
-         obra: obra// search term
+        searchTerm: params.term// search term
       };
      },
      processResults: function (response) {
@@ -105,6 +105,26 @@ function cargar_empleados(contratista){
     .then(function(response){
         return response.text().then(function (text){
             $('#tabla').html(text);
+        });
+    });
+}
+
+function set_id_obra(){
+  var id_obra = $('#proyecto').val();
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            "id_obra": id_obra 
+        })
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+          guardar_asistencia();
+            //$('#tabla').html(text);
         });
     });
 }

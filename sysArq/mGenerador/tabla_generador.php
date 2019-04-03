@@ -18,6 +18,7 @@
 	$generador = new generador($db);
 	$generador->id_renglon = $id_renglon;
 	$stmt2 = $generador->read();
+	//print_r($generador);
 
  ?>
 

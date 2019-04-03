@@ -6,7 +6,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <?php include '../head.php'; ?>
+  <?php include '../head.php'; 
+  date_default_timezone_set('America/Monterrey');
+  $fecha=date("Y-m-d");
+$nuevafecha = strtotime ( '-1 day' , strtotime ( $fecha ) ) ;
+$nuevafecha = date ( 'Y-m-d' , $nuevafecha );
+$fecha_uno = strtotime ( '-8 day' , strtotime ( $fecha ) );
+$fecha_uno = date('Y-m-d', $fecha_uno);
+$hora=date ("h:i:s");
+  ?>
   <script src="funciones.js"></script>
   <script src="../d_plantilla/bower_components/jquery/dist/jquery.min.js"></script>
 </head>
@@ -35,7 +43,7 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-12" id="fechas" >
-                <form id="frmFecha">
+                <form id="frmFecha" method="POST" action="reporte.php">
                   <div class="row">
                     <div class="col-md-4">
                       <label>Obra</label>
@@ -52,15 +60,16 @@
                     </div>
                     <div class="col-md-4">
                       <label>Fecha Inicial</label>
-                      <input type="date" name="fecha_inicial" id="fecha_inicial" class="form-control"> 
+                      <input type="date" name="fecha_inicial" id="fecha_inicial" value="<?php echo $fecha_uno ?>" class="form-control"> 
                     </div>
                     <div class="col-md-4">
                       <label>Fecha Final</label>
-                      <input type="date" name="fecha_final" id="fecha_final" class="form-control">
+                      <input type="date" name="fecha_final" id="fecha_final" value="<?php echo $nuevafecha ?>" class="form-control">
                     </div>
                     <div class="col-md-4">
                       <br>
                       <a href="#" onclick="consultar()" class="btn btn-danger">Consultar</a>
+                      <input type="submit" class="btn btn-danger" value="Generar Reporte" name="">
                     </div>
                   </div>
                 </form>

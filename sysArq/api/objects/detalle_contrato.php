@@ -24,7 +24,7 @@ class detalle_cont{
 function create(){
  
     // Procedure Insert Pregunta
-    $call = "CALL sp_insert_detalle(:id_contrato, :concepto, :tipo_conc, :fecha, :tipo_contrato)";
+    $call = "CALL sp_insert_detalle(:id_contrato, :concepto, :tipo_conc, :fecha)";
     //$call = 'CALL sp_Alta_Encuesta(:nombre,:estatus,:fechalimite,:idarea,:idusuario)';
     
     $stmt = $this->conn->prepare($call);
@@ -41,7 +41,6 @@ function create(){
     $stmt->bindParam(":concepto", $this->concepto);
     $stmt->bindParam(":tipo_conc", $this->tipo_concepto);
     $stmt->bindParam(":fecha", $this->fecha);
-    $stmt->bindParam(":tipo_contrato", $this->tipo_contrato);
  
     // execute query
     if($stmt->execute()){
@@ -60,7 +59,7 @@ public function read(){
                 detalle_contratos.tipo_concepto,
                 consecutivo_contrato,
                 consecutivo,
-                familias.familia,
+                descripcion_partida,
                 conceptos.concepto,
                 conceptos.descripcion_larga,
                 conceptos.unidad,
@@ -76,7 +75,6 @@ public function read(){
             FROM
                 detalle_contratos
                 INNER JOIN conceptos ON  conceptos.id = detalle_contratos.concepto
-                INNER JOIN familias ON familias.id_clave = conceptos.id_clave
                 WHERE id_contrato = ".$this->id_contrato."
                 ORDER BY detalle_contratos.consecutivo_contrato";
  

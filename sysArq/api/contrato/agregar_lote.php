@@ -13,11 +13,9 @@
 	$db = $database->getConnection();
 	$contrato = new contrato($db);
 	$contrato->id_contrato = $id_contrato;
-	if ($stmt = $contrato->add_concepts()) {
-		echo "1";
-	}else{
-		echo "2";
-	}
+	$stmt = $contrato->add_concepts();
+	$row = $stmt->fetch(PDO::FETCH_NUM);
+	echo "$row[0]";
 
 
 

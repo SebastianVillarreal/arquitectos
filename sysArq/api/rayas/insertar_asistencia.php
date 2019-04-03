@@ -22,8 +22,8 @@
 
 	$contratista = $_POST['contratista'];
 	$c = count($marca);
-	$obra = $_SESSION['id_obra'];
-	$obra = 1;
+	$obra = $_POST['obra'];
+	//$obra = 1;
 		// $rayas->obra=$obra;
 		// $rayas->contratista = $contratista[$i];
 		// $rayas->asiste = $marca[$i];
@@ -31,7 +31,7 @@
 	for ($i=0; $i < $c; $i++) { 
 
 		//echo $i;
-		$rayas->obra=$obra;
+		$rayas->obra=$obra[$i];
 		$rayas->contratista = $contratista[$i];
 		$rayas->asiste = $marca[$i];
 		$st = $rayas->insertar_asistencia();

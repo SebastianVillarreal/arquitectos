@@ -6,6 +6,7 @@
   $id_renglon = $_SESSION['id_renglon'];
   $id_contrato = $_SESSION['id_contrato'];
   $sql = "SELECT tipo_concepto FROM detalle_contratos WHERE id = '$id_renglon'";
+  //echo "$sql";
   $exSql = mysqli_query($conexion, $sql);
   $tipo = mysqli_fetch_row($exSql);
 

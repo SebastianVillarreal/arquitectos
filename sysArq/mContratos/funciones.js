@@ -44,6 +44,8 @@ function add_concepts(){
             if (text == 1) {
                 alert("Ahora puedes añadir conceptos nuevos");
                 location.href ="editar_contrato.php";
+            }else if(text == 0){
+                alert("Existen anticipos sin pagar, favor de darles salida antes");
             }else{
                 alert("Ha ocurrido un error, favor de notificarlo al administrador del sistema");
             }
@@ -73,7 +75,7 @@ function agregar_comentarios(comentarios){
 }
 
 
-function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, perfil) {
+function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, perfil, id_contrato) {
     if (cantidad_nueva < 0) {
         alertify.error("No se permiten cantidades negativas");
     }else{
@@ -89,7 +91,7 @@ function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, pe
             return response.text().then(function (text){
                 if (text == "1") {
                     alertify.success("Cantidad Cambiada");
-                    calcular_totales(tipo_concepto, perfil);
+                    calcular_totales(tipo_concepto, perfil, id_contrato);
                 }else{
                     alertify.error("Cantidad Superada");
                 }
@@ -99,7 +101,7 @@ function agregar_cantidad_concepto(id_renglon, cantidad_nueva, tipo_concepto, pe
     }
 }
 
-function calcular_totales(tipo_concepto, perfil){
+function calcular_totales(tipo_concepto, perfil, id_contrato){
     var url = "../api/detalle_contrato/calcular_totales.php";
     fetch(url,{
         method: 'POST',
@@ -112,7 +114,7 @@ function calcular_totales(tipo_concepto, perfil){
         return response.text().then(function (text){
             if (text == "1") {
                 //alertify.success("Cantidad Cambiada");
-                datos_contrato('', perfil);
+                datos_contrato(id_contrato, perfil);
             }else{
                 //alertify.error("Cantidad Superada");
             }
@@ -121,7 +123,7 @@ function calcular_totales(tipo_concepto, perfil){
     });
 }
 
-function modificar_costo(id_renglon, costo_nuevo, tipo_concepto, perfil) {
+function modificar_costo(id_renglon, costo_nuevo, tipo_concepto, perfil, id_contrato) {
     var url = "../api/detalle_contrato/update_costo.php";
     fetch(url,{
         method: 'POST',
@@ -134,7 +136,7 @@ function modificar_costo(id_renglon, costo_nuevo, tipo_concepto, perfil) {
         return response.text().then(function (text){
             if (text == "1") {
                 alertify.success("Costo Cambiado");
-                calcular_totales(tipo_concepto, perfil);
+                calcular_totales(tipo_concepto, perfil, id_contrato);
             }else{
                 alertify.error("Costo superado");
             }
@@ -153,8 +155,9 @@ function cargar_folio() {
     })
     .then(function(response){
         return response.text().then(function (text){
-            seleccionar_contrato(text);
-            $('#txtFolio').val(text);
+            var e = eval(text);
+            seleccionar_contrato(e[0]);
+            $('#txtFolio').val(e[0]);
             cargar_tabla();
         });
         
@@ -162,6 +165,7 @@ function cargar_folio() {
 }
 
 function modal(id_contrato, tipo_contrato) {
+    set_obra(id_contrato);
 	$('#modal').modal('show');
     $('#id_contrato').val(id_contrato);
     $('#tipo_contrato').val(tipo_contrato);
@@ -208,11 +212,6 @@ function guardar_contrato() {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
         body: $('#form_datos').serialize()
-
-
-
-
-
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -285,6 +284,8 @@ function cargar_tabla(perfil) {
 }
 
 function datos_contrato(id_contrato, perfil){
+    //alert("id_contrato " + id_contrato);
+    
     var url = "datos_contrato.php";
     fetch(url,{
         method: 'POST',
@@ -316,6 +317,7 @@ function datos_contrato(id_contrato, perfil){
             $('#tdIva').html('$' + new Intl.NumberFormat("en-US").format(element[9]));
             $('#tdTotal').html('$' + new Intl.NumberFormat("en-US").format(element[18]));
             $('#tdGtPresupuesto').html("$" + new Intl.NumberFormat("en-US").format(element[17]));
+            $('#folio_erp').val(element[23]);
             var p_normal = (element[10] / element[17]) * 100;
             var p_ec = (element[11] / element[17]) * 100;
             var p_eo = (element[12] / element[17]) * 100;
@@ -345,22 +347,45 @@ function datos_contrato(id_contrato, perfil){
             cargar_tabla(perfil);
             cargar_tabla_coments();
             cargar_tabla_resumen();
+            set_obra(id_contrato);
         }); 
     });
 }
 
 function seleccionar_contrato(id_contrato) {
+    var id_obra = $('#cmb_proyecto').val();
     var url = "../mLogin/validar_usuario.php";
     fetch(url,{
         method: 'POST',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({"id_contrato": id_contrato}) 
+        body: JSON.stringify({
+            "id_contrato": id_contrato
+        }) 
         
     })
     .then(function(response){
            location.href = "../mContratos/editar_contrato.php"; 
+    });
+}
+
+function set_obra(id_contrato) {
+    var id_obra = $('#cmb_proyecto').val();
+    var url = "../mLogin/validar_usuario.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            "id_contrato": id_contrato,
+            "id_obra": id_obra
+        }) 
+        
+    })
+    .then(function(response){
+           //location.href = "../mContratos/editar_contrato.php"; 
     });
 }
 
@@ -470,7 +495,8 @@ function validar() {
    var contratista = $('#cmb_contratista').val();
    var residente = $('#cmb_residente').val();
    var descripcion = $('#txtDescripcion').val();
-   if (proyecto == "" || contratista =="" || residente == "" || descripcion== "" ) {
+   var folio_erp = $('#folio_erp').val();
+   if (proyecto == "" || contratista =="" || residente == "" || descripcion== "" || folio_erp == "" ) {
     alert("Llenar todos los campos");
    }else{
     guardar_contrato();

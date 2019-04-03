@@ -40,12 +40,13 @@
                 $_DATOS_EXCEL[$i]['descripcion_larga'] = $objPHPExcel->getActiveSheet()->getCell('B' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['unidad'] = $objPHPExcel->getActiveSheet()->getCell('C' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['cantidad_original'] = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
-                $_DATOS_EXCEL[$i]['costo_maximo_subcontrato'] = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
-                $_DATOS_EXCEL[$i]['costo_maximo_destajo'] = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
+                $_DATOS_EXCEL[$i]['costo_maximo_subcontrato'] = $objPHPExcel->getActiveSheet()->getCell('E' . $i)->getCalculatedValue();
+                $_DATOS_EXCEL[$i]['costo_maximo_destajo'] = $objPHPExcel->getActiveSheet()->getCell('F' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['id_clave'] = $objPHPExcel->getActiveSheet()->getCell('G' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['id_proyecto'] = $objPHPExcel->getActiveSheet()->getCell('H' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['generador'] = $objPHPExcel->getActiveSheet()->getCell('I' . $i)->getCalculatedValue();
                 $_DATOS_EXCEL[$i]['cantidad_original_s'] = $objPHPExcel->getActiveSheet()->getCell('D' . $i)->getCalculatedValue();
+                $_DATOS_EXCEL[$i]['descripcion_partida'] = $objPHPExcel->getActiveSheet()->getCell('J' . $i)->getCalculatedValue();
                 
             }
         }
@@ -58,9 +59,9 @@
         //para ir recuperando los datos obtenidos
         //del excel e ir insertandolos en la BD
         foreach ($_DATOS_EXCEL as $campo => $valor) {
-            $sql = "INSERT INTO conceptos ( concepto, descripcion_larga, unidad, cantidad_original, costo_maximo_subcontrato, costo_maximo_destajo, id_clave, id_proyecto, generador, cantidad_original_s ) VALUES ('";
+            $sql = "INSERT INTO conceptos ( concepto, descripcion_larga, unidad, cantidad_original, costo_maximo_subcontrato, costo_maximo_destajo, id_clave, id_proyecto, generador, cantidad_original_s, descripcion_partida ) VALUES ('";
             foreach ($valor as $campo2 => $valor2) {
-                $campo2 == "cantidad_original_s" ? $sql.= $valor2 . "');" : $sql.= $valor2 . "','";
+                $campo2 == "descripcion_partida" ? $sql.= $valor2 . "');" : $sql.= $valor2 . "','";
             }
             echo $sql;
             $result = mysqli_query($conexion, $sql);
