@@ -7,7 +7,7 @@
   <?php include '../head.php'; ?>
   <script type="text/javascript" src="funciones.js"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_combos()">
 <div class="wrapper">
 
   <header class="main-header">
@@ -51,9 +51,27 @@
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Proyecto</label>
+                <select class="form-control" name="proyecto" id="cmbProyectos">
+                  <option>Seleccione...</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Contratista</label>
+                <select class="form-control" name="contratista" id="cmbContratistas">
+                  <option>Seleccione...</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label>Fecha</label>
+                <input type="date" name="fecha" class="form-control">
+              </div>
+            </div>
           </div>
           <div class="box-footer text-right">
-            <a href="#" onclick="guardar_registro($('#folio').val(), $('#concepto').val(), $('#total').val());" class="btn btn-warning">Guardar</a>
+            <a href="#" onclick="guardar_registro();" class="btn btn-warning">Guardar</a>
           </div>
           </form>
         </div>

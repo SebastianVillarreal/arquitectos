@@ -35,7 +35,7 @@
 	                <th>Cons</th>
 	                <th>Contr</th>
 	                <th>Desc. Partida</th>
-	                <th><a href="javascript:modal(<?php echo $id_contrato ?>, <?php echo $tipo_contrato ?>)">Concepto</a></th>
+	                <th><a href='#' data-id = '<?php echo $id_contrato ?>' data-toggle = 'modal' data-target = '#modal_conceptos' target='blank'>Conceptos</a></th>
 	                <th>Descripcion Larga</th>
 	                <th>Unidad</th>
 	                <th>Cantidad</th>

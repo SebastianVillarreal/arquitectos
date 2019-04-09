@@ -18,7 +18,7 @@
             importes 
           WHERE
             id_contrato = '$id_contrato'";
-            echo "$sql";
+           // echo "$sql";
   $exSql = mysqli_query($conexion, $sql);
   $row = mysqli_fetch_row($exSql);
   $sub = $row[9];

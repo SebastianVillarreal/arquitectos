@@ -128,7 +128,7 @@ $month_fin =$df->format("F");
 				$objPHPExcel->setActiveSheetIndex(0)
 		   			->setCellValue('A'.$fila, $row[1])
 					->setCellValue('B'.$fila, $row[2])
-					->setCellValue('C'.$fila, '')
+					->setCellValue('C'.$fila, 'Rayas contrato con folio: '.$row[6])
 					->setCellValue('D'.$fila, $row[3])
 					->setCellValue('E'.$fila, $row[3]);
 		  		$fila = $fila + 1;
@@ -157,28 +157,38 @@ $month_fin =$df->format("F");
      }
      		$objPHPExcel->setActiveSheetIndex(0)
      			->setCellValue('A'.$fila, 'Extras');
- 			$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':E'.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
-			$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':E'.$fila)->getFill()->getStartColor()->setARGB('70db70');
-			$objPHPExcel->getActiveSheet()->mergeCells('A'.$fila.':C'.$fila);
-			$fila = $fila + 1;
-		 	$qry  = "SELECT
-						folio_erp,
-						SUM( total ) 
-					FROM
-						captura_rayas_extras
-					WHERE fecha BETWEEN '$fecha_inicial' AND '$fecha_final'	
-					GROUP BY
-						folio_erp";
-			$exQry = mysqli_query($conexion, $qry);
-		 	while ($row_extras = mysqli_fetch_row($exQry)) {
-		 		$objPHPExcel->setActiveSheetIndex(0)
-		   			->setCellValue('A'.$fila, "N/A")
-					->setCellValue('B'.$fila, "N/A")
-					->setCellValue('C'.$fila, "Estimacion capturada. Folio ERP: ". $row_extras[0])
-					->setCellValue('D'.$fila, $row_extras[1])
-					->setCellValue('E'.$fila, $row_extras[1]);
+     			$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':E'.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+     			$objPHPExcel->getActiveSheet()->getStyle('A'.$fila)->getFill()->getStartColor()->setARGB('FF0040');
+     			$fila = $fila + 1;
+     			$exSql = mysqli_query($conexion, $sql);
+     			while ($row_proyecto = mysqli_fetch_row($exSql)) {
+     				$objPHPExcel->setActiveSheetIndex(0)
+		   			->setCellValue('A'.$fila, $row_proyecto[1]);
+		 			$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':E'.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$fila.':E'.$fila)->getFill()->getStartColor()->setARGB('70db70');
+					$objPHPExcel->getActiveSheet()->mergeCells('A'.$fila.':C'.$fila);
 					$fila = $fila + 1;
-		 	}
+				 	$qry  = "SELECT
+								folio_erp, concepto, total,  contratistas.nombre
+							FROM
+								captura_rayas_extras c_r
+								INNER JOIN contratistas ON contratistas.id = c_r.id_contratista
+							WHERE
+								fecha BETWEEN '$fecha_inicial' 
+								AND '$fecha_final' 
+								AND id_proyecto = $row_proyecto[0]";
+					$exQry = mysqli_query($conexion, $qry);
+		 			while ($row_extras = mysqli_fetch_row($exQry)) {
+		 				$objPHPExcel->setActiveSheetIndex(0)
+				   			->setCellValue('A'.$fila, "Contrato:" . $row_extras[0])
+							->setCellValue('B'.$fila, $row_extras[3])
+							->setCellValue('C'.$fila, "Estimacion capturada. Folio ERP: ". $row_extras[0])
+							->setCellValue('D'.$fila, $row_extras[2])
+							->setCellValue('E'.$fila, $row_extras[2]);
+						$fila = $fila + 1;
+		 			}
+     			}
+
 
 	 $objPHPExcel->getActiveSheet()
     		->getColumnDimension('A')

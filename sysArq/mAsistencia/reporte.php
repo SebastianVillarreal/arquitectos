@@ -128,6 +128,10 @@ $month_fin =$df->format("F");
 					->setCellValue('A'.$fila, $row_datos[0])
 					->setCellValue('B'.$fila, $row_datos[1])
 					->setCellValue('C'.$fila, $row_datos[2]);
+					if ($row_datos[10] != 0) {
+						$objPHPExcel->getActiveSheet()->getStyle('A'.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle('A'.$fila)->getFill()->getStartColor()->setARGB('DF0101');
+					}
 				$fila = $fila +1;
 		}
 		
@@ -206,28 +210,101 @@ $month_fin =$df->format("F");
 				$row_total = mysqli_fetch_row($exQry);
 				$li = $letter;
 				
-
+				//jueves
+				if ($row_cantidad[3] == 1) {
+					//asistencia
+					$valor = 1;
+					
+				}elseif ($row_cantidad[3] == 0.5) {
+					//retardo
+					$valor = 1;
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->getStartColor()->setARGB('DF0101');
+				}elseif($row_cantidad[3] == 0){
+					//falta
+					$valor = 0;
+				}
 				$objPHPExcel->getActiveSheet()
-					->setCellValue($letter.$fila, $row_cantidad[3]);
+					->setCellValue($letter.$fila, $valor);
 				 $j = $j + 1;
+				 $letter = letras_numeros($j);
 
-				 $letter = letras_numeros($j);
+				 //Viernes
+				if ($row_cantidad[4] == 1) {
+					//asistencia
+					$valor = 1;
+					
+				}elseif ($row_cantidad[4] == 0.5) {
+					//retardo
+					$valor = 1;
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->getStartColor()->setARGB('DF0101');
+				}elseif($row_cantidad[4] == 0){
+					//falta
+					$valor = 0;
+				}
 				$objPHPExcel->getActiveSheet()
-					->setCellValue($letter.$fila, $row_cantidad[4]);
+					->setCellValue($letter.$fila, $valor);
 				$j = $j + 1;
 				 $letter = letras_numeros($j);
+
+				 //Lunes
+				if ($row_cantidad[5] == 1) {
+					//asistencia
+					$valor = 1;
+					
+				}elseif ($row_cantidad[5] == 0.5) {
+					//retardo
+					$valor = 1;
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->getStartColor()->setARGB('DF0101');
+				}elseif($row_cantidad[5] == 0){
+					//falta
+					$valor = 0;
+				}
 				$objPHPExcel->getActiveSheet()
 					
-					->setCellValue($letter.$fila, $row_cantidad[5]);
+					->setCellValue($letter.$fila, $valor);
 				$j = $j + 1;
 				 $letter = letras_numeros($j);
+
+				 //Martes
+				if ($row_cantidad[6] == 1) {
+					//asistencia
+					$valor = 1;
+					
+				}elseif ($row_cantidad[6] == 0.5) {
+					//retardo
+					$valor = 1;
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->getStartColor()->setARGB('DF0101');
+				}elseif($row_cantidad[6] == 0){
+					//falta
+					$valor = 0;
+				}
 				$objPHPExcel->getActiveSheet()
 					
-					->setCellValue($letter.$fila, $row_cantidad[6]);
+					->setCellValue($letter.$fila, $valor);
 				$j = $j + 1;
 				 $letter = letras_numeros($j);
+
+
+				 //Miercoles
+				if ($row_cantidad[7] == 1) {
+					//asistencia
+					$valor = 1;
+					
+				}elseif ($row_cantidad[7] == 0.5) {
+					//retardo
+					$valor = 1;
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
+					$objPHPExcel->getActiveSheet()->getStyle($letter.$fila)->getFill()->getStartColor()->setARGB('DF0101');
+				}elseif($row_cantidad[7] == 0){
+					//falta
+					$valor = 0;
+				}
 				$objPHPExcel->getActiveSheet()
-					->setCellValue($letter.$fila, $row_cantidad[7]);
+					->setCellValue($letter.$fila, $valor);
 					$lf = $letter;
 				 $j = $j + 1;
 				  $letter = letras_numeros($j);

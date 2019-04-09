@@ -1,15 +1,11 @@
-function guardar_registro(folio, concepto, total) {
+function guardar_registro() {
     var url = "../api/estimacion/captura.php";
     fetch(url,{
         method: 'POST',
         headers: {
             "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
         },
-        body: JSON.stringify({
-        	"folio": folio,
-        	"concepto": concepto,
-        	"total": total
-        })
+        body: $('#form_datos').serialize()
     })
     .then(function(response){
         return response.text().then(function (text){
@@ -20,5 +16,55 @@ function guardar_registro(folio, concepto, total) {
                 alertify.error("Ha ocurrido un error");
             }
         });
+    });
+}
+
+function cargar_combos() {
+    $('#cmbContratistas').select2({
+      placeholder: 'Seleccione una opcion',
+      lenguage: 'es',
+      //minimumResultsForSearch: Infinity
+      ajax: { 
+     url: "consulta_contratistas.php",
+     type: "post",
+     dataType: 'json',
+     delay: 250,
+     data: function (params) {
+      return {
+        searchTerm: params.term // search term
+      };
+     },
+     processResults: function (response) {
+
+       return {
+          results: response
+       };
+     },
+     cache: true
+    }
+    });
+    //////////////////////////////////////////
+    $('#cmbProyectos').select2({
+      placeholder: 'Seleccione una opcion',
+      lenguage: 'es',
+      //minimumResultsForSearch: Infinity
+      ajax: { 
+     url: "consulta_proyectos.php",
+     type: "post",
+     dataType: 'json',
+     delay: 250,
+     data: function (params) {
+      return {
+        searchTerm: params.term // search term
+      };
+     },
+     processResults: function (response) {
+
+       return {
+          results: response
+       };
+     },
+     cache: true
+    }
     });
 }

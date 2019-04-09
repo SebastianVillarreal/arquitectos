@@ -54,8 +54,8 @@ function desactivar(id_empleado) {
 }
 
 function dirigir() {
-    var id_empleado = $('#id');
-    if (!id_empleado) {
+    var id_empleado = $('#id').val();
+    if (id_empleado == "") {
         guardar_empleado();
     }else{
         update_empleado();
