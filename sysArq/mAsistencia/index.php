@@ -7,7 +7,7 @@
 <html>
 <head>
   <?php include '../head.php'; ?>
-  <script src="funciones.js"></script>
+  <script src="funciones.js?v=<?php echo(rand()); ?>"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_contratistas()">
 <div class="wrapper">
@@ -78,6 +78,27 @@
        }
      });
    });
+ </script>
+ <script type="text/javascript">
+   function cargar_empleados(contratista){
+    var url = "tabla_personas.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+            "contratista": contratista
+        })
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+            $('#tabla').html(text);
+        });
+    });
+}
+
+
  </script>
 </body>
 </html>

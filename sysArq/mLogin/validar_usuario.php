@@ -12,6 +12,7 @@
 	$_SESSION["id_proyecto"] = $id_proyecto;
 	$_SESSION['id_renglon']=$id_renglon;
 	$_SESSION['id_estimacion'] = $id_estimacion;
+	$_SESSION['fecha'] = $json->fecha;
 	$s = $_SESSION["type"];
 	include'../global_settings/conexion.php';
 	$p_user = $_POST['nombre_usuario'];

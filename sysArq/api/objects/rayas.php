@@ -11,6 +11,7 @@ class rayas{
     public $asiste;
     public $fecha_i;
     public $fecha_fin;
+    public $id_asistencia;
 
     public function __construct($db){
         $this->conn = $db;
@@ -58,10 +59,11 @@ function update(){
 
 public function read_contratistas(){
 
-    $query = "CALL sp_select_contratistas(:contratista)";
+    $query = "CALL sp_select_contratistas(:contratista, :fecha_c)";
 
     $stmt = $this->conn->prepare( $query );
     $stmt->bindParam(':contratista', $this->contratista);
+    $stmt->bindParam(':fecha_c', $this->fecha_i);
     $stmt->execute();
     return $stmt;
 }
@@ -76,16 +78,35 @@ public function read_one(){
 
 public function insertar_asistencia()
 {
-    $query = "CALL sp_insert_asistencias(:obra, :contratista, :asiste)";
+    $query = "CALL sp_insert_asistencias(:obra, :contratista, :asiste, :fecha_c)";
     $stmt = $this->conn->prepare($query);
     $stmt->bindParam(':obra', $this->obra);
     $stmt->bindParam(':contratista', $this->contratista);
     $stmt->bindParam(':asiste', $this->asiste);
+    $stmt->bindParam(':fecha_c', $this->fecha_i);
     if ($stmt->execute()) {
         return true;
     }else{
         return false;
     }
+}
+
+public function capturar_asistencia()
+{
+    $call = "CALL sp_captura_asistencia(:obra, :contratista, :asiste, :fecha_c)";
+    $stmt = $this->conn->prepare($call);
+
+    $stmt->bindParam(':obra', $this->obra);
+    $stmt->bindParam(':contratista', $this->contratista);
+    $stmt->bindParam(':asiste', $this->asiste);
+    $stmt->bindParam(':fecha_c', $this->fecha_i);
+    //print_r($stmt);
+    if ($stmt->execute()) {
+        return true;
+    }else{
+        return false;
+    }
+
 }
 
 public function seleccionar_rayas()
@@ -119,6 +140,44 @@ public function datos_reportes()
     $stmt->bindParam(':fecha_f', $this->fecha_fin);
     $stmt->execute();
     return $stmt;
+}
+
+public function read_asistencia()
+{
+    $fecha = $this->fecha_i;
+    $id_contratista = $this->contratista;
+    $query = "SELECT
+                a_c.id,
+                CONCAT( e_c.nombre, ' ', IFNULL ( e_c.ap_paterno, '' ), ' ', IFNULL( e_c.ap_materno, '' ) ),
+                a_c.asistencia,
+                a_c.id_obra,
+                p.nombre
+            FROM
+                asistencias_contratistas a_c
+                INNER JOIN empleados_contratistas e_c ON e_c.id = a_c.id_usuario 
+                INNER JOIN puestos p ON p.id = e_c.puesto
+            WHERE
+                fecha = '$fecha'
+                AND e_c.id_contratista = '$id_contratista'";
+                //print_r($query);
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt;
+
+}
+
+public function update_asistencia()
+{
+    $call = "CALL sp_update_asistencia(:id_a, :obra, :asis)";
+    $stmt = $this->conn->prepare($call);
+    $stmt->bindParam(':id_a', $this->id_asistencia);
+    $stmt->bindParam(':obra', $this->obra);
+    $stmt->bindParam(':asis', $this->asiste);
+    if ($stmt->execute()) {
+        return true;
+    }else{
+        return false;
+    }
 }
 
 }

@@ -5,9 +5,9 @@
 <html>
 <head>
   <?php include '../head.php'; ?>
-  <script type="text/javascript" src="funciones.js"></script>
+  <script type="text/javascript" src="funciones.js?v=<?php echo(rand());?>"></script>
 </head>
-<body class="hold-transition skin-red sidebar-mini" onload="javascript:cargar_combos()">
+<body class="hold-transition skin-red sidebar-mini" onload="">
 <div class="wrapper">
 
   <header class="main-header">
@@ -55,29 +55,44 @@
               <div class="col-md-4">
                 <label>Proyecto</label>
                 <select class="form-control" name="proyecto" id="cmbProyectos">
-                  <option>Seleccione...</option>
+                  <option disabled selected>Seleccione...</option>
+                  <?php 
+                    $sql = "SELECT id, nombre FROM proyectos WHERE activo = 1";
+                    $exSQl=mysqli_query($conexion, $sql);
+                    while ($row = mysqli_fetch_row($exSQl)) {
+                      echo "<option value='$row[0]'>$row[1]</option>";
+                    }
+                   ?>
                 </select>
               </div>
               <div class="col-md-4">
                 <label>Contratista</label>
                 <select class="form-control" name="contratista" id="cmbContratistas">
-                  <option>Seleccione...</option>
+                  <option disabled selected>Seleccione...</option>
+                  <?php 
+                    $sql2 = "SELECT id, CONCAT(nombre, ' ',  IFNULL(ap_paterno, ''), ' ', IFNULL(ap_materno, '')) FROM contratistas";
+                    $exSQl2= mysqli_query($conexion, $sql2);
+                    while ($row = mysqli_fetch_row($exSQl2)) {
+                      echo "<option value=$row[0]>$row[1]</option>";
+                    }
+                   ?>
                 </select>
               </div>
               <div class="col-md-4">
                 <label>Fecha</label>
-                <input type="date" name="fecha" class="form-control">
+                <input type="date" name="fecha" class="form-control" id="fecha">
               </div>
             </div>
           </div>
           <div class="box-footer text-right">
-            <a href="#" onclick="guardar_registro();" class="btn btn-warning">Guardar</a>
+            <a href="#" class="btn btn-warning" id="btnAutorizar" disabled>Autorizar</a>
+            <a href="#" onclick="guardar_registro();" id="btnGuardar" class="btn btn-warning">Guardar</a>
           </div>
           </form>
         </div>
         <div class="box box-danger">
           <div class="box-header">
-            <h3 class="box-title">Lista de registros</h3>
+            <h3 class="box-title">Pendientes de autorizar</h3>
           </div>
           <div class="box-body">
             <div class="row">
@@ -181,14 +196,5 @@
       });
     });
   </script>
-  <script>
-  $(function () {
-    $('.select2').select2({
-      placeholder: 'Seleccione una opcion',
-      lenguage: 'es'
-    })
-  })
-
-</script>
 </body>
 </html>

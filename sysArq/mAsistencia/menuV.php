@@ -15,6 +15,9 @@
         <li class="active"><a href="index.php"><i class="fa fa-bars"></i> <span>Asistencia</span></a></li>
         <li class="active"><a href="../mRayas/"><i class="fa fa-bars"></i> <span>Rayas</span></a></li>
         <li class="active"><a href="index_reporte.php"><i class="fa fa-bars"></i> <span>Reporte asistencia</span></a></li>
+        <li class="active"><a href="index_vista.php"><i class="fa fa-bars"></i> <span>Verificar Asistencia</span></a></li>
+        <li class="active"><a href="index_historia.php"><i class="fa fa-bars"></i> <span>Historial de asistencias</span></a></li>
+        <li class="active"><a href="index_captura.php"><i class="fa fa-bars"></i> <span>Capturar Asistencias</span></a></li>
 
       </ul>
       <ul class="sidebar-menu" data-widget="tree">

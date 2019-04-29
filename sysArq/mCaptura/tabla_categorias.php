@@ -1,6 +1,6 @@
 <?php 
 include '../global_settings/conexion.php';
-	$cadena_modulos = "SELECT id, folio_erp, concepto, total, fecha FROM captura_rayas_Extras";
+	$cadena_modulos = "SELECT id, folio_erp, concepto, total, fecha FROM captura_rayas_Extras WHERE estatus = 0";
 	//Restricción para una sola verificación
 	//AND lista_proyectos.verificado='0'
 
@@ -28,6 +28,7 @@ include '../global_settings/conexion.php';
 	                <th>Concepto</th>
 	                <th>Total</th>
 	                <th>Fecha</th>
+	                <th>Seleccionar</th>
 	            </tr>
 	        </thead>
 	        <tbody>
@@ -50,6 +51,9 @@ include '../global_settings/conexion.php';
 						</td>
 						<td class="text-center">
 							<?php echo $row[4] ?>
+						</td>
+						<td align="center">
+							<a href="#" onclick="seleccionar_captura(<?php echo $row[0] ?>)" class="btn btn-danger">Seleccionar</a>
 						</td>
 					</tr>
 				<?php 

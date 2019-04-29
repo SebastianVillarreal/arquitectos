@@ -13,10 +13,12 @@
 	// instantiate database and product object
 	$database = new Database();
 	$db = $database->getConnection();
-	
+	date_default_timezone_set('America/Monterrey');
+	$fecha = date('Y-m-d');
  	// initialize object
 	$rayas = new rayas($db);
 	$rayas->contratista = $data->contratista;
+	$rayas->fecha_i = $fecha;
 	//print_r($rayas);
 	$stmt2 = $rayas->read_contratistas();
 

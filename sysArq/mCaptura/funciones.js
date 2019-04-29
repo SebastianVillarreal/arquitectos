@@ -20,6 +20,7 @@ function guardar_registro() {
 }
 
 function cargar_combos() {
+    
     $('#cmbContratistas').select2({
       placeholder: 'Seleccione una opcion',
       lenguage: 'es',
@@ -66,5 +67,30 @@ function cargar_combos() {
      },
      cache: true
     }
+    });
+}
+function seleccionar_captura(id) {
+    var url = "datos_captura.php";
+    fetch(url,{
+        method: 'POST',
+        headers: {
+            "Content-type": "application/x-www-form-urlencoded; charset=UTF-8"
+        },
+        body: JSON.stringify({
+          "id": id
+        })
+    })
+    .then(function(response){
+        return response.text().then(function (text){
+          var e = eval(text);
+          $('#folio').val(e[1]);
+          $('#concepto').val(e[2]);
+          $('#total').val(e[3]);
+          $('#cmbProyectos').val(e[6]);
+          $('#cmbContratistas').val(e[5]);
+          $('#fecha').val(e[4]);
+          $('#btnAutorizar').removeAttr('disabled');
+          $('#btnGuardar').attr('disabled', true);
+        });
     });
 }

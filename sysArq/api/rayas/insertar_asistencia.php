@@ -13,7 +13,9 @@
 	//include '../../global_seguridad/verificar_sesion.php';
 	session_name("sysOrigen"); 
 	session_start();
-
+	date_default_timezone_set('America/Monterrey');
+  	$fecha = date('Y-m-d');
+  	$hora = date('H:i:s');
 	$database = new Database();
 	$db = $database->getConnection();
 	$rayas = new rayas($db);
@@ -34,7 +36,9 @@
 		$rayas->obra=$obra[$i];
 		$rayas->contratista = $contratista[$i];
 		$rayas->asiste = $marca[$i];
+		$rayas->fecha_i =$fecha;
 		$st = $rayas->insertar_asistencia();
+		
 
 	}
 	echo "1";

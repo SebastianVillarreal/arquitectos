@@ -12,7 +12,7 @@
 <html>
 <head>
   <?php include '../head.php'; ?>
-  <script src="funciones.js"></script>
+  <script src="funciones.js?v=<?php echo(rand()); ?>"></script>
 </head>
 <body class="hold-transition skin-red sidebar-mini" onload="javascript:blanco()">
 <div class="wrapper">
@@ -38,22 +38,37 @@
           </div>
           <div class="box-body">
             <div class="row">
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <form action="">
                   <div class="row">
                     <div class="col-md-4">
                       <label for="">Nombre</label>
-                      <input type="text" class="form-control">
+                      <input type="text" class="form-control" name="nombre" id="nombre">
                     </div>
                     <div class="col-md-4">
                       <label for="">Apellido paterno</label>
-                      <input type="text" class="form-control"> 
+                      <input type="text" class="form-control" name="ap_paterno" id="ap_paterno"> 
                     </div>
-                  <div class="col-md-4">
-                      <label for="">Apellido paterno</label>
-                      <input type="text" class="form-control"> 
+                    <div class="col-md-4">
+                      <label for="">Apellido materno</label>
+                      <input type="text" class="form-control" name="ap_materno" id="ap_materno"> 
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Codigo</label>
+                      <input type="text" name="codigo" class="form-control" id="codigo">
+                    </div>
+                    <div class="col-md-4">
+                      <label>Razon Social</label>
+                      <input type="text" name="razon_social" class="form-control" id="razon">
+                    </div>
+                    <div class="col-md-4">
+                      <label>Persona Moral</label>
+                      <input type="text" name="persona_moral" class="form-control" id="p_moral">
+                    </div>                    
+                  </div>
+
                   <div class="row">
 
                   </div>
@@ -62,14 +77,14 @@
             </div>
           </div>  
           <div class="box-footer text-right">
-            <a href="javascript:guardar_importes()" class="btn btn-danger">Guardar</a>
+            <a href="javascript:guardar_contratista()" class="btn btn-danger">Guardar</a>
           </div>
         </div>
         <div class="box box-success">
           <div class="box-header">
             <h3 class="box-title">Lista de contratistas</h3>
           </div>
-          <div class="box-body">
+          <div class="box-body" id="contenedor_tabla">
             <?php 
               include 'tabla_contratistas.php';
              ?>
